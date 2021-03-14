@@ -22,7 +22,7 @@
     <body>
 
         <div id="forgotPwdContainer">
-            <div id="forgotPwdContainer">
+            <div id="logoImageContainer">
                 <img id="logoImage" src="../images/TechArmy_Logo.png" alt="tech_army_logo" />
             </div>
             <h1 id="forgotPwdHeader">Forgot Password?</h1>
