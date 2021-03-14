@@ -25,7 +25,7 @@
             <div id="forgotPwdContainer">
                 <img id="logoImage" src="../images/TechArmy_Logo.png" alt="tech_army_logo" />
             </div>
-            <h1 id="forgotPwdHeader">Forgot Passwowrd?</h1>
+            <h1 id="forgotPwdHeader">Forgot Password?</h1>
             <div id="forgotPwdBodyContainer">
                 <form method="post" autocomplete="off">
                 </form>
