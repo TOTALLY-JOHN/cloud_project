@@ -28,6 +28,14 @@
             <h1 id="signupHeader">Sign Up</h1>
             <div id="signupBodyContainer">
                 <form method="post" autocomplete="off">
+                    <span class="signupLabel">Email</span><br />
+                    <input type="email" id="emailInput" name="emailInput" placeholder="Type your email" required/><br />
+                    <span class="signupLabel">Username</span><br />
+                    <input type="text" id="usernameInput" name="usernameInput" placeholder="Type your username" required/><br />
+                    <span class="signupLabel">Password</span><br />
+                    <input type="password" id="pwdInput" name="pwdInput" placeholder="Type your password" required/><br />
+                    <div id="forgotPwdLabel"><a id="forgotPwdLink" href="forgot_password.php">Forgot Password?</a></div><br />
+                    <input type="submit" class="signupBtn" value="SIGN UP" /><br />
                 </form>
             </div>
 
