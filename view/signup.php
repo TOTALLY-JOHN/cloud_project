@@ -15,27 +15,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tech Army</title>
     </head>
-    <link rel="stylesheet" href="../lib/styles/signup_style.css">
+    <link rel="stylesheet" href="../lib/styles/login_style.css">
+    <script type="text/javascript">
+        function matchPassword(x, y){
+            if (x.value == y.value){
+                alert("Sign Up Succesful");
+                window.location.replace(login.php);
+            }
+            else {
+                alert("Password does not match!");
+                document.getElementById('pwdInput1').style.borderColor = "red";
+                document.getElementById('pwdInput2').style.borderColor = "red";
+            };
+        }
+    </script>
     <style>
         
     </style>
     <body>
 
-        <div id="signupContainer">
+        <div id="loginContainer">
             <div id="logoImageContainer">
                 <img id="logoImage" src="../images/TechArmy_Logo.png" alt="tech_army_logo" />
             </div>
-            <h1 id="signupHeader">Sign Up</h1>
-            <div id="signupBodyContainer">
-                <form method="post" autocomplete="off">
-                    <span class="signupLabel">Email</span><br />
-                    <input type="email" id="emailInput" name="emailInput" placeholder="Type your email" required/><br />
-                    <span class="signupLabel">Username</span><br />
+            <h1 id="loginHeader">Sign Up</h1>
+            <div id="loginBodyContainer">
+                <form method="postw" autocomplete="off">
+                    <span class="loginLabel">Email</span><br />
+                    <input type="text" id="emailInput" name="emailInput" placeholder="Type your email" required/><br />
+                    <span class="loginLabel">Username</span><br />
                     <input type="text" id="usernameInput" name="usernameInput" placeholder="Type your username" required/><br />
-                    <span class="signupLabel">Password</span><br />
-                    <input type="password" id="pwdInput" name="pwdInput" placeholder="Type your password" required/><br />
-                    <div id="forgotPwdLabel"><a id="forgotPwdLink" href="forgot_password.php">Forgot Password?</a></div><br />
-                    <input type="submit" class="signupBtn" value="SIGN UP" /><br />
+                    <span class="loginLabel">Password</span><br />
+                    <input type="password" id="pwdInput1" name="pwdInput1" placeholder="Type your password" required/><br />
+                    <span class="loginLabel">Re-enter Password</span><br />
+                    <input type="password" id="pwdInput2" name="pwdInput2" placeholder="Re-enter your password" required/><br />
+                    <input type="submit" class="loginBtn" value="SIGNUP" onclick="matchPassword(pwdInput1, pwdInput2)" /><br />
                 </form>
             </div>
 
