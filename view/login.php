@@ -24,15 +24,15 @@
 		<div class="loginContainer">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-40 p-b-55">
                 <div id="logoImageContainer">
-                    <img id="logoImage" src="../images/techlogo.png" alt="tech_army_logo" />
+                    <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" style="width:50%"/>
                 </div>
-				<form class="login100-form validate-form flex-sb flex-w" action = "" method="post" onsubmit=" return notify();">
+				<form class="login100-form validate-form flex-sb flex-w" method="post" autocomplete="off">
 					<span class="loginTittle p-t-40 p-b-40">
 						Login
 					</span>
 				
 					<div class="wrap-input100 validate-input m-b-36">
-						<input type="text" class="input100" placeholder="Username " id="usernameInput" style="font-size: 16px;" pattern="^[A-Za-z0-9]{4,}$" title="Username must contain at least 4 characters." required="required">
+						<input type="text" class="input100" placeholder="Username" id="usernameInput" name="usernameInput" style="font-size: 16px;" pattern="^[A-Za-z0-9]{4,}$" title="Username must contain at least 4 characters." required="required">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
@@ -40,7 +40,7 @@
 					</div>
 				
 					<div class="wrap-input100 validate-input m-b-12">
-						<input type="password" class="input100" placeholder="Password" id="passwordInput" style="font-size: 16px;" pattern="^.{8,}$" title="Password must contain at least 8 characters." required="required" >
+						<input type="password" class="input100" placeholder="Password" id="pwdInput" name="pwdInput" style="font-size: 16px;" pattern="^.{8,}$" title="Password must contain at least 8 characters." required="required" >
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
@@ -49,16 +49,14 @@
 					
 					<div class="w-full p-b-48" style="text-align: right;">
 						<div>
-							<a href="forgot_password.php" class="txt3" >
+							<a href="forgot_password.php" class="txt3">
 								Forgot Password?
 							</a>
 						</div>
 					</div>
 
 					<div class="conatinerLoginButton">
-						<button class="logIn" style="color: white; ">
-							Login
-						</button>
+						<input type="submit" class="login" value="LOGIN" style="color: white;"/>
 					</div>
 
 				</form>
