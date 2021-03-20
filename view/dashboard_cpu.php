@@ -62,45 +62,9 @@ if (!isset($_SESSION['username'])) {
 
                 </div>
                 <div class="col-sm-10 text-left">
-                    <h1>Dashboard</h1>
+                    <h1>CPU</h1>
                     <div class="jumbotron">
-                        <h4>Admin Dashboard</h4>
-                    </div>
-                    <div class="col-sm-3">
-                        <a href="dashboard_cpu.php" class="btn btn-primary">
-                            <div class="dashboard-btn">
-                                <h4>CPU</h4>
-                                <hr />
-                                <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                            </div>    
-                        </a>
-                    </div>
-                    <div class="col-sm-3">
-                        <a href="dashboard_memory.php" class="btn btn-warning">
-                            <div class="dashboard-btn">
-                                <h4>MEMORY</h4>
-                                <hr />
-                                <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                            </div>    
-                        </a>
-                    </div>
-                    <div class="col-sm-3">
-                        <a href="dashboard_disk.php" class="btn btn-success">
-                            <div class="dashboard-btn">
-                                <h4>HDD/SSD</h4>
-                                <hr />
-                                <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                            </div>    
-                        </a>
-                    </div>
-                    <div class="col-sm-3">
-                        <a href="dashboard_vm.php" class="btn btn-danger">
-                            <div class="dashboard-btn">
-                                <h4>Virtual Machines</h4>
-                                <hr />
-                                <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                            </div>    
-                        </a>
+                        <h4>CPU Details</h4>
                     </div>
                 </div>
             </div>
