@@ -12,7 +12,7 @@
             $result = $this->loginModel->getLogin();
             if ($result == 'login-success') {
                 header('location: ../view/dashboard.php');
-            } else {
+            } else {    
                 header('location: ../view/error.php');
             }
         }
