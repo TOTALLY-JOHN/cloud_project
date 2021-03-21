@@ -8,10 +8,10 @@
 
     public static function getInstance() {
       if (!isset(self::$instance)) {
-        $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-        self::$instance = new PDO('mysql:host=localhost;dbname=php_mvc', 'root', '', $pdo_options);
+        $instance = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
       }
       return self::$instance;
     }
   }
 ?>
+

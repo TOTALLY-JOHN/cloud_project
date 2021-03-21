@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once('../model/signup_model.php');
     
     class SignupController {
@@ -10,10 +11,12 @@
 
         public function userSignup() {
             $result = $this->signupModel->registerUser();
-            if ($result == true) {
+            if ($result == 'signup-success') {
+                $_SESSION["signup_status"] = "success";
                 header('location: ../view/login.php');
             } else {
-                header('location: ../view/error.php');
+                $_SESSION["signup_status"] = "failure";
+                header('location: ../view/signup.php');
             }
         }
     }
