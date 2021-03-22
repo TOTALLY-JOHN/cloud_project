@@ -16,7 +16,7 @@
                 header('location: ../view/dashboard.php');
             } else {    
                 $_SESSION["login_status"] = "failure";
-                header('location: ../view/login.php');
+                header('location: ../view/error.php');
             }
         }
     }
