@@ -24,7 +24,7 @@
 
         <div id="forgotPwdContainer">
             <div id="logoImageContainer">
-                <img id="logoImage" src="../images/TechArmy_Logo.png" alt="tech_army_logo" />
+                <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" />
             </div>
             <h1 id="forgotPwdHeader">Successful sent an email to you, please check your email for the reset link</h1>
         </div>
