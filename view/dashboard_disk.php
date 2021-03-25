@@ -17,8 +17,53 @@ session_start();
     </head>
     <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
 
+    <script type="text/javascript">
+        function myFunction() 
+        {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("diskTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) 
+          {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) 
+            {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) 
+              {
+                tr[i].style.display = "";
+              } else 
+              {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+    </script>
+
     <style>
-        
+        .searchBar
+        {
+          margin-top: 4px;
+          margin-right: 16px;
+          margin-bottom: 100px;
+        }
+
+        #myInput 
+        {
+          background-image: url('/css/searchicon.png');
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          float:right;
+          width: 40%;
+          font-size: 16px;
+          padding: 12px 20px 12px 30px;
+          border: 3px solid black;
+          margin-bottom: 12px;
+        }
+
     </style>
     </head>
 
@@ -65,6 +110,53 @@ session_start();
                     <h1>DISK</h1>
                     <div class="jumbotron">
                         <h4>HDD/SSD Details</h4>
+                    </div>
+                    <div class = "searchBar">
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for disk names.." title="Type in a name">
+                    </div>
+                    <div class="table-responsive">
+                        <table id = "diskTable" class = "table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Disk Image(GB)</th>
+                                    <th>Device Type</th>
+                                    <th>Cache Mode</th>
+                                    <th>Storage Format</th>
+                                    <th>Volumes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Local Disk(C:)</td>
+                                    <td>256.0</td>
+                                    <td>IDE Disk</td>
+                                    <td>Partial Cache</td>
+                                    <td>ASCII</td>
+                                    <td>controller.img</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Local Disk(D:)</td>
+                                    <td>1000.0</td>
+                                    <td>IDE Disk</td>
+                                    <td>Full Cache</td>
+                                    <td>Unicode</td>
+                                    <td>controller_quantum.img</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Local Disk(E:)</td>
+                                    <td>512.0</td>
+                                    <td>IDE Disk</td>
+                                    <td>No Cache</td>
+                                    <td>Binary</td>
+                                    <td>controller_ceph.img</td>
+                                </tr>
+                            </tbody>
+                        </table
                     </div>
                 </div>
             </div>
