@@ -1,7 +1,17 @@
 <?php
 session_start();
+
+/// [CHECK WHETHER THERE IS ALREADY THE SESSION FOR THE CURRENT USER USING THIS BROWSER]
+if (isset($_SESSION['username']) && $_SESSION['username'] != "") {
+	session_unset();
+    session_destroy();
+}
+
+/// [CONNECT THE LOGIN CONTROLLER]
 require_once('../controller/login_controller.php');
 $controllers = new LoginController();
+
+/// [IF LOGIN, IT CALLS LOGIN METHOD FROM THE CONTROLLER]
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$controllers->authUserLogin();
 }
@@ -16,27 +26,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="../lib/styles/utilLogin.css">
 		<link rel="stylesheet" href="../lib/styles/login_style.css">
-		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-		<!-- jQuery library -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<!-- Latest compiled JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script>
 			$(document).ready(function() {
+				/// [IF SIGNUP PROCESS IS SUCCESSFUL]
 				<?php
 				if (isset($_SESSION["signup_status"]) && $_SESSION["signup_status"] == "success") {
 				?>
 					$("#signupSuccessModal").modal();
 				<?php
 				}
-				// if (isset($_SESSION["login_status"]) && $_SESSION["login_status"] == "failure") {
-				// ?>
-				// 	$("#loginFailureModal").modal();
-				// <?php
-				// }
-				session_unset();
-				session_destroy();
+				/// [IF LOGIN PROCESS IS FAILED]
+				if (isset($_SESSION["login_status"]) && $_SESSION["login_status"] == "failure") {
+					$_SESSION['login_status'] == "";
+				?>
+					$("#loginFailureModal").modal();
+				<?php
+					
+				}
 				?>
 			});
 		</script>
@@ -111,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				</div>
 			</div>
 		</div>
-		<!-- <div id="loginFailureModal" class="modal fade" role="dialog">
+		<div id="loginFailureModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -126,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
 	</body>
 
 	</html>

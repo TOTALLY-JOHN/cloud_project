@@ -12,11 +12,12 @@
         public function authUserLogin() {
             $result = $this->loginModel->getLogin();
             if ($result == 'login-success') {
+                $_SESSION['username'] = "admin";
                 $_SESSION["login_status"] = "success";
                 header('location: ../view/dashboard.php');
             } else {    
                 $_SESSION["login_status"] = "failure";
-                header('location: ../view/error.php');
+                header('location: ../view/login.php');
             }
         }
     }
