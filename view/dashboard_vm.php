@@ -14,12 +14,55 @@ session_start();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+             // Load google charts
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                ['Virtual Machines', 'Average Hours per Day'],
+                ['VM-1', 8],
+                ['VM-2', 2],
+                ['VM-3', 4],
+                ['VM-4', 2],
+                ['VM-5', 8]
+                ]);
+                // Optional; add a title and set the width and height of the chart
+                var options = {'title':'VM Usage per Day', 'width':550, 'height':400};
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+                }
+            </script>
+
         <title>VM Usage</title>
     </head>
     
 
     <style>
-        
+                /* Make sure that padding behaves as expected */
+        * {box-sizing:border-box}
+
+        /* Container for skill bars */
+        .container {
+          width: 100%; /* Full width */
+          background-color: #ddd; /* Grey background */
+        }
+
+        .vm {
+          text-align: right; /* Right-align text */
+          padding-top: 10px; /* Add top padding */
+          padding-bottom: 10px; /* Add bottom padding */
+          color: white; /* White text color */
+        }
+
+        .one {width: 90%; background-color: #4CAF50;} /* Green */
+        .two {width: 80%; background-color: #2196F3;} /* Blue */
+        .three {width: 65%; background-color: #f44336;} /* Red */
+        .four {width: 60%; background-color: #808080;} /* Dark Grey */
+
     </style>
     </head>
 
@@ -102,7 +145,28 @@ session_start();
                                 <i class="fas fa-chart-line mr-1"></i>
                                 VM Usage
                             </div>
-                            <div class="card-body"><div id="chart_div" style= "width: 100%; min-height: 450px;"></div></div>
+                            <div class="card-body">
+                                <div id="chart_div" style= "width: 100%; min-height: 450px;">
+                                    <p>VM 1</p>
+                                    <div class="container">
+                                      <div class="vm one">90%</div>
+                                    </div>
+
+                                    <p>VM 2</p>
+                                    <div class="container">
+                                      <div class="vm two">80%</div>
+                                    </div>
+
+                                    <p>VM 3</p>
+                                    <div class="container">
+                                      <div class="vm three">65%</div>
+                                    </div>
+
+                                    <p>VM 4</p>
+                                    <div class="container">
+                                      <div class="vm four">60%</div>
+                                    </div>
+                                </div>
                             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
 
@@ -112,7 +176,9 @@ session_start();
                                 VM Report
                             </div>
                             <div class="card-body">
-                                <div id="piechart_3d" style= "width: 100%; min-height: 450px; "></div>
+                                <div id="piechart" style= "width: 100%; min-height: 450px; ">
+                                    
+                                </div>
                             </div>
                             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                     </div>
