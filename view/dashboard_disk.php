@@ -131,14 +131,15 @@ session_start();
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">CPU</h1>
+                        <h1 class="mt-4">HDD/SSD</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">CPU</li>
+                            <li class="breadcrumb-item active">HDD/SSD</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            Amount of <b>CPU</b> actively being used by each virtual machine on the host. 100% represents all CPUs. 
+                            A <b>hard disk</b> drive (<b>HDD</b>) is a traditional storage device that uses mechanical platters and a moving read/write head to access data. 
+                            A solid state drive (<b>SSD</b>) is a newer, faster type of device that stores data on instantly-accessible memory chips.
                             
                             </div>
                         </div>
