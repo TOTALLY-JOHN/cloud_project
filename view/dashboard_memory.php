@@ -44,39 +44,42 @@ session_start();
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="dashboard.php" style="color:white; ">
-                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="dashboard.php" >
+                                <div class="sb-nav-link-icon"  ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Appliances</div>
-                            <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
+                            <a class="nav-link" href="dashboard_cpu.php">
                                 CPU
                             </a>
-                            <a class="nav-link" href="dashboard_memory.php" style="color:white;">
+                            <a class="nav-link" href="dashboard_memory.php" >
                                 Memory
                             </a>
-                            <a class="nav-link" href="dashboard_disk.php" style="color:white;">
+                            <a class="nav-link" href="dashboard_disk.php">
                                 HDD/SSD
                             </a>
-                            <a class="nav-link" href="dashboard_vm.php" style="color:white;">
+                            <a class="nav-link" href="dashboard_vm.php" >
                                 Virtual Machines
                             </a>
                             <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="logout.php" style="color:white;">
+                            <a class="nav-link" href="logout.php" >
                                 Logout
                             </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="#" >
                                 Change Profile
                             </a>
                             <div class="sb-sidenav-menu-heading">Tools</div>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="#" >
                                 Settings
                             </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="#">
                                 Logs
                             </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="help.php">
                                 Help
+                            </a>
+                            <a class="nav-link" href="about.php">
+                                About Us
                             </a>
                         </div>
                     </div>
