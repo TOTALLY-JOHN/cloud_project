@@ -129,12 +129,12 @@ session_start();
                         <div class= col-md-6 id="left">
                         <h3>Contact number</h3>
                             <i style="font-size:35px" class="fa">&#xf095;</i>
-                            <LI style="list-style-type: circle font-size: 2em">07-1234567 (John)</LI>
-                            <LI style="list-style-type: circle font-size: 2em">012-3456789 (Mr.Tan)</LI>
+                            <LI style="list-style-type: circle; font-size: 2em">07-1234567 (John)</LI>
+                            <LI style="list-style-type: circle; font-size: 2em">012-3456789 (Mr.Tan)</LI>
                             <br><br>
                         <h3>Email:</h3>
                             <i style="font-size:35px" class="fa">&#xf0e0;</i>
-                            <LI style="list-style-type: circle font-size: 2em">techarmy@gmail.com (IT Support)</LI>
+                            <LI style="list-style-type: circle; font-size: 2em">techarmy@gmail.com (IT Support)</LI>
 
                         </div>
                         <div class= col-md-6 id="right">
