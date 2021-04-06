@@ -127,10 +127,12 @@ session_start();
 
          #formInfo
 		{
-			background-color: azure;
-            border: 3px solid black;
+			background-color: #3B9C9C;
+            border: 3px solid salmon;
             margin-left:10px;
-            padding: 10px;
+            padding: 20px;
+            border-radius: 25px;
+            color:white;
 		}
 
 
