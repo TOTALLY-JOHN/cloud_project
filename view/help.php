@@ -55,7 +55,9 @@ session_start();
         <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
         <title>Help Page</title>
     </head>
     
@@ -130,6 +132,9 @@ session_start();
             margin-left:10px;
             padding: 10px;
 		}
+
+
+        
 
 
     </style>
@@ -210,6 +215,64 @@ session_start();
                         <p>We're here to help and answer any question you might have. We look forward to hearing from you</p>
                     </div>
 
+                    <h2>Frequently Asked Questions</h2>
+                    <!--Here-->
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                             Page loading error codes and issues #1
+                          </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                          <div class="accordion-body">
+                            <strong>Fix "Aw, Snap!" page crashes and other page loading errors</strong><br> If you're getting the "Aw, Snap" error or another error code instead of a webpage, Chrome is having problems loading. You might also see the page loading slowly or not opening at all.<br>
+                            <strong>Reload the page</strong><br>Usually, you can reload the page to fix the error. Press F5 to reload the page.<br>
+                            <br><strong>If that didn't work...</strong><br><br>
+                            <strong>Step 1: Check your internet connection</strong>
+                            <br>Make sure your computer's connected to Wi-Fi or a wired network.<br>
+                            Try reloading the tab with the error.<br><br>
+                            <strong>Step 2: Clear your cache</strong><br>
+                            Chrome might have information stored that's stopping the page from loading.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                           Fix connection errors #2
+                          </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                          <div class="accordion-body">
+                                <strong>If you get an error message when you try to visit a website, try these fixes.</strong> 
+                                <br>If your error isn't listed below, learn how to fix page loading errors or downloading errors.
+                                <br><br><strong>Fix most connection errors</strong><br>
+                                If you try to visit a website and it doesn’t open, first try to fix the error with these troubleshooting steps:<br>
+                                1. Check the web address for typos.<br>
+                                2. Make sure your internet connection is working normally. If your internet connection is unstable, learn how to fix internet stability issues.<br>
+                                3. Contact the website owner.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            How do I logout of this account? #3
+                          </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                          <div class="accordion-body">
+                           <strong>To log out this account on your device</strong><br>
+                           1. Click Log Out at the left side of the menu that appears.<br>
+                           2. Click the <strong>Logout Button</strong> on the top right of the page.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br><br>
+                    <!--Here-->
+
                     <div>
                          <form id="formInfo">
                             <div class="form-group">
@@ -227,14 +290,10 @@ session_start();
                     </div>
 
                     <div class="col-md-2">
-                       <a class="nav-link" href="ContactUs.php" style="color:blue;">
+                       <a class="nav-link" href="ContactUs.php" target="_blank" style="color:blue;">
                                 Contact Us
                        </a>
-                        
                     </div>
-                    
-
-
 
 
 
