@@ -1,8 +1,13 @@
 <?php
 session_start();
-// if (!isset($_SESSION['username'])) {
-//     header('location: login.php');
-// }
+if (!isset($_SESSION['username'])) {
+    header('location: login.php');
+}
+/// [CONNECT THE DASHBOARD CONTROLLER]
+require_once('../controller/dashboard_controller.php');
+$controllers = new DashboardController();
+$data = $controllers->getAllVirtualMachines();
+?>
 ?>
 <DOCTYPE html>
     <html>
@@ -15,6 +20,7 @@ session_start();
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
         <script type="text/javascript">
              // Load google charts
             google.charts.load('current', {'packages':['corechart']});
@@ -62,6 +68,15 @@ session_start();
         .two {width: 80%; background-color: #2196F3;} /* Blue */
         .three {width: 65%; background-color: #f44336;} /* Red */
         .four {width: 60%; background-color: #808080;} /* Dark Grey */
+
+        .material-icons-outlined {
+            transform: scale(1.5);
+        }
+
+        .vm_table_header {
+            background-color: #eeeeee;
+            font-weight: bold;
+        }
 
     </style>
     </head>
@@ -128,62 +143,58 @@ session_start();
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid">
-                        <h1 class="mt-4">Virtual Machines</h1>
+                <div class="container-fluid">
+                    <h1 class="mt-4">Virtual Machines</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Virtual Machines</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            Virtual Machines Description
-                            
+                            Virtual Machines Details
                             </div>
                         </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-line mr-1"></i>
-                                VM Usage
-                            </div>
-                            <div class="card-body">
-                                <div id="chart_div" style= "width: 100%; min-height: 450px;">
-                                    <p>VM 1</p>
-                                    <div class="container">
-                                      <div class="vm one">90%</div>
-                                    </div>
-
-                                    <p>VM 2</p>
-                                    <div class="container">
-                                      <div class="vm two">80%</div>
-                                    </div>
-
-                                    <p>VM 3</p>
-                                    <div class="container">
-                                      <div class="vm three">65%</div>
-                                    </div>
-
-                                    <p>VM 4</p>
-                                    <div class="container">
-                                      <div class="vm four">60%</div>
-                                    </div>
-                                </div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div>
-
-                    <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-pie mr-1"></i>
-                                VM Report
-                            </div>
-                            <div class="card-body">
-                                <div id="piechart" style= "width: 100%; min-height: 450px; ">
-                                    
-                                </div>
-                            </div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div>
-
-                        
+                        <div class="card mb-4" style="width: 100%; height: 600px; overflow-x: scroll; overflow-y: scroll;">
+                        <div style="margin: 15px;">
+                            <a href="create_vm.php" class="btn btn-primary" style="height: 40px;">Create New VM +</a> &nbsp;
+                            <input type="text" name="searchVM" id="searchVM" placeholder="Search VM..." style="height: 36px;"/>
+                        </div>
+                        <table class="table table-bordered" style="width: 1800px;">
+                            <thead>
+                                <th class="vm_table_header">UUID</th>
+                                <th class="vm_table_header">Domain Name</th>
+                                <th class="vm_table_header">Storage Allocation</th>
+                                <th class="vm_table_header">Memory Allocation</th>
+                                <th class="vm_table_header">CPU Allocation</th>
+                                <th class="vm_table_header">Device Type</th>
+                                <th class="vm_table_header">Source Path</th>
+                                <th class="vm_table_header">Storage Format</th>
+                                <th class="vm_table_header">Edit/Delete</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $row['uuid']; ?></td>
+                                        <td><?php echo $row['domainName']; ?></td>
+                                        <td><?php echo $row['storageAllocation']; ?></td>
+                                        <td><?php echo $row['memoryAllocation']; ?></td>
+                                        <td><?php echo $row['cpuAllocation']; ?></td>
+                                        <td><?php echo $row['deviceType']; ?></td>
+                                        <td><?php echo $row['sourcePath']; ?></td>
+                                        <td><?php echo $row['storageFormat']; ?></td>
+                                        <td>
+                                            <a href="update_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-success">Edit</a>
+                                            <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
                 </main>
                 <footer class="container-fluid text-center">
