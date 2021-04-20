@@ -5,7 +5,7 @@
                 $data = trim($data); 
                 $data = stripslashes($data); 
                 $data = htmlspecialchars($data); 
-                return $data; 
+                return $data;
             }
             if(isset($_REQUEST['usernameInput']) && isset($_REQUEST['pwdInput'])) {
                 if ($_REQUEST['usernameInput'] == 'admin' && $_REQUEST['pwdInput'] == 'abcd1234') {
