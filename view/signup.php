@@ -1,7 +1,5 @@
 <?php
     session_start();
-    session_unset();
-    session_destroy();
     require_once('../controller/signup_controller.php');
     $controllers = new SignupController();
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -25,7 +23,7 @@
 		<script>
 			$(document).ready(function() {
 				<?php
-				if (isset($_SESSION["signup_status"]) && $_SESSION["signup_status"] == "failure") {
+				if ($_SESSION["signup_status"] == "failure") {
 				?>
 					$("#signupfailedModal").modal();
 				<?php
@@ -82,7 +80,7 @@
 						<h4 class="modal-title">Failed Message</h4>
 					</div>
 					<div class="modal-body">
-						<p>Failed to sign up!</p>
+						<p>Failed to sign up! You may try to use another username or check for your connection.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

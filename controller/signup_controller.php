@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once('../model/signup_model.php');
     
     class SignupController {
@@ -16,7 +15,6 @@
                 header('location: ../view/login.php');
             } else {
                 $_SESSION["signup_status"] = "failure";
-                header('location: ../view/signup.php');
             }
         }
     }
