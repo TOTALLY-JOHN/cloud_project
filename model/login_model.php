@@ -14,7 +14,8 @@
                     return 'login-success';    
                 }
             }
-            $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $username = test_input($_REQUEST["usernameInput"]);
             $userPwd = test_input($_REQUEST["pwdInput"]);
             $q1 = "SELECT username, userPwd FROM users WHERE username = '".$username."' AND userPwd = '".hash('sha256', $userPwd)."'";

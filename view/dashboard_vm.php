@@ -8,7 +8,6 @@ require_once('../controller/dashboard_controller.php');
 $controllers = new DashboardController();
 $data = $controllers->getAllVirtualMachines();
 ?>
-?>
 <DOCTYPE html>
     <html>
 
@@ -186,7 +185,7 @@ $data = $controllers->getAllVirtualMachines();
                                         <td><?php echo $row['storageFormat']; ?></td>
                                         <td>
                                             <a href="update_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-success">Edit</a>
-                                            <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger">Delete</a>
+                                            <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                         </td>
                                     </tr>
                                 <?php

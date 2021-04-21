@@ -23,14 +23,13 @@
             return $result;
         }
 
-
         public function updateVirtualMachine() {
             $result = $this->dashboardModel->updateVMData();
             return $result;
         }
 
-        public function deleteVirtualMaachine() {
-            $result = $this->dashboardModel->deleteVMData();
+        public function deleteVirtualMachine($uuid) {
+            $result = $this->dashboardModel->deleteVMData($uuid);
             return $result;
         }
     }

@@ -7,7 +7,8 @@
                 $data = htmlspecialchars($data); 
                 return $data; 
             }
-            $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $q1 = "SELECT COUNT(username) AS 'NUM' FROM users WHERE username = '".$_REQUEST['username']."'";
             $r1 = @mysqli_query ($dbc, $q1);
             $row = mysqli_fetch_array($r1, MYSQLI_ASSOC);
