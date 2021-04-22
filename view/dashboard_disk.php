@@ -1,8 +1,12 @@
 <?php
 session_start();
-// if (!isset($_SESSION['username'])) {
-//     header('location: login.php');
-// }
+if (!isset($_SESSION['username'])) {
+    header('location: login.php');
+}
+/// [CONNECT THE DASHBOARD CONTROLLER]
+require_once('../controller/dashboard_controller.php');
+$controllers = new DashboardController();
+$data = $controllers->getAllVirtualMachines();
 ?>
 <DOCTYPE html>
     <html>
@@ -61,7 +65,7 @@ session_start();
           width: 40%;
           font-size: 16px;
           padding: 12px 20px 12px 30px;
-          border: 3px solid black;
+          border: 2px solid black;
           margin-bottom: 12px;
         }
 
@@ -111,7 +115,7 @@ session_start();
                             <a class="nav-link" href="logout.php" style="color:white;">
                                 Logout
                             </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="change_profile.php" style="color:white;">
                                 Change Profile
                             </a>
                             <div class="sb-sidenav-menu-heading">Tools</div>
@@ -151,43 +155,29 @@ session_start();
                         <table id = "diskTable" class = "table">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Disk Image(GB)</th>
+                                    <th>UUID</th>
                                     <th>Device Type</th>
-                                    <th>Cache Mode</th>
+                                    <th>Storage Capacity</th>
+                                    <th>Storage Allocation</th>
+                                    <th>Storage Available</th>
                                     <th>Storage Format</th>
-                                    <th>Volumes</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Local Disk(C:)</td>
-                                    <td>256.0</td>
-                                    <td>IDE Disk</td>
-                                    <td>Partial Cache</td>
-                                    <td>ASCII</td>
-                                    <td>controller.img</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Local Disk(D:)</td>
-                                    <td>1000.0</td>
-                                    <td>IDE Disk</td>
-                                    <td>Full Cache</td>
-                                    <td>Unicode</td>
-                                    <td>controller_quantum.img</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Local Disk(E:)</td>
-                                    <td>512.0</td>
-                                    <td>IDE Disk</td>
-                                    <td>No Cache</td>
-                                    <td>Binary</td>
-                                    <td>controller_ceph.img</td>
-                                </tr>
+                                <?php
+                                    while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $row['uuid']; ?></td>
+                                        <td><?php echo $row['deviceType']; ?></td>
+                                        <td><?php echo $row['storageCapacity']; ?></td>
+                                        <td><?php echo $row['storageAllocation']; ?></td>
+                                        <td><?php echo $row['storageAvailable']; ?></td>
+                                        <td><?php echo $row['storageFormat']; ?></td>
+                                    </tr>
+                                <?php
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>

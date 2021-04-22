@@ -1,8 +1,8 @@
 <?php
 session_start();
-// if (!isset($_SESSION['username'])) {
-//     header('location: login.php');
-// }
+if (!isset($_SESSION['username'])) {
+    header('location: login.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +65,7 @@ session_start();
                             <a class="nav-link" href="logout.php" >
                                 Logout
                             </a>
-                            <a class="nav-link" href="#" >
+                            <a class="nav-link" href="change_profile.php" >
                                 Change Profile
                             </a>
                             <div class="sb-sidenav-menu-heading">Tools</div>
@@ -106,129 +106,59 @@ session_start();
                                 <i class="fas fa-chart-line mr-1"></i>
                                 Memory Usage
                             </div>
-                            <div class="card-body"><div id="chart_div" style= "width: 100%; min-height: 450px;"></div></div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                            <div class="card-body"><canvas id="chartjs_bar"></canvas> </div>
                     </div>
 
-                    <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-pie mr-1"></i>
-                                Memory Utilization Report
-                            </div>
-                            <div class="card-body">
-                                <div id="piechart_3d" style= "width: 100%; min-height: 450px; "></div>
-                            </div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div>
-
-                        
-                    </div>
                 </main>
                 <footer class="container-fluid text-center">
                     <p>Copyright 2021 &copy; Cloud Analytics provided by Tech Army</p>
                 </footer>
-                <!-- <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid ">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright 2021 &copy; Cloud Analytics provided by Tech Army</div>
-                        </div>
-                    </div>
-                </footer> -->
             </div>
         </div>
 
-        
-        <!-- Scripts -->
-        <!-- Realtime Area-Chart -->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         <script type="text/javascript">
-            // load current chart package
-            google.charts.load("current", {
-                packages: ["corechart"]
-            });
-            // set callback function when api loaded
-            google.charts.setOnLoadCallback(drawChart1);
+            <?php
+                $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+                $sql = "SELECT SUM(vm_usage.cpuUsed) AS cpuUsed, SUM(vm_usage.memoryUsed) AS memoryUsed, vm_usage.usageDate AS useDate FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_usage.usageDate";
+                $result = mysqli_query($dbc, $sql);
+                while($row = mysqli_fetch_array($result)) {
+                    $dates[] = $row['useDate'];
+                    $usage[] = $row['memoryUsed'];
+                }
+            ?>
+            var ctx = document.getElementById("chartjs_bar").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels:<?php echo json_encode($dates); ?>,
+                    datasets: [{
+                        backgroundColor: [
+                            "#5969ff",
+                            "#ff407b",
+                            "#25d5f2",
+                            "#ffc750",
+                            "#2ec551",
+                            "#7040fa",
+                            "#ff004e"
+                        ],
+                        data:<?php echo json_encode($usage); ?>,
+                    }]
+                },
+                options: {
+                        legend: {
+                    display: false,
+                    position: 'bottom',
 
-            function drawChart1() {
-                let data = google.visualization.arrayToDataTable([
-                    ["Year", "Memory Usage"],
-                    [0, 0]
-                ]);
-
-                // create options object with titles, colors, etc.
-                let options = {
-                    title: "Memory Usage",
-                    hAxis: {
-                    title: "Time"
-                    },
-                    vAxis: {
-                    title: "Usage"
+                    labels: {
+                        fontColor: '#71748d',
+                        fontFamily: 'Circular Std Book',
+                        fontSize: 14,
                     }
-                };
-                // draw chart on load
-                let chart = new google.visualization.AreaChart(
-                    document.getElementById("chart_div")
-                );
-                chart.draw(data, options);
-
-                // update data dynamically
-                // interval for adding new data every 250ms
-                let index = 0;
-                setInterval(function() {
-                    // instead of this random, you can make an ajax call for the current cpu usage or what ever data you want to display
-                    let random = Math.random() * 30 + 20;
-                    data.addRow([index, random]);
-                    chart.draw(data, options);
-                    index++;
-                }, 1500);
+                },
             }
-
-
-        // <!-- Pie Chart --> 
-            google.charts.load("current", {packages:["corechart"]});
-            google.charts.setOnLoadCallback(drawChart2);
-            function drawChart2() {
-                var data = google.visualization.arrayToDataTable([
-                ['Process', 'Amount of Memory'],
-                ['Chrome', 11],
-                ['SearchUI', 2],
-                ['Memory Compression', 2],
-                ['dvm', 2],
-                ['Other', 7]
-                ]);
-
-                var options = {
-                    title: 'Memory Usage Per Process',
-                    is3D: true,
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-                chart.draw(data, options);
-            }
-            
-
-                $(window).resize(function(){
-                    drawChart1();
-                    drawChart2();
-                });
-
-                (function($) {
-                    "use strict";
-                    // Add active state to sidbar nav links
-                    var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
-                        $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-                            if (this.href === path) {
-                                $(this).addClass("active");
-                            }
-                        });
-
-                        // Toggle the side navigation
-                        $("#sidebarToggle").on("click", function(e) {
-                            e.preventDefault();
-                            $("body").toggleClass("sb-sidenav-toggled");
-                        });
-                })(jQuery);
-
-            </script>
+            });
+        </script>
     </body>
 </html>

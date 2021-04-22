@@ -82,5 +82,77 @@
                 return "failed";
             }
         }
+
+        public function getVMUsage($uuid) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT * FROM vm_usage WHERE uuid = '".$uuid."'";
+            $r1 = @mysqli_query ($dbc, $q1);
+            return $r1;
+        }
+
+        public function getVMUsageDetails($usageID) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT * FROM vm_usage WHERE usageID = '".$usageID."'";
+            $r1 = @mysqli_query ($dbc, $q1);
+            $row = mysqli_fetch_array($r1, MYSQLI_ASSOC);
+            return $row;
+        }
+
+        public function createVMUsage() {
+            function test_input3($data) { 
+                $data = trim($data); 
+                $data = stripslashes($data); 
+                $data = htmlspecialchars($data); 
+                return $data;
+            }
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $vmUUID = test_input3($_REQUEST["vmUUID"]);
+            $usageDate = test_input3($_REQUEST["usageDate"]);
+            $cpuUsed = test_input3($_REQUEST["cpuUsed"]);
+            $memoryUsed = test_input3($_REQUEST["memoryUsed"]);
+
+            $sql = "INSERT INTO vm_usage (uuid, usageDate, cpuUsed, memoryUsed) VALUES ('".$vmUUID."','".$usageDate."','".$cpuUsed."','".$memoryUsed."')";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function updateVMUsage() {
+            function test_input4($data) { 
+                $data = trim($data); 
+                $data = stripslashes($data); 
+                $data = htmlspecialchars($data); 
+                return $data;
+            }
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $usageID = test_input4($_REQUEST["usageID"]);
+            // $vmUUID = test_input4($_REQUEST["vmUUID"]);
+            $usageDate = test_input4($_REQUEST["usageDate"]);
+            $cpuUsed = test_input4($_REQUEST["cpuUsed"]);
+            $memoryUsed = test_input4($_REQUEST["memoryUsed"]);
+
+            $sql = "UPDATE vm_usage SET usageDate = '".$usageDate."', cpuUsed = '".$cpuUsed."', memoryUsed = '".$memoryUsed."' WHERE usageID = '".$usageID."'";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function deleteVMUsage($usageID) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $sql = "DELETE FROM vm_usage WHERE usageID = '".$usageID."'";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
     }
 ?>

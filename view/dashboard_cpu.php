@@ -66,7 +66,7 @@ session_start();
                             <a class="nav-link" href="logout.php" style="color:white;">
                                 Logout
                             </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="change_profile.php" style="color:white;">
                                 Change Profile
                             </a>
                             <div class="sb-sidenav-menu-heading">Tools</div>
@@ -102,22 +102,7 @@ session_start();
                                 <i class="fas fa-chart-line mr-1"></i>
                                 CPU Usage
                             </div>
-                            <div class="card-body"><div id="chart_div" style= "width: 100%; min-height: 450px;"></div></div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div>
-
-                    <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-pie mr-1"></i>
-                                CPU Utilization Report
-                            </div>
-                            <div class="card-body">
-                                <div id="piechart_3d" style= "width: 100%; min-height: 450px; "></div>
-                            </div>
-                            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                    </div>
-
-                        
+                            <div class="card-body"><canvas id="chartjs_bar"></canvas></div>
                     </div>
                 </main>
                 <footer class="container-fluid text-center">
@@ -125,6 +110,51 @@ session_start();
                 </footer>
             </div>
         </div>
+
+        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script type="text/javascript">
+            <?php
+                $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+                $sql = "SELECT SUM(vm_usage.cpuUsed) AS cpuUsed, SUM(vm_usage.memoryUsed) AS memoryUsed, vm_usage.usageDate AS useDate FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_usage.usageDate";
+                $result = mysqli_query($dbc, $sql);
+                while($row = mysqli_fetch_array($result)) {
+                    $dates[] = $row['useDate'];
+                    $usage[] = $row['cpuUsed'];
+                }
+            ?>
+            var ctx = document.getElementById("chartjs_bar").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels:<?php echo json_encode($dates); ?>,
+                    datasets: [{
+                        backgroundColor: [
+                            "#5969ff",
+                            "#ff407b",
+                            "#25d5f2",
+                            "#ffc750",
+                            "#2ec551",
+                            "#7040fa",
+                            "#ff004e"
+                        ],
+                        data:<?php echo json_encode($usage); ?>,
+                    }]
+                },
+                options: {
+                        legend: {
+                    display: false,
+                    position: 'bottom',
+
+                    labels: {
+                        fontColor: '#71748d',
+                        fontFamily: 'Circular Std Book',
+                        fontSize: 14,
+                    }
+                },
+            }
+            });
+        </script>
 
     </body>
 

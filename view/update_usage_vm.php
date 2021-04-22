@@ -7,8 +7,8 @@ if (!isset($_SESSION['username'])) {
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
 $controllers = new DashboardController();
-$uuid = $_GET["uuid"];
-$row = $controllers->getVirtualMachine($uuid);
+$usageID = $_GET["usageID"];
+$row = $controllers->getVirtualMachineUsageDetails($usageID);
 ?>
 <DOCTYPE html>
     <html>
@@ -25,7 +25,7 @@ $row = $controllers->getVirtualMachine($uuid);
 			$(document).ready(function() {
 				<?php
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        $queryResult = $controllers->updateVirtualMachine();
+                        $queryResult = $controllers->updateVirtualMachineUsage();
                         if ($queryResult == "success") {
                             ?>
                                 $("#successModal").modal();
@@ -70,6 +70,8 @@ $row = $controllers->getVirtualMachine($uuid);
         }
 
         input[type=email],
+        input[type=date],
+        input[type=number],
         input[type=text],
         input[type=password] {
             width: 100%;
@@ -82,6 +84,8 @@ $row = $controllers->getVirtualMachine($uuid);
         }
 
         input[type=email]:focus,
+        input[type=date]:focus,
+        input[type=number]:focus,
         input[type=text]:focus,
         input[type=password]:focus {
             border-radius: 25px;
@@ -89,11 +93,11 @@ $row = $controllers->getVirtualMachine($uuid);
             outline: none;
         }
 
-        .updateVMBtn {
+        .updateVMUsageBtn {
             background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%)
         }
 
-        .updateVMBtn {
+        .updateVMUsageBtn {
             width: 100%;
             padding: 15px 45px;
             text-align: center;
@@ -108,7 +112,7 @@ $row = $controllers->getVirtualMachine($uuid);
             font-size: 1em;
         }
 
-        .updateVMBtn:hover {
+        .updateVMUsageBtn:hover {
             background-position: right center;
             color: #fff;
             text-decoration: none;
@@ -192,36 +196,19 @@ $row = $controllers->getVirtualMachine($uuid);
                             <div class="card-body">
                                 <form method="post" autocomplete="off">
                                     <span class="vmLabel">UUID</span><br />
+                                    <input type="hidden" id="usageID" name="usageID" value="<?php echo $row['usageID'];?>"/>
                                     <input type="text" id="vmUUID" name="vmUUID" placeholder="Type VM UUID" value="<?php echo $row['uuid'];?>" readonly/><br />
 
-                                    <span class="vmLabel">Domain Name</span><br />
-                                    <input type="text" id="domainName" name="domainName" placeholder="Type VM Domain Name" value="<?php echo $row['domainName'];?>" required/><br />
+                                    <span class="vmLabel">VM Usage Date</span><br />
+                                    <input type="date" id="usageDate" name="usageDate" placeholder="Type VM Usage Date" value="<?php echo $row['usageDate'];?>" required/><br />
 
-                                    <span class="vmLabel">Storage Capacity</span><br />
-                                    <input type="text" id="storageCapacity" name="storageCapacity" placeholder="Type VM Storage Capacity" value="<?php echo $row['storageCapacity'];?>" required/><br />
+                                    <span class="vmLabel">VM CPU Usage</span><br />
+                                    <input type="number" id="cpuUsed" name="cpuUsed" placeholder="Type VM CPU Usage" value="<?php echo $row['cpuUsed'];?>" required/><br />
 
                                     <span class="vmLabel">Storage Allocation</span><br />
-                                    <input type="text" id="storageAllocation" name="storageAllocation" placeholder="Type VM Storage Allocation" value="<?php echo $row['storageAllocation'];?>" required/><br />
+                                    <input type="number" id="memoryUsed" name="memoryUsed" placeholder="Type VM Memory Usage" value="<?php echo $row['memoryUsed'];?>" required/><br />
                                     
-                                    <span class="vmLabel">Storage Available</span><br />
-                                    <input type="text" id="storageAvailable" name="storageAvailable" placeholder="Type VM Storage Available" value="<?php echo $row['storageAvailable'];?>" required/><br />
-
-                                    <span class="vmLabel">Memory Allocation</span><br />
-                                    <input type="text" id="memoryAllocation" name="memoryAllocation" placeholder="Type VM Memory Allocation" value="<?php echo $row['memoryAllocation'];?>" required/><br />
-
-                                    <span class="vmLabel">CPU Allocation</span><br />
-                                    <input type="text" id="cpuAllocation" name="cpuAllocation" placeholder="Type VM CPU Allocation" value="<?php echo $row['cpuAllocation'];?>" required/><br />
-
-                                    <span class="vmLabel">Device Type</span><br />
-                                    <input type="text" id="deviceType" name="deviceType" placeholder="Type VM Device Type" value="<?php echo $row['deviceType'];?>" required/><br />
-
-                                    <span class="vmLabel">Source Path</span><br />
-                                    <input type="text" id="sourcePath" name="sourcePath" placeholder="Type VM Source Path" value="<?php echo $row['sourcePath'];?>" required/><br />
-
-                                    <span class="vmLabel">Storage Format</span><br />
-                                    <input type="text" id="storageFormat" name="storageFormat" placeholder="Type VM Storage Format" value="<?php echo $row['storageFormat'];?>" required/><br /><br />
-
-                                    <input type="submit" class="updateVMBtn" value="Update" /><br />
+                                    <input type="submit" class="updateVMUsageBtn" value="Update" /><br />
                                     <!-- <input type="submit" class="updateVMBtn" value="SIGN UP" onclick="matchPassword(pwdInput1, pwdInput2)" /><br /> -->
                                 </form>
                             </div>
@@ -258,7 +245,7 @@ $row = $controllers->getVirtualMachine($uuid);
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Failed to update a virtual machine.</p>
+						<p>Failed to update the virtual machine usage.</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

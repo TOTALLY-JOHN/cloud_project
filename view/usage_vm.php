@@ -6,7 +6,8 @@ if (!isset($_SESSION['username'])) {
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
 $controllers = new DashboardController();
-$data = $controllers->getAllVirtualMachines();
+$uuid = $_GET["uuid"];
+$data = $controllers->getVirtualMachineUsage($uuid);
 ?>
 <DOCTYPE html>
     <html>
@@ -76,25 +77,7 @@ $data = $controllers->getAllVirtualMachines();
             background-color: #eeeeee;
             font-weight: bold;
         }
-        
-        #tableContainer {
-            width: 100%; 
-            height: 600px; 
-            overflow-x: scroll; 
-            overflow-y: scroll;
-        }
 
-        #createVMBtn {
-            height: 40px;
-        }
-
-        #searchVM {
-            height: 40px; 
-            margin-top: 3px; 
-            border: 2px solid black; 
-            border-radius: 5px; 
-            padding: 5px;
-        }
     </style>
     </head>
 
@@ -171,21 +154,17 @@ $data = $controllers->getAllVirtualMachines();
                             Virtual Machines Details
                             </div>
                         </div>
-                        <div class="card mb-4" id="tableContainer">
+                        <div class="card mb-4" style="width: 100%; height: 600px; overflow-x: scroll; overflow-y: scroll;">
                         <div style="margin: 15px;">
-                            <a id="createVMBtn" href="create_vm.php" class="btn btn-primary">Create New VM +</a> &nbsp;
-                            <input type="text" name="searchVM" id="searchVM" placeholder="Search VM..."/>
+                            <a href="create_usage_vm.php?uuid=<?php echo $_GET["uuid"];?>" class="btn btn-primary" style="height: 40px;">Add Usage +</a> &nbsp;
+                            <input type="text" name="searchVM" id="searchVM" placeholder="Search VM..." style="height: 36px;"/>
                         </div>
-                        <table id="vmTable" class="table table-bordered" style="width: 1800px;">
+                        <table class="table table-bordered">
                             <thead>
                                 <th class="vm_table_header">UUID</th>
-                                <th class="vm_table_header">Domain Name</th>
-                                <th class="vm_table_header">Storage Allocation</th>
-                                <th class="vm_table_header">Memory Allocation</th>
-                                <th class="vm_table_header">CPU Allocation</th>
-                                <th class="vm_table_header">Device Type</th>
-                                <th class="vm_table_header">Source Path</th>
-                                <th class="vm_table_header">Storage Format</th>
+                                <th class="vm_table_header">Usage Date</th>
+                                <th class="vm_table_header">CPU Usage</th>
+                                <th class="vm_table_header">Memory Usage</th>
                                 <th class="vm_table_header">Actions</th>
                             </thead>
                             <tbody>
@@ -194,17 +173,12 @@ $data = $controllers->getAllVirtualMachines();
                                 ?>
                                     <tr>
                                         <td><?php echo $row['uuid']; ?></td>
-                                        <td><?php echo $row['domainName']; ?></td>
-                                        <td><?php echo $row['storageAllocation']; ?></td>
-                                        <td><?php echo $row['memoryAllocation']; ?></td>
-                                        <td><?php echo $row['cpuAllocation']; ?></td>
-                                        <td><?php echo $row['deviceType']; ?></td>
-                                        <td><?php echo $row['sourcePath']; ?></td>
-                                        <td><?php echo $row['storageFormat']; ?></td>
+                                        <td><?php echo $row['usageDate']; ?></td>
+                                        <td><?php echo $row['cpuUsed']; ?></td>
+                                        <td><?php echo $row['memoryUsed']; ?></td>
                                         <td>
-                                            <a href="usage_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-primary">Usage</a>
-                                            <a href="update_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-success">Edit</a>
-                                            <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                            <a href="update_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-success">Edit</a>
+                                            <a href="delete_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
                                         </td>
                                     </tr>
                                 <?php
@@ -220,31 +194,7 @@ $data = $controllers->getAllVirtualMachines();
                 </footer>
             </div>
         </div>
-        <script type="text/javascript">
-        function myFunction() 
-        {
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("searchVM");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("vmTable");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) 
-          {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) 
-            {
-              txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) 
-              {
-                tr[i].style.display = "";
-              } else 
-              {
-                tr[i].style.display = "none";
-              }
-            }       
-          }
-        }
-    </script>
+
     </body>
 
     </html>

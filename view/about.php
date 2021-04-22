@@ -243,7 +243,7 @@ session_start();
                             <a class="nav-link" href="logout.php">
                                 Logout
                             </a>
-                            <a class="nav-link" href="#" >
+                            <a class="nav-link" href="change_profile.php" >
                                 Change Profile
                             </a>
                             <div class="sb-sidenav-menu-heading">Tools</div>

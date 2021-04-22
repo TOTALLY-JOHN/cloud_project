@@ -15,17 +15,15 @@
                 }
             }
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $username = test_input($_REQUEST["usernameInput"]);
             $userPwd = test_input($_REQUEST["pwdInput"]);
             $q1 = "SELECT username, userPwd FROM users WHERE username = '".$username."' AND userPwd = '".hash('sha256', $userPwd)."'";
             $r1 = @mysqli_query ($dbc, $q1);
             $row = mysqli_fetch_array($r1, MYSQLI_ASSOC);
 
-            /// [TESTING FOR DEVELOPMENT OF ADMIN]
             if (isset($_REQUEST['usernameInput']) && isset($_REQUEST['pwdInput'])) {
                 if($row['username']==$username) {
-                    $_SESSION['username'] = $username;
+                    $_SESSION['username'] = $row['username'];
                     $_SESSION['userRole'] = "admin";
                     return 'login-success';
                 } 

@@ -159,7 +159,7 @@ $controllers = new DashboardController();
                             <a class="nav-link" href="logout.php" style="color:white;">
                                 Logout
                             </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="change_profile.php" style="color:white;">
                                 Change Profile
                             </a>
                             <div class="sb-sidenav-menu-heading">Tools</div>
