@@ -7,6 +7,7 @@ if (!isset($_SESSION['username'])) {
 require_once('../controller/dashboard_controller.php');
 $controllers = new DashboardController();
 $data = $controllers->getAllVirtualMachines();
+echo $_SESSION['userRole'];
 ?>
 <DOCTYPE html>
     <html>
@@ -119,7 +120,24 @@ $data = $controllers->getAllVirtualMachines();
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                            <a class="nav-link" style="color:white; ">
+                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
+                                &nbsp; Hi, <?php echo $_SESSION['username'];?>
+                            </a>
+                            <?php
+                                if ($_SESSION['userRole'] == "admin") {
+                            ?>
+                                <a href="manage_users.php" class="nav-link" style="color:white;">
+                                    <div class="sb-nav-link-icon" style="color:white;" >
+                                        Manage Users
+                                    </div>
+                                </a>
+                            <?php
+                                }
+                            ?>
+                                
                             <div class="sb-sidenav-menu-heading">Core</div>
+                            
                             <a class="nav-link" href="dashboard.php" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard

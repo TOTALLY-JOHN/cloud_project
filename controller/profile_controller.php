@@ -19,12 +19,18 @@
         }
 
         public function resetUserPwd() {
-            $result = $this->profileModel->authUser();
-            if ($result == true) {
-                header('location: ../view/login.php');
-            } else {
-                header('location: ../view/error.php');
-            }
+            $result = $this->profileModel->requestChangePasswordForForgotPwd();
+            return $result;
+        }
+
+        public function getAllProfiles() {
+            $result = $this->profileModel->getAllUserProfiles();
+            return $result;
+        }
+
+        public function allowChangePwd($username) {
+            $result = $this->profileModel->allowChangePassword($username);
+            return $result;
         }
     }
 ?>

@@ -221,6 +221,21 @@ session_start();
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                            <a class="nav-link" style="color:white; ">
+                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
+                                &nbsp; Hi, <?php echo $_SESSION['username'];?>
+                            </a>
+                            <?php
+                                if ($_SESSION['userRole'] == "admin") {
+                            ?>
+                                <a href="manage_users.php" class="nav-link" style="color:white;">
+                                    <div class="sb-nav-link-icon" style="color:white;" >
+                                        Manage Users
+                                    </div>
+                                </a>
+                            <?php
+                                }
+                            ?>
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="dashboard.php">
                                 <div class="sb-nav-link-icon" ><i class="fas fa-tachometer-alt"></i></div>
