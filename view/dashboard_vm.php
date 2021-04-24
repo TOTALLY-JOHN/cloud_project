@@ -21,27 +21,16 @@ echo $_SESSION['userRole'];
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
-        <script type="text/javascript">
-             // Load google charts
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            // Draw the chart and set the chart values
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                ['Virtual Machines', 'Average Hours per Day'],
-                ['VM-1', 8],
-                ['VM-2', 2],
-                ['VM-3', 4],
-                ['VM-4', 2],
-                ['VM-5', 8]
-                ]);
-                // Optional; add a title and set the width and height of the chart
-                var options = {'title':'VM Usage per Day', 'width':550, 'height':400};
-                // Display the chart inside the <div> element with id="piechart"
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                chart.draw(data, options);
-                }
-            </script>
+        <script>
+            $(document).ready(function() {
+                $("#searchVM").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#vmTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+            });
+        </script>
 
         <title>VM Usage</title>
     </head>
@@ -85,16 +74,19 @@ echo $_SESSION['userRole'];
             overflow-y: scroll;
         }
 
+        #searchVM {
+            height: 40px; 
+            border: 2px solid black; 
+            border-radius: 5px; 
+            padding: 5px;
+        }
+
         #createVMBtn {
             height: 40px;
         }
 
-        #searchVM {
-            height: 40px; 
-            margin-top: 3px; 
-            border: 2px solid black; 
-            border-radius: 5px; 
-            padding: 5px;
+        #downloadBtn {
+            height: 40px;
         }
     </style>
     </head>
@@ -191,10 +183,32 @@ echo $_SESSION['userRole'];
                         </div>
                         <div class="card mb-4" id="tableContainer">
                         <div style="margin: 15px;">
-                            <a id="createVMBtn" href="create_vm.php" class="btn btn-primary">Create New VM +</a> &nbsp;
-                            <input type="text" name="searchVM" id="searchVM" placeholder="Search VM..."/>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div style="margin:10px;">
+                                            <a id="createVMBtn" href="create_vm.php" class="btn btn-primary">Create New VM +</a>
+                                        </div>    
+                                    </td>
+                                    <td>
+                                        <div style="margin:13px;">
+                                            <form method="post" action="export_vm.php">
+                                                <input id="downloadBtn" type="submit" class="btn btn-success" name="export_vm" value="Download Report as Excel"/>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="margin:2px;">
+                                            <input type="text" name="searchVM" id="searchVM" placeholder="Search VM..."/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                             &nbsp;
+                            
+                            
                         </div>
-                        <table id="vmTable" class="table table-bordered" style="width: 1800px;">
+                        <table class="table table-bordered" style="width: 1800px;">
                             <thead>
                                 <th class="vm_table_header">UUID</th>
                                 <th class="vm_table_header">Domain Name</th>
@@ -206,7 +220,7 @@ echo $_SESSION['userRole'];
                                 <th class="vm_table_header">Storage Format</th>
                                 <th class="vm_table_header">Actions</th>
                             </thead>
-                            <tbody>
+                            <tbody id="vmTable">
                                 <?php
                                     while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
                                 ?>
@@ -238,31 +252,6 @@ echo $_SESSION['userRole'];
                 </footer>
             </div>
         </div>
-        <script type="text/javascript">
-        function myFunction() 
-        {
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("searchVM");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("vmTable");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) 
-          {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) 
-            {
-              txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) 
-              {
-                tr[i].style.display = "";
-              } else 
-              {
-                tr[i].style.display = "none";
-              }
-            }       
-          }
-        }
-    </script>
     </body>
 
     </html>

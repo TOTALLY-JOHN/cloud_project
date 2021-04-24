@@ -20,9 +20,8 @@
                     <div id="logoImageContainer">
                         <a href="../view/login.php"><img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" style="width:50%" /></a>
                         <h2 style="padding: 25px">(error Msg)</h2>
-                        <button style="" class="login" onclick="window.close()">Close</button>
+                        <button class="login" onclick="window.close()">Close</button>
                     </div>
-                    
                 </div>
             </div>
         </div>

@@ -19,34 +19,17 @@ $data = $controllers->getAllVirtualMachines();
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <title>Disk Usage</title>
+        <script>
+            $(document).ready(function() {
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#diskTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+            });
+        </script>
     </head>
-    
-
-    <script type="text/javascript">
-        function myFunction() 
-        {
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("myInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("diskTable");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) 
-          {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) 
-            {
-              txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) 
-              {
-                tr[i].style.display = "";
-              } else 
-              {
-                tr[i].style.display = "none";
-              }
-            }       
-          }
-        }
-    </script>
 
     <style>
         .searchBar
@@ -165,10 +148,10 @@ $data = $controllers->getAllVirtualMachines();
                         </div>
                     </div>
                     <div class="searchBar">
-                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for disk names.." title="Type in a name">
+                        <input type="text" id="myInput" placeholder="Search for disk names.." title="Type in a name">
                     </div>
                     <div class="table-responsive">
-                        <table id = "diskTable" class = "table">
+                        <table class ="table">
                             <thead>
                                 <tr>
                                     <th>UUID</th>
@@ -179,7 +162,7 @@ $data = $controllers->getAllVirtualMachines();
                                     <th>Storage Format</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="diskTable">
                                 <?php
                                     while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
                                 ?>
@@ -203,108 +186,5 @@ $data = $controllers->getAllVirtualMachines();
                 </footer>
             </div>
         </div>
-
     </body>
-
-    <!-- <body>
-
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Tech Army</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span>&nbsp; Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="container-fluid text-center">
-            <div class="row content">
-                <div class="col-sm-2 sidenav">
-                    <p>CORE</p>
-                    <p><a href="dashboard.php" class="sidenav_menu"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></p><br />
-                    <p>APPLIANCES</p>
-                    <p><a href="dashboard_cpu.php" class="sidenav_menu">CPU</a></p>
-                    <p><a href="dashboard_memory.php" class="sidenav_menu">Memory</a></p>
-                    <p><a href="dashboard_disk.php" class="sidenav_menu">HDD/SSD</a></p>
-                    <p><a href="dashboard_vm.php" class="sidenav_menu">Virtual Machines</a></p><br />
-                    <p>USERS</p>
-                    <p><a href="logout.php" class="sidenav_menu">Logout</a></p>
-                    <p><a href="#" class="sidenav_menu">Change Profile</a></p><br />
-                    <p>TOOLS</p>
-                    <p><a href="#" class="sidenav_menu">Settings</a></p>
-                    <p><a href="#" class="sidenav_menu">Logs</a></p>
-                    <p><a href="#" class="sidenav_menu">Help</a></p><br />
-
-                </div>
-                <div class="col-sm-10 text-left">
-                    <h1>DISK</h1>
-                    <div class="jumbotron">
-                        <h4>HDD/SSD Details</h4>
-                    </div>
-                    <div class="searchBar">
-                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for disk names.." title="Type in a name">
-                    </div>
-                    <div class="table-responsive">
-                        <table id = "diskTable" class = "table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Disk Image(GB)</th>
-                                    <th>Device Type</th>
-                                    <th>Cache Mode</th>
-                                    <th>Storage Format</th>
-                                    <th>Volumes</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Local Disk(C:)</td>
-                                    <td>256.0</td>
-                                    <td>IDE Disk</td>
-                                    <td>Partial Cache</td>
-                                    <td>ASCII</td>
-                                    <td>controller.img</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Local Disk(D:)</td>
-                                    <td>1000.0</td>
-                                    <td>IDE Disk</td>
-                                    <td>Full Cache</td>
-                                    <td>Unicode</td>
-                                    <td>controller_quantum.img</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Local Disk(E:)</td>
-                                    <td>512.0</td>
-                                    <td>IDE Disk</td>
-                                    <td>No Cache</td>
-                                    <td>Binary</td>
-                                    <td>controller_ceph.img</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="container-fluid text-center">
-            <p>Copyright 2021 &copy; Cloud Analytics provided by Tech Army</p>
-        </footer> -->
-
-    </body>
-
-    </html>
+</html>
