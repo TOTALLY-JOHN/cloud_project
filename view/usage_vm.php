@@ -21,27 +21,16 @@ $data = $controllers->getVirtualMachineUsage($uuid);
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
-        <script type="text/javascript">
-             // Load google charts
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            // Draw the chart and set the chart values
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                ['Virtual Machines', 'Average Hours per Day'],
-                ['VM-1', 8],
-                ['VM-2', 2],
-                ['VM-3', 4],
-                ['VM-4', 2],
-                ['VM-5', 8]
-                ]);
-                // Optional; add a title and set the width and height of the chart
-                var options = {'title':'VM Usage per Day', 'width':550, 'height':400};
-                // Display the chart inside the <div> element with id="piechart"
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                chart.draw(data, options);
-                }
-            </script>
+        <script>
+            $(document).ready(function() {
+                $("#searchVMUsage").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#usageTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+            });
+        </script>
 
         <title>VM Usage</title>
     </head>
@@ -172,7 +161,7 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                         <div class="card mb-4" style="width: 100%; height: 600px; overflow-x: scroll; overflow-y: scroll;">
                         <div style="margin: 15px;">
                             <a href="create_usage_vm.php?uuid=<?php echo $_GET["uuid"];?>" class="btn btn-primary" style="height: 40px;">Add Usage +</a> &nbsp;
-                            <input type="text" name="searchVM" id="searchVM" placeholder="Search VM..." style="height: 36px;"/>
+                            <input type="text" name="searchVMUsage" id="searchVMUsage" placeholder="Search VM..." style="height: 36px;"/>
                         </div>
                         <table class="table table-bordered">
                             <thead>
@@ -182,7 +171,7 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                                 <th class="vm_table_header">Memory Usage</th>
                                 <th class="vm_table_header">Actions</th>
                             </thead>
-                            <tbody>
+                            <tbody id="usageTable">
                                 <?php
                                     while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
                                 ?>
