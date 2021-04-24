@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
 $controllers = new DashboardController();
-$data = $controllers->getAllMyCases($_SESSION['username']);
+$data = $controllers->getAllCases();
 ?>
 <DOCTYPE html>
     <html>
@@ -176,26 +176,20 @@ $data = $controllers->getAllMyCases($_SESSION['username']);
             <div id="layoutSidenav_content">
                 <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">My Help Cases</h1>
+                    <h1 class="mt-4">Manage All Help Cases</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">My Cases</li>
+                            <li class="breadcrumb-item active">Manage Cases</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            All My Cases
+                            All Manage Cases
                             </div>
                         </div>
                         <div class="card mb-4" id="tableContainer">
                         <div style="margin: 15px;">
                             <table>
                                 <tr>
-                                    <td>
-                                        <div style="margin:10px;">
-                                            <a id="createCaseBtn" href="help.php" class="btn btn-primary">Create New Case +</a>
-                                        </div>    
-                                    </td>
-                                    <td>
                                     <td>
                                         <div style="margin:2px;">
                                             <input type="text" name="searchCase" id="searchCase" placeholder="Search Case..."/>
@@ -226,6 +220,7 @@ $data = $controllers->getAllMyCases($_SESSION['username']);
                                         <td><?php echo $row['caseStatus']; ?></td>
                                         <td><?php echo $row['resultMessage']; ?></td>
                                         <td>
+                                            <a href="update_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-success">Update</a>
                                             <a href="delete_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this case?');">Delete</a>
                                         </td>
                                     </tr>

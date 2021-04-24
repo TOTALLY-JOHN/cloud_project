@@ -3,48 +3,11 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header('location: login.php');
 }
-// define variables and set to empty values
-    $nameErr = $emailErr = "";
-    $name = $email = $comment = "";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") 
-    {
-      if (empty($_POST["name"])) 
-      {
-        $nameErr = "Name is required";
-      } 
-      else 
-      {
-        $name = test_input($_POST["name"]);
-        // check if name only contains letters and whitespace
-        if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) 
-        {
-          $nameErr = "Only letters and white space allowed";
-        }
-      }
-  
-      if (empty($_POST["email"])) 
-      {
-        $emailErr = "Email is required";
-      } 
-      else 
-      {
-        $email = test_input($_POST["email"]);
-        // check if e-mail address is well-formed
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
-        {
-          $emailErr = "Invalid email format";
-        }
-      }
+/// [CONNECT THE DASHBOARD CONTROLLER]
+require_once('../controller/dashboard_controller.php');
+$controllers = new DashboardController();
 
-      function test_input($data) 
-      {
-          $data = trim($data);
-          $data = stripslashes($data);
-          $data = htmlspecialchars($data);
-          return $data;
-      }
-    }
 ?>
 <DOCTYPE html>
     <html>
@@ -53,22 +16,38 @@ if (!isset($_SESSION['username'])) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <title>Help Page</title>
     </head>
-    
-
-    <script type="text/javascript">
-
-        
-    </script>
+    <script>
+			$(document).ready(function() {
+				<?php
+          if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+              $queryResult = $controllers->createCase();
+              if ($queryResult == "success") {
+                  ?>
+                      $("#successModal").modal();
+                  <?php 
+              } else {
+                  ?>
+                      $("#failureModal").modal();
+                  <?php
+              }
+          }
+				?>
+			});
+		</script>
 
     <style>
          .searchBar
@@ -188,6 +167,15 @@ if (!isset($_SESSION['username'])) {
           width:120%;
         }
 
+        #btn1, #btn2, #btn3 {
+          width: 100%;
+          text-align: left;
+        }
+
+        main {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
 
     </style>
     </head>
@@ -291,16 +279,14 @@ if (!isset($_SESSION['username'])) {
                     </div>
 
                     <h2>Frequently Asked Questions</h2>
-                    <!--Here-->
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                      <div class="accordion-item">
+                    <div id="frequentlyAskedQuestionContainer">
+                      <div>
                         <h2 class="accordion-header" id="flush-headingOne">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                             Page loading error codes and issues #1
-                          </button>
+                          <a id="btn1" href="#question1" class="btn btn-warning" data-toggle="collapse">
+                            Page loading error codes and issues #1
+                          </a>
                         </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                          <div class="accordion-body">
+                        <div id="question1" class="collapse">
                             <strong>Fix "Aw, Snap!" page crashes and other page loading errors</strong><br> If you're getting the "Aw, Snap" error or another error code instead of a webpage, Chrome is having problems loading. You might also see the page loading slowly or not opening at all.<br>
                             <strong>Reload the page</strong><br>Usually, you can reload the page to fix the error. Press F5 to reload the page.<br>
                             <br><strong>If that didn't work...</strong><br><br>
@@ -309,17 +295,15 @@ if (!isset($_SESSION['username'])) {
                             Try reloading the tab with the error.<br><br>
                             <strong>Step 2: Clear your cache</strong><br>
                             Chrome might have information stored that's stopping the page from loading.
-                          </div>
                         </div>
                       </div>
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingTwo">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                           Fix connection errors #2
-                          </button>
+                      <div>
+                        <h2 class="accordion-header" id="flush-headingOne">
+                          <a id="btn2" href="#question2" class="btn btn-warning" data-toggle="collapse">
+                            Fix connection errors #2
+                          </a>
                         </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                          <div class="accordion-body">
+                        <div id="question2" class="collapse">
                                 <strong>If you get an error message when you try to visit a website, try these fixes.</strong> 
                                 <br>If your error isn't listed below, learn how to fix page loading errors or downloading errors.
                                 <br><br><strong>Fix most connection errors</strong><br>
@@ -327,21 +311,18 @@ if (!isset($_SESSION['username'])) {
                                 1. Check the web address for typos.<br>
                                 2. Make sure your internet connection is working normally. If your internet connection is unstable, learn how to fix internet stability issues.<br>
                                 3. Contact the website owner.
-                          </div>
                         </div>
                       </div>
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingThree">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                            How do I logout of this account? #3
-                          </button>
+                      <div>
+                        <h2 class="accordion-header" id="flush-headingOne">
+                          <a id="btn3" href="#question3" class="btn btn-warning" data-toggle="collapse">
+                          How do I logout of this account? #3
+                          </a>
                         </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                          <div class="accordion-body">
-                           <strong>To log out this account on your device</strong><br>
+                        <div id="question3" class="collapse">
+                        <strong>To log out this account on your device</strong><br>
                            1. Click Log Out at the left side of the menu that appears.<br>
                            2. Click the <strong>Logout Button</strong> on the top right of the page.
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -358,29 +339,24 @@ if (!isset($_SESSION['username'])) {
                         </div>
                         <div class="col-md-9">
                           <form method="post" autocomplete="off">
+                          <input type="hidden" name="username" value="<?php echo $_SESSION['username'];?>"/>
                           <div class="contact-form">
                               <div class="form-group">
                                 <label class="control-label col-sm-2" for="fname">First Name:</label>
                                 <div class="col-sm-10">          
-                                <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="firstName">
+                                <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="firstName" required>
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label class="control-label col-sm-2" for="lname">Last Name:</label>
                                 <div class="col-sm-10">          
-                                <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lastName">
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label class="control-label col-sm-2" for="email">Email:</label>
-                                <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="userEmail">
+                                <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lastName" required>
                                 </div>
                               </div>
                               <div class="form-group">
                                 <label class="control-label col-sm-2" for="comment">Comment:</label>
                                 <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                                <textarea class="form-control" rows="5" id="comment" name="comment" required></textarea>
                                 </div>
                               </div>
                               <div class="form-group">        
@@ -405,5 +381,37 @@ if (!isset($_SESSION['username'])) {
                 </footer>
             </div>
         </div>
+        <div id="successModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Success Message</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Successfully created!</p>
+					</div>
+					<div class="modal-footer">
+                        <a href="dashboard_vm.php" class="btn btn-danger" data-dismiss="modal">Close</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="failureModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Error Message</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Failed to create a virtual machine.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
     </body>
 </html>

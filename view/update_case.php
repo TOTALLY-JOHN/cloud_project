@@ -3,10 +3,12 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header('location: login.php');
 }
+
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
 $controllers = new DashboardController();
-$data = $controllers->getAllMyCases($_SESSION['username']);
+$caseId = $_GET["caseId"];
+$row = $controllers->getCase($caseId);
 ?>
 <DOCTYPE html>
     <html>
@@ -19,19 +21,25 @@ $data = $controllers->getAllMyCases($_SESSION['username']);
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
         <script>
-            $(document).ready(function() {
-                $("#searchCase").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#caseTable tr").filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                    });
-                });
-            });
-        </script>
-
-        <title>My Cases</title>
+			$(document).ready(function() {
+				<?php
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $queryResult = $controllers->updateCaseStatus();
+                        if ($queryResult == "success") {
+                            ?>
+                                $("#successModal").modal();
+                            <?php 
+                        } else {
+                            ?>
+                                $("#failureModal").modal();
+                            <?php
+                        }
+                    }
+				?>
+			});
+		</script>
+        <title>Update VM</title>
     </head>
     
 
@@ -56,39 +64,56 @@ $data = $controllers->getAllMyCases($_SESSION['username']);
         .two {width: 80%; background-color: #2196F3;} /* Blue */
         .three {width: 65%; background-color: #f44336;} /* Red */
         .four {width: 60%; background-color: #808080;} /* Dark Grey */
-
-        .material-icons-outlined {
-            transform: scale(1.5);
+        .vmLabel {
+            font-size: 1.0em;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
-        .case_table_header {
+        input[type=email],
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 25px;
+        }
+
+        input[type=email]:focus,
+        input[type=text]:focus,
+        input[type=password]:focus {
+            border-radius: 25px;
             background-color: #eeeeee;
-            font-weight: bold;
-        }
-        
-        #tableContainer {
-            width: 100%; 
-            height: 600px; 
-            overflow-x: scroll; 
-            overflow-y: scroll;
+            outline: none;
         }
 
-        #searchCase {
-            height: 40px; 
-            border: 2px solid black; 
-            border-radius: 5px; 
-            padding: 5px;
+        .updateBtn {
+            background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%)
         }
 
-        #createCaseBtn {
-            height: 40px;
+        .updateBtn {
+            width: 100%;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 25px;
+            border: none;
+            display: block;
+            font-size: 1em;
         }
 
-        #downloadBtn {
-            height: 40px;
+        .updateBtn:hover {
+            background-position: right center;
+            color: #fff;
+            text-decoration: none;
         }
     </style>
-    </head>
 
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -175,66 +200,35 @@ $data = $controllers->getAllMyCases($_SESSION['username']);
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                <div class="container-fluid">
-                    <h1 class="mt-4">My Help Cases</h1>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Update Case Status</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">My Cases</li>
+                            <li class="breadcrumb-item active">Update Case Status</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            All My Cases
+                                Update Case Status and Leave a result message.
                             </div>
                         </div>
-                        <div class="card mb-4" id="tableContainer">
-                        <div style="margin: 15px;">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div style="margin:10px;">
-                                            <a id="createCaseBtn" href="help.php" class="btn btn-primary">Create New Case +</a>
-                                        </div>    
-                                    </td>
-                                    <td>
-                                    <td>
-                                        <div style="margin:2px;">
-                                            <input type="text" name="searchCase" id="searchCase" placeholder="Search Case..."/>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form method="post" autocomplete="off">
+                                    <span class="vmLabel">Case ID</span><br />
+                                    <input type="text" id="caseId" name="caseId" value="<?php echo $row['caseId'];?>" readonly/><br />
+
+                                    <span class="vmLabel">Case Status</span><br />
+                                    <input type="text" id="caseStatus" name="caseStatus" placeholder="Update Case Status" value="<?php echo $row['caseStatus'];?>" required/><br />
+
+                                    <span class="vmLabel">Result Message</span><br />
+                                    <input type="text" id="resultMessage" name="resultMessage" placeholder="Leave a result message" value="<?php echo $row['resultMessage'];?>" required/><br />
+
+                                    <input type="submit" class="updateBtn" value="Update" /><br />
+                                    <!-- <input type="submit" class="updateVMBtn" value="SIGN UP" onclick="matchPassword(pwdInput1, pwdInput2)" /><br /> -->
+                                </form>
+                            </div>
                         </div>
-                        <table class="table table-bordered">
-                            <thead>
-                                <th class="case_table_header">Case ID</th>
-                                <th class="case_table_header">First Name</th>
-                                <th class="case_table_header">Last Name</th>
-                                <th class="case_table_header">Comment</th>
-                                <th class="case_table_header">Case Status</th>
-                                <th class="case_table_header">Result Message</th>
-                                <th class="case_table_header">Actions</th>
-                            </thead>
-                            <tbody id="caseTable">
-                                <?php
-                                    while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
-                                ?>
-                                    <tr>
-                                        <td><?php echo $row['caseId']; ?></td>
-                                        <td><?php echo $row['firstName']; ?></td>
-                                        <td><?php echo $row['lastName']; ?></td>
-                                        <td><?php echo $row['comment']; ?></td>
-                                        <td><?php echo $row['caseStatus']; ?></td>
-                                        <td><?php echo $row['resultMessage']; ?></td>
-                                        <td>
-                                            <a href="delete_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this case?');">Delete</a>
-                                        </td>
-                                    </tr>
-                                <?php
-                                    }
-                                ?>
-                            </tbody>
-                        </table>
-                        </div>
+                    
                     </div>
                 </main>
                 <footer class="container-fluid text-center">
@@ -242,6 +236,38 @@ $data = $controllers->getAllMyCases($_SESSION['username']);
                 </footer>
             </div>
         </div>
+        <div id="successModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Success Message</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Successfully updated!</p>
+					</div>
+					<div class="modal-footer">
+                        <a href="dashboard_vm.php" class="btn btn-danger" data-dismiss="modal">Close</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="failureModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Error Message</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Failed to update a virtual machine.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
     </body>
 
     </html>

@@ -1,5 +1,8 @@
 <?php
     class DashboardModel {
+        ////////////////////////////////////!
+        //? VIRTUAL MACHINE DATA MODEL (CRUD)
+        ////////////////////////////////////!
         public function getVMData($uuid) {
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
@@ -83,6 +86,9 @@
             }
         }
 
+        ////////////////////////////////////!
+        //? VIRTUAL MACHINE USAGE DATA MODEL (CRUD)
+        ////////////////////////////////////!
         public function getVMUsage($uuid) {
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
@@ -153,6 +159,88 @@
             } else {
                 return "failed";
             }
+        }
+
+        ////////////////////////////////////!
+        //? HELP CASE DATA MODEL (CRUD)
+        ////////////////////////////////////!
+        public function createHelpCase() {
+            function test_input5($data) { 
+                $data = trim($data); 
+                $data = stripslashes($data); 
+                $data = htmlspecialchars($data); 
+                return $data;
+            }
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $firstName = test_input5($_REQUEST["firstName"]);
+            $lastName = test_input5($_REQUEST["lastName"]);
+            $username = test_input5($_REQUEST["username"]);
+            $comment = test_input5($_REQUEST["comment"]);
+            $caseStatus = "pending";
+
+            $sql = "INSERT INTO cases (firstName, lastName, username, comment, caseStatus, resultMessage) VALUES ('".$firstName."','".$lastName."','".$username."','".$comment."','".$caseStatus."', '')";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function updateHelpCaseStatus() {
+            function test_input6($data) { 
+                $data = trim($data); 
+                $data = stripslashes($data); 
+                $data = htmlspecialchars($data); 
+                return $data;
+            }
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $caseId = test_input6($_REQUEST["caseId"]);
+            $caseStatus = test_input6($_REQUEST["caseStatus"]);
+            $resultMessage = test_input6($_REQUEST["resultMessage"]);
+
+            $sql = "UPDATE cases SET caseStatus = '".$caseStatus."', resultMessage = '".$resultMessage."' WHERE caseId = '".$caseId."'";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function deleteHelpCase($caseId) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $sql = "DELETE FROM cases WHERE caseId = '".$caseId."'";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function getHelpCase($caseId) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT * FROM cases WHERE caseId = '".$caseId."'";
+            $r1 = @mysqli_query ($dbc, $q1);
+            $row = mysqli_fetch_array($r1, MYSQLI_ASSOC);
+            return $row;
+        }
+
+        public function getAllHelpCases() {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT * FROM cases ORDER BY caseId ASC";
+            $r1 = @mysqli_query ($dbc, $q1);
+            return $r1;
+        }
+
+        public function getAllMyHelpCases($username) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT * FROM cases WHERE username = '".$username."' ORDER BY caseId ASC";
+            $r1 = @mysqli_query ($dbc, $q1);
+            return $r1;
         }
     }
 ?>
