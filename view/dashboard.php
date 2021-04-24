@@ -55,6 +55,11 @@ if (!isset($_SESSION['username'])) {
                                         Manage Users
                                     </div>
                                 </a>
+                                <a href="manage_cases.php" class="nav-link" style="color:white;">
+                                    <div class="sb-nav-link-icon" style="color:white;" >
+                                        Manage Cases
+                                    </div>
+                                </a>
                             <?php
                                 }
                             ?>
@@ -76,22 +81,25 @@ if (!isset($_SESSION['username'])) {
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
                                 Virtual Machines
                             </a>
+                            <?php
+                                if ($_SESSION['userRole'] != "admin") {
+                            ?>
                             <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="logout.php" style="color:white;">
-                                Logout
-                            </a>
                             <a class="nav-link" href="change_profile.php" style="color:white;">
                                 Change Profile
                             </a>
-                            <div class="sb-sidenav-menu-heading">Tools</div>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Settings
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Logs
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="help.php" style="color:white;">
                                 Help
+                            </a>
+                            <a class="nav-link" href="cases.php" style="color:white;">
+                                My Cases
+                            </a>
+                            <?php
+                                }
+                            ?>
+                            <hr />
+                            <a class="nav-link" href="about.php" style="color:white;">
+                                About Us
                             </a>
                         </div>
                     </div>
@@ -106,53 +114,63 @@ if (!isset($_SESSION['username'])) {
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            Admin Dashboard
-                            
+                                Admin Dashboard
                             </div>
                         </div>
                         <div class="card mb-4">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><a href="dashboard_cpu.php" class="btn btn-primary">
-                                <div class="dashboard-btn">
-                                    <h4>CPU</h4>
-                                    <hr />
-                                    <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                                </div>
-                            </a></td>
-                                    <td><a href="dashboard_memory.php" class="btn btn-warning">
-                                <div class="dashboard-btn">
-                                    <h4>MEMORY</h4>
-                                    <hr />
-                                    <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                                </div>
-                            </a></td>
-                                    <td><a href="dashboard_disk.php" class="btn btn-success">
-                                <div class="dashboard-btn">
-                                    <h4>HDD/SSD</h4>
-                                    <hr />
-                                    <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                                </div>
-                            </a></td>
-                                    <td><a href="dashboard_vm.php" class="btn btn-danger">
-                                <div class="dashboard-btn">
-                                    <h4>Virtual Machines</h4>
-                                    <hr />
-                                    <h5>View Details <span class="glyphicon glyphicon-chevron-right"></span></h5>
-                                </div>
-                            </a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="dashboard_cpu.php" class="btn btn-primary">
+                                                <div class="dashboard-btn">
+                                                    <h4>CPU</h4><hr />
+                                                    <h5>View Details
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </h5>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="dashboard_memory.php" class="btn btn-warning">
+                                                <div class="dashboard-btn">
+                                                    <h4>MEMORY</h4><hr />
+                                                    <h5>View Details 
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </h5>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="dashboard_disk.php" class="btn btn-success">
+                                                <div class="dashboard-btn">
+                                                    <h4>HDD/SSD</h4><hr />
+                                                    <h5>View Details 
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </h5>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="dashboard_vm.php" class="btn btn-danger">
+                                                <div class="dashboard-btn">
+                                                    <h4>Virtual Machines</h4><hr />
+                                                    <h5>View Details 
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </h5>
+                                                </div>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                            </div>
+                    </div>
                 </main>
                 <footer class="container-fluid text-center">
                     <p>Copyright 2021 &copy; Cloud Analytics provided by Tech Army</p>
                 </footer>
             </div>
         </div>
-        </body>
-
-    </html>
+    </body>
+</html>

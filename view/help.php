@@ -1,8 +1,8 @@
 <?php
 session_start();
-// if (!isset($_SESSION['username'])) {
-//     header('location: login.php');
-// }
+if (!isset($_SESSION['username'])) {
+    header('location: login.php');
+}
 // define variables and set to empty values
     $nameErr = $emailErr = "";
     $name = $email = $comment = "";
@@ -213,6 +213,26 @@ session_start();
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                          <a class="nav-link" style="color:white; ">
+                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
+                                &nbsp; Hi, <?php echo $_SESSION['username'];?>
+                            </a>
+                            <?php
+                                if ($_SESSION['userRole'] == "admin") {
+                            ?>
+                                <a href="manage_users.php" class="nav-link" style="color:white;">
+                                    <div class="sb-nav-link-icon" style="color:white;" >
+                                        Manage Users
+                                    </div>
+                                </a>
+                                <a href="manage_cases.php" class="nav-link" style="color:white;">
+                                    <div class="sb-nav-link-icon" style="color:white;" >
+                                        Manage Cases
+                                    </div>
+                                </a>
+                            <?php
+                                }
+                            ?>
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="dashboard.php" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
@@ -231,22 +251,25 @@ session_start();
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
                                 Virtual Machines
                             </a>
+                            <?php
+                                if ($_SESSION['userRole'] != "admin") {
+                            ?>
                             <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="logout.php" style="color:white;">
-                                Logout
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="change_profile.php" style="color:white;">
                                 Change Profile
                             </a>
-                            <div class="sb-sidenav-menu-heading">Tools</div>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Settings
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Logs
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="help.php" style="color:white;">
                                 Help
+                            </a>
+                            <a class="nav-link" href="cases.php" style="color:white;">
+                                My Cases
+                            </a>
+                            <?php
+                                }
+                            ?>
+                            <hr />
+                            <a class="nav-link" href="about.php" style="color:white;">
+                                About Us
                             </a>
                         </div>
                     </div>
@@ -323,24 +346,6 @@ session_start();
                       </div>
                     </div>
                     <br><br>
-                    <!--Here-->
-                    <!--
-                    <div>
-                         <form id="formInfo">
-                            <div class="form-group">
-                              <label for="usr">Name:</label>
-                              <input type="text" class="form-control" id="usr">
-                              <br>
-                              <label for="email">Email:</label><br>
-                              <input type="email" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                              <br><br>
-                              <p>How can we help you?</p>
-                              <textarea class="form-control" rows="5" id="myInput" placeholder="Go ahead, we're listening"></textarea>
-                              </div>
-                              <input type="submit" name="Submit" value="Submit" class="btn btn-primary mb-2">
-                         </form>
-                    </div>
-                    -->
 
                     <div class="container-contact">
                       <div class="row">
@@ -352,37 +357,39 @@ session_start();
                           </div>
                         </div>
                         <div class="col-md-9">
+                          <form method="post" autocomplete="off">
                           <div class="contact-form">
-                            <div class="form-group">
-                              <label class="control-label col-sm-2" for="fname">First Name:</label>
-                              <div class="col-sm-10">          
-                              <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
+                              <div class="form-group">
+                                <label class="control-label col-sm-2" for="fname">First Name:</label>
+                                <div class="col-sm-10">          
+                                <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="firstName">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="control-label col-sm-2" for="lname">Last Name:</label>
+                                <div class="col-sm-10">          
+                                <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lastName">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="control-label col-sm-2" for="email">Email:</label>
+                                <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="userEmail">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="control-label col-sm-2" for="comment">Comment:</label>
+                                <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                                </div>
+                              </div>
+                              <div class="form-group">        
+                                <div class="col-sm-offset-2 col-sm-10" style="text-align:center;">
+                                <button type="submit" class="btn btn-default">Submit My Case</button>
+                                </div>
                               </div>
                             </div>
-                            <div class="form-group">
-                              <label class="control-label col-sm-2" for="lname">Last Name:</label>
-                              <div class="col-sm-10">          
-                              <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="control-label col-sm-2" for="email">Email:</label>
-                              <div class="col-sm-10">
-                              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label class="control-label col-sm-2" for="comment">Comment:</label>
-                              <div class="col-sm-10">
-                              <textarea class="form-control" rows="5" id="comment"></textarea>
-                              </div>
-                            </div>
-                            <div class="form-group">        
-                              <div class="col-sm-offset-2 col-sm-10">
-                              <button type="submit" class="btn btn-default">Submit</button>
-                              </div>
-                            </div>
-                          </div>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -398,10 +405,5 @@ session_start();
                 </footer>
             </div>
         </div>
-
     </body>
-
-
-    </body>
-
-    </html>
+</html>

@@ -88,10 +88,14 @@ $data = $controllers->getAllVirtualMachines();
                                         Manage Users
                                     </div>
                                 </a>
+                                <a href="manage_cases.php" class="nav-link" style="color:white;">
+                                    <div class="sb-nav-link-icon" style="color:white;" >
+                                        Manage Cases
+                                    </div>
+                                </a>
                             <?php
                                 }
                             ?>
-
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="dashboard.php" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
@@ -110,22 +114,25 @@ $data = $controllers->getAllVirtualMachines();
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
                                 Virtual Machines
                             </a>
+                            <?php
+                                if ($_SESSION['userRole'] != "admin") {
+                            ?>
                             <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="logout.php" style="color:white;">
-                                Logout
-                            </a>
                             <a class="nav-link" href="change_profile.php" style="color:white;">
                                 Change Profile
                             </a>
-                            <div class="sb-sidenav-menu-heading">Tools</div>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Settings
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Logs
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="help.php" style="color:white;">
                                 Help
+                            </a>
+                            <a class="nav-link" href="cases.php" style="color:white;">
+                                My Cases
+                            </a>
+                            <?php
+                                }
+                            ?>
+                            <hr />
+                            <a class="nav-link" href="about.php" style="color:white;">
+                                About Us
                             </a>
                         </div>
                     </div>

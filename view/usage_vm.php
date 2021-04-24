@@ -103,6 +103,11 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                                         Manage Users
                                     </div>
                                 </a>
+                                <a href="manage_cases.php" class="nav-link" style="color:white;">
+                                    <div class="sb-nav-link-icon" style="color:white;" >
+                                        Manage Cases
+                                    </div>
+                                </a>
                             <?php
                                 }
                             ?>
@@ -124,22 +129,25 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
                                 Virtual Machines
                             </a>
+                            <?php
+                                if ($_SESSION['userRole'] != "admin") {
+                            ?>
                             <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="logout.php" style="color:white;">
-                                Logout
-                            </a>
                             <a class="nav-link" href="change_profile.php" style="color:white;">
                                 Change Profile
                             </a>
-                            <div class="sb-sidenav-menu-heading">Tools</div>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Settings
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
-                                Logs
-                            </a>
-                            <a class="nav-link" href="#" style="color:white;">
+                            <a class="nav-link" href="help.php" style="color:white;">
                                 Help
+                            </a>
+                            <a class="nav-link" href="cases.php" style="color:white;">
+                                My Cases
+                            </a>
+                            <?php
+                                }
+                            ?>
+                            <hr />
+                            <a class="nav-link" href="about.php" style="color:white;">
+                                About Us
                             </a>
                         </div>
                     </div>
@@ -148,20 +156,40 @@ $data = $controllers->getVirtualMachineUsage($uuid);
             <div id="layoutSidenav_content">
                 <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Virtual Machines</h1>
+                    <h1 class="mt-4">Virtual Machines Usage</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Virtual Machines</li>
+                            <li class="breadcrumb-item active">Virtual Machines Usage</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            Virtual Machines Details
+                            Virtual Machines Usage Details
                             </div>
                         </div>
                         <div class="card mb-4" style="width: 100%; height: 600px; overflow-x: scroll; overflow-y: scroll;">
                         <div style="margin: 15px;">
-                            <a href="create_usage_vm.php?uuid=<?php echo $_GET["uuid"];?>" class="btn btn-primary" style="height: 40px;">Add Usage +</a> &nbsp;
-                            <input type="text" name="searchVMUsage" id="searchVMUsage" placeholder="Search VM..." style="height: 36px;"/>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div style="margin:10px;">
+                                            <a href="create_usage_vm.php?uuid=<?php echo $_GET["uuid"];?>" class="btn btn-primary" style="height: 40px;">Add Usage +</a> &nbsp;
+                                        </div>    
+                                    </td>
+                                    <td>
+                                        <div style="margin:13px;">
+                                            <form method="post" action="export_vm_usage.php">
+                                                <input type="hidden" name="uuid" value="<?php echo $_GET['uuid'];?>"/>
+                                                <input id="downloadBtn" type="submit" class="btn btn-success" name="export_vm_usage" value="Download Report as Excel"/>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="margin:2px;">
+                                            <input type="text" name="searchVMUsage" id="searchVMUsage" placeholder="Search Usage..." style="height: 36px;"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                         <table class="table table-bordered">
                             <thead>
