@@ -58,6 +58,9 @@ session_start();
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <title>Help Page</title>
     </head>
     
@@ -112,7 +115,7 @@ session_start();
         input[type=text] 
         {
           background-color: #f1f1f1;
-          width: 40%;
+          width: 117%;
           margin-left:12px;
           border: 3px solid black;
         }
@@ -120,23 +123,70 @@ session_start();
          input[type=email] 
         {
           background-color: #f1f1f1;
-          width: 40%;
+          width: 117%;
           margin-left:12px;
           border: 3px solid black;
         }
 
          #formInfo
-		{
-			background-color: #3B9C9C;
-            border: 3px solid salmon;
-            margin-left:10px;
-            padding: 20px;
-            border-radius: 25px;
-            color:white;
-		}
+        {
+          background-color: #3B9C9C;
+                border: 3px solid salmon;
+                margin-left:10px;
+                padding: 20px;
+                border-radius: 25px;
+                color:white;
+        }
 
-
-        
+        /*Form*/
+        .container-contact{
+          background-color: #8bd5ff;
+        }
+        .contact{
+          padding: 4%;
+          height: 400px;
+        }
+        .col-md-3{
+          background: #ff9b00;
+          padding: 4%;
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+        }
+        .contact-info{
+          margin-top:10%;
+        }
+        .contact-info img{
+          margin-bottom: 15%;
+        }
+        .contact-info h2{
+          margin-bottom: 10%;
+        }
+        .col-md-9{
+          background: #fff;
+          padding: 3%;
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+          background-color: #8bd5ff;
+        }
+        .contact-form label{
+          font-weight:600;
+        }
+        .contact-form button{
+          background: #25274d;
+          color: #fff;
+          font-weight: 600;
+          width: 25%;
+        }
+        .contact-form button:focus{
+          box-shadow:none;
+        }
+        .form-control
+        {
+          border-radius: 25px;
+          border: 2px solid black;
+          padding: 20px; 
+          width:120%;
+        }
 
 
     </style>
@@ -250,7 +300,7 @@ session_start();
                                 <strong>If you get an error message when you try to visit a website, try these fixes.</strong> 
                                 <br>If your error isn't listed below, learn how to fix page loading errors or downloading errors.
                                 <br><br><strong>Fix most connection errors</strong><br>
-                                If you try to visit a website and it doesn’t open, first try to fix the error with these troubleshooting steps:<br>
+                                If you try to visit a website and it doesnï¿½t open, first try to fix the error with these troubleshooting steps:<br>
                                 1. Check the web address for typos.<br>
                                 2. Make sure your internet connection is working normally. If your internet connection is unstable, learn how to fix internet stability issues.<br>
                                 3. Contact the website owner.
@@ -274,7 +324,7 @@ session_start();
                     </div>
                     <br><br>
                     <!--Here-->
-
+                    <!--
                     <div>
                          <form id="formInfo">
                             <div class="form-group">
@@ -290,16 +340,58 @@ session_start();
                               <input type="submit" name="Submit" value="Submit" class="btn btn-primary mb-2">
                          </form>
                     </div>
+                    -->
+
+                    <div class="container-contact">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="contact-info">
+                            <img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
+                            <h2>Contact Us</h2>
+                            <h4>We would love to hear from you !</h4>
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="contact-form">
+                            <div class="form-group">
+                              <label class="control-label col-sm-2" for="fname">First Name:</label>
+                              <div class="col-sm-10">          
+                              <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label col-sm-2" for="lname">Last Name:</label>
+                              <div class="col-sm-10">          
+                              <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label col-sm-2" for="email">Email:</label>
+                              <div class="col-sm-10">
+                              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label col-sm-2" for="comment">Comment:</label>
+                              <div class="col-sm-10">
+                              <textarea class="form-control" rows="5" id="comment"></textarea>
+                              </div>
+                            </div>
+                            <div class="form-group">        
+                              <div class="col-sm-offset-2 col-sm-10">
+                              <button type="submit" class="btn btn-default">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     <div class="col-md-2">
                        <a class="nav-link" href="ContactUs.php" target="_blank" style="color:blue;">
                                 Contact Us
                        </a>
                     </div>
-
-
-
-
                 </main>
                 <footer class="container-fluid text-center">
                     <p>Copyright 2021 &copy; Cloud Analytics provided by Tech Army</p>
