@@ -206,7 +206,8 @@ $data = $controllers->getAllCases();
                                 <th class="case_table_header">Comment</th>
                                 <th class="case_table_header">Case Status</th>
                                 <th class="case_table_header">Result Message</th>
-                                <th class="case_table_header">Actions</th>
+                                <th class="case_table_header">Update</th>
+                                <th class="case_table_header">Delete</th>
                             </thead>
                             <tbody id="caseTable">
                                 <?php
@@ -219,10 +220,8 @@ $data = $controllers->getAllCases();
                                         <td><?php echo $row['comment']; ?></td>
                                         <td><?php echo $row['caseStatus']; ?></td>
                                         <td><?php echo $row['resultMessage']; ?></td>
-                                        <td>
-                                            <a href="update_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-success">Update</a>
-                                            <a href="delete_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this case?');">Delete</a>
-                                        </td>
+                                        <td><a href="update_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-success">Update</a></td>
+                                        <td><a href="delete_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this case?');">Delete</a></td>
                                     </tr>
                                 <?php
                                     }
