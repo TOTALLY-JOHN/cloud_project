@@ -5,9 +5,12 @@ if (!isset($_SESSION['username'])) {
 }
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
+include('../lib/common/languages.php');
 $controllers = new DashboardController();
 $uuid = $_GET["uuid"];
 $data = $controllers->getVirtualMachineUsage($uuid);
+//! LANGUAGE SETTINGS
+$lang = $_SESSION['userLanguage'] ?? "en";
 ?>
 <DOCTYPE html>
     <html>
@@ -81,7 +84,7 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                 <li class="nav-item" >
                     <a class="nav-link" href="logout.php" role="button">
                         <i class="fas fa-sign-out-alt"></i>
-                        Logout
+                        <span id="logoutLabel"><?php echo $languages[$lang]['logout'];?></span>
                     </a>
                 </li>
             </ul>
@@ -91,63 +94,70 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" style="color:white; ">
+                        <a class="nav-link" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
-                                &nbsp; Hi, <?php echo $_SESSION['username'];?>
+                                <span id="currentUserLabel">&nbsp; <?php echo $languages[$lang]['hi'];?></span>, <?php echo $_SESSION['username'];?>
+                                <span id="koreanHiLabelAdd">
+                                <?php 
+                                    if ($_SESSION['userLanguage'] == "kr") {
+                                        echo "님";
+                                    } 
+                                ?>
+                                </span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] == "admin") {
                             ?>
                                 <a href="manage_users.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Users
+                                    <div id="manageUsersLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_users'];?>
                                     </div>
                                 </a>
                                 <a href="manage_cases.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Cases
+                                    <div id="manageCasesLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_cases'];?>
                                     </div>
                                 </a>
                             <?php
                                 }
                             ?>
-                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <br />
                             <a class="nav-link" href="dashboard.php" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                <span id="dashboardMenuLabel"><?php echo $languages[$lang]['dashboard'];?></span>
                             </a>
-                            <div class="sb-sidenav-menu-heading">Appliances</div>
+                            <div class="sb-sidenav-menu-heading" id="appliancesMenuLabel"><?php echo $languages[$lang]['appliances'];?></div>
                             <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
-                                CPU
+                                <span>CPU</span>
                             </a>
                             <a class="nav-link" href="dashboard_memory.php" style="color:white;">
-                                Memory
+                                <span id="memoryMenuLabel"><?php echo $languages[$lang]['memory'];?></span>
                             </a>
                             <a class="nav-link" href="dashboard_disk.php" style="color:white;">
                                 HDD/SSD
                             </a>
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
-                                Virtual Machines
+                                <span id="virtualMachinesMenuLabel" ><?php echo $languages[$lang]['virtual_machines'];?></span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] != "admin") {
                             ?>
-                            <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="change_profile.php" style="color:white;">
-                                Change Profile
+                            <div class="sb-sidenav-menu-heading" id="userMenuLabel"><?php echo $languages[$lang]['users'];?></div>
+                            <a id="changeProfileMenuLabel" class="nav-link" href="change_profile.php" style="color:white;">
+                                <?php echo $languages[$lang]['change_profile'];?>
                             </a>
-                            <a class="nav-link" href="help.php" style="color:white;">
-                                Help
+                            <a id="helpMenuLabel" class="nav-link" href="help.php" style="color:white;">
+                                <?php echo $languages[$lang]['help'];?>
                             </a>
-                            <a class="nav-link" href="cases.php" style="color:white;">
-                                My Cases
+                            <a id="myCasesMenuLabel" class="nav-link" href="cases.php" style="color:white;">
+                                <?php echo $languages[$lang]['my_cases'];?>
                             </a>
                             <?php
                                 }
                             ?>
                             <hr />
-                            <a class="nav-link" href="about.php" style="color:white;">
-                                About Us
+                            <a id="aboutUsMenuLabel" class="nav-link" href="about.php" style="color:white;">
+                                <?php echo $languages[$lang]['about_us'];?>
                             </a>
                         </div>
                     </div>
@@ -156,14 +166,14 @@ $data = $controllers->getVirtualMachineUsage($uuid);
             <div id="layoutSidenav_content">
                 <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Virtual Machines Usage</h1>
+                    <h1 class="mt-4"><?php echo $languages[$lang]['virtual_machines_usage'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Virtual Machines Usage</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            Virtual Machines Usage Details
+                                <?php echo $languages[$lang]['virtual_machines_usage_details'];?>
                             </div>
                         </div>
                         <div class="card mb-4" style="width: 100%; height: 600px; overflow-x: scroll; overflow-y: scroll;">
@@ -194,10 +204,10 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                         <table class="table table-bordered">
                             <thead>
                                 <th class="vm_table_header">UUID</th>
-                                <th class="vm_table_header">Usage Date</th>
-                                <th class="vm_table_header">CPU Usage</th>
-                                <th class="vm_table_header">Memory Usage</th>
-                                <th class="vm_table_header">Actions</th>
+                                <th class="vm_table_header"><?php echo $languages[$lang]['usage_date'];?></th>
+                                <th class="vm_table_header"><?php echo $languages[$lang]['cpu_usage'];?></th>
+                                <th class="vm_table_header"><?php echo $languages[$lang]['memory_usage'];?></th>
+                                <th class="vm_table_header"><?php echo $languages[$lang]['actions'];?></th>
                             </thead>
                             <tbody id="usageTable">
                                 <?php
@@ -209,8 +219,8 @@ $data = $controllers->getVirtualMachineUsage($uuid);
                                         <td><?php echo $row['cpuUsed']; ?></td>
                                         <td><?php echo $row['memoryUsed']; ?></td>
                                         <td>
-                                            <a href="update_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-success">Edit</a>
-                                            <a href="delete_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                            <a href="update_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-success"><?php echo $languages[$lang]['edit'];?></a>
+                                            <a href="delete_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-danger" onclick="return confirm('<?php echo $languages[$lang]['delete_item'];?>');"><?php echo $languages[$lang]['delete'];?></a>
                                         </td>
                                     </tr>
                                 <?php

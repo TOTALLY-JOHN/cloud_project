@@ -173,18 +173,27 @@ if (!isset($_SESSION['username'])) {
 			    	}
 			    };
 
+                function translate(currentLanguage) {
+                    firstline.textContent = currentLanguage.dashboard;
+                }
+
 			    if (window.location.hash){
+
 			    	if(window.location.hash === "#en"){
-				    	firstline.textContent = language.en.dashboard;
+                        translate(language.en);
+				    	// firstline.textContent = language.en.dashboard;
 				    }
 				   	if(window.location.hash === "#cn"){
-				    	firstline.textContent = language.cn.dashboard;
+                        translate(language.cn);
+				    	// firstline.textContent = language.cn.dashboard;
 				    }
 				    if(window.location.hash === "#my"){
-				    	firstline.textContent = language.my.dashboard;
+                        translate(language.my);
+				    	// firstline.textContent = language.my.dashboard;
 				    }
 				    if(window.location.hash === "#kr"){
-				    	firstline.textContent = language.kr.dashboard;
+                        translate(language.kr);
+				    	// firstline.textContent = language.kr.dashboard;
 				    }
 				}
 

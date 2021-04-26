@@ -6,9 +6,13 @@ if (!isset($_SESSION['username']) || $_SESSION['userRole'] != "admin") {
 
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/profile_controller.php');
+include('../lib/common/languages.php');
 $controllers = new ProfileController();
 $username = $_GET["username"];
 $queryResult = $controllers->allowChangePwd($username);
+
+//! LANGUAGE SETTINGS
+$lang = $_SESSION['userLanguage'] ?? "en";
 ?>
 <DOCTYPE html>
     <html>
@@ -34,13 +38,13 @@ $queryResult = $controllers->allowChangePwd($username);
                         <h2 style="padding: 25px">
                             <?php
                                 if($queryResult == "success") {
-                                    echo "Successfully allowed!";
+                                    echo $languages[$lang]['successfully_allowed'];
                                 } else {
-                                    echo "Failed to allow!";
+                                    echo $languages[$lang]['failed_to_allow'];
                                 }
                             ?>
                         </h2>
-                        <a href="manage_users.php" class="login">Go Back</a>
+                        <a href="manage_users.php" class="login"><?php echo $languages[$lang]['go_back'];?></a>
                     </div>
                     
                 </div>

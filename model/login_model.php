@@ -11,6 +11,7 @@
                 if ($_REQUEST['usernameInput'] == 'admin' && $_REQUEST['pwdInput'] == 'abcd1234') {
                     $_SESSION['username'] = "admin";
                     $_SESSION['userRole'] = "admin";
+                    $_SESSION['userLanguage'] = "en";
                     return 'login-success';    
                 }
             }
@@ -25,6 +26,7 @@
                 if($row['username']==$username) {
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['userRole'] = $row['userRole'];
+                    $_SESSION['userLanguage'] = "en";
                     return 'login-success';
                 } 
                 else {

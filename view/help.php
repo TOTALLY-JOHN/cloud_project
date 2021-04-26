@@ -6,8 +6,10 @@ if (!isset($_SESSION['username'])) {
 
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
+include('../lib/common/languages.php');
 $controllers = new DashboardController();
-
+//! LANGUAGE SETTINGS
+$lang = $_SESSION['userLanguage'] ?? "en";
 ?>
 <DOCTYPE html>
     <html>
@@ -191,7 +193,7 @@ $controllers = new DashboardController();
                 <li class="nav-item" >
                     <a class="nav-link" href="logout.php" role="button">
                         <i class="fas fa-sign-out-alt"></i>
-                        Logout
+                        <span id="logoutLabel"><?php echo $languages[$lang]['logout'];?></span>
                     </a>
                 </li>
             </ul>
@@ -201,63 +203,70 @@ $controllers = new DashboardController();
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                          <a class="nav-link" style="color:white; ">
+                        <a class="nav-link" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
-                                &nbsp; Hi, <?php echo $_SESSION['username'];?>
+                                <span id="currentUserLabel">&nbsp; <?php echo $languages[$lang]['hi'];?></span>, <?php echo $_SESSION['username'];?>
+                                <span id="koreanHiLabelAdd">
+                                <?php 
+                                    if ($_SESSION['userLanguage'] == "kr") {
+                                        echo "님";
+                                    } 
+                                ?>
+                                </span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] == "admin") {
                             ?>
                                 <a href="manage_users.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Users
+                                    <div id="manageUsersLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_users'];?>
                                     </div>
                                 </a>
                                 <a href="manage_cases.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Cases
+                                    <div id="manageCasesLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_cases'];?>
                                     </div>
                                 </a>
                             <?php
                                 }
                             ?>
-                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <br />
                             <a class="nav-link" href="dashboard.php" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                <span id="dashboardMenuLabel"><?php echo $languages[$lang]['dashboard'];?></span>
                             </a>
-                            <div class="sb-sidenav-menu-heading">Appliances</div>
+                            <div class="sb-sidenav-menu-heading" id="appliancesMenuLabel"><?php echo $languages[$lang]['appliances'];?></div>
                             <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
-                                CPU
+                                <span>CPU</span>
                             </a>
                             <a class="nav-link" href="dashboard_memory.php" style="color:white;">
-                                Memory
+                                <span id="memoryMenuLabel"><?php echo $languages[$lang]['memory'];?></span>
                             </a>
                             <a class="nav-link" href="dashboard_disk.php" style="color:white;">
                                 HDD/SSD
                             </a>
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
-                                Virtual Machines
+                                <span id="virtualMachinesMenuLabel" ><?php echo $languages[$lang]['virtual_machines'];?></span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] != "admin") {
                             ?>
-                            <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="change_profile.php" style="color:white;">
-                                Change Profile
+                            <div class="sb-sidenav-menu-heading" id="userMenuLabel"><?php echo $languages[$lang]['users'];?></div>
+                            <a id="changeProfileMenuLabel" class="nav-link" href="change_profile.php" style="color:white;">
+                                <?php echo $languages[$lang]['change_profile'];?>
                             </a>
-                            <a class="nav-link" href="help.php" style="color:white;">
-                                Help
+                            <a id="helpMenuLabel" class="nav-link" href="help.php" style="color:white;">
+                                <?php echo $languages[$lang]['help'];?>
                             </a>
-                            <a class="nav-link" href="cases.php" style="color:white;">
-                                My Cases
+                            <a id="myCasesMenuLabel" class="nav-link" href="cases.php" style="color:white;">
+                                <?php echo $languages[$lang]['my_cases'];?>
                             </a>
                             <?php
                                 }
                             ?>
                             <hr />
-                            <a class="nav-link" href="about.php" style="color:white;">
-                                About Us
+                            <a id="aboutUsMenuLabel" class="nav-link" href="about.php" style="color:white;">
+                                <?php echo $languages[$lang]['about_us'];?>
                             </a>
                         </div>
                     </div>
@@ -266,7 +275,7 @@ $controllers = new DashboardController();
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Our team are here to help</h1>
+                        <h1 class="mt-4"><?php echo $languages[$lang]['help_header'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Help</li>
@@ -274,55 +283,58 @@ $controllers = new DashboardController();
                     </div>
 
                     <div class="text-center">
-                        <h2>HAVE SOME QUESTION?</h2>
-                        <p>We're here to help and answer any question you might have. We look forward to hearing from you</p>
+                        <h2><?php echo $languages[$lang]['have_some_questions'];?></h2>
+                        <p><?php echo $languages[$lang]['help_message'];?></p>
                     </div>
 
-                    <h2>Frequently Asked Questions</h2>
+                    <h2><?php echo $languages[$lang]['frequently_asked_questions'];?></h2>
                     <div id="frequentlyAskedQuestionContainer">
                       <div>
                         <h2 class="accordion-header" id="flush-headingOne">
                           <a id="btn1" href="#question1" class="btn btn-warning" data-toggle="collapse">
-                            Page loading error codes and issues #1
+                            <?php echo $languages[$lang]['faq_q1'];?> #1
                           </a>
                         </h2>
                         <div id="question1" class="collapse">
-                            <strong>Fix "Aw, Snap!" page crashes and other page loading errors</strong><br> If you're getting the "Aw, Snap" error or another error code instead of a webpage, Chrome is having problems loading. You might also see the page loading slowly or not opening at all.<br>
-                            <strong>Reload the page</strong><br>Usually, you can reload the page to fix the error. Press F5 to reload the page.<br>
-                            <br><strong>If that didn't work...</strong><br><br>
-                            <strong>Step 1: Check your internet connection</strong>
-                            <br>Make sure your computer's connected to Wi-Fi or a wired network.<br>
-                            Try reloading the tab with the error.<br><br>
-                            <strong>Step 2: Clear your cache</strong><br>
-                            Chrome might have information stored that's stopping the page from loading.
+                            <strong><?php echo $languages[$lang]['faq_q1_a1'];?></strong>
+                            <br><?php echo $languages[$lang]['faq_q1_a2'];?>
+                            <br>
+                            <strong><?php echo $languages[$lang]['faq_q1_a3'];?></strong><br>
+                            <?php echo $languages[$lang]['faq_q1_a4'];?><br>
+                            <br><strong><?php echo $languages[$lang]['faq_q1_a5'];?></strong><br><br>
+                            <strong><?php echo $languages[$lang]['faq_q1_a6'];?></strong>
+                            <br><?php echo $languages[$lang]['faq_q1_a7'];?><br>
+                            <?php echo $languages[$lang]['faq_q1_a8'];?><br><br>
+                            <strong><?php echo $languages[$lang]['faq_q1_a9'];?></strong><br>
+                            <?php echo $languages[$lang]['faq_q1_a10'];?>
                         </div>
                       </div>
                       <div>
                         <h2 class="accordion-header" id="flush-headingOne">
                           <a id="btn2" href="#question2" class="btn btn-warning" data-toggle="collapse">
-                            Fix connection errors #2
+                          <?php echo $languages[$lang]['faq_q2'];?> #2
                           </a>
                         </h2>
                         <div id="question2" class="collapse">
-                                <strong>If you get an error message when you try to visit a website, try these fixes.</strong> 
-                                <br>If your error isn't listed below, learn how to fix page loading errors or downloading errors.
-                                <br><br><strong>Fix most connection errors</strong><br>
-                                If you try to visit a website and it doesn�t open, first try to fix the error with these troubleshooting steps:<br>
-                                1. Check the web address for typos.<br>
-                                2. Make sure your internet connection is working normally. If your internet connection is unstable, learn how to fix internet stability issues.<br>
-                                3. Contact the website owner.
+                                <strong><?php echo $languages[$lang]['faq_q2_a1'];?></strong> 
+                                <br><?php echo $languages[$lang]['faq_q2_a2'];?>
+                                <br><br><strong><?php echo $languages[$lang]['faq_q2_a3'];?></strong><br>
+                                <?php echo $languages[$lang]['faq_q2_a4'];?><br>
+                                <?php echo $languages[$lang]['faq_q2_a5'];?><br>
+                                <?php echo $languages[$lang]['faq_q2_a6'];?><br>
+                                <?php echo $languages[$lang]['faq_q2_a7'];?>
                         </div>
                       </div>
                       <div>
                         <h2 class="accordion-header" id="flush-headingOne">
                           <a id="btn3" href="#question3" class="btn btn-warning" data-toggle="collapse">
-                          How do I logout of this account? #3
+                          <?php echo $languages[$lang]['faq_q3'];?> #3
                           </a>
                         </h2>
                         <div id="question3" class="collapse">
-                        <strong>To log out this account on your device</strong><br>
-                           1. Click Log Out at the left side of the menu that appears.<br>
-                           2. Click the <strong>Logout Button</strong> on the top right of the page.
+                        <strong><?php echo $languages[$lang]['faq_q3_a1'];?></strong><br>
+                        <?php echo $languages[$lang]['faq_q3_a2'];?><br>
+                        <?php echo $languages[$lang]['faq_q3_a3'];?>
                         </div>
                       </div>
                     </div>
@@ -333,8 +345,8 @@ $controllers = new DashboardController();
                         <div class="col-md-3">
                           <div class="contact-info">
                             <img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
-                            <h2>Contact Us</h2>
-                            <h4>We would love to hear from you !</h4>
+                            <h2><?php echo $languages[$lang]['contact_us'];?></h2>
+                            <h4><?php echo $languages[$lang]['contact_message'];?></h4>
                           </div>
                         </div>
                         <div class="col-md-9">
@@ -342,26 +354,26 @@ $controllers = new DashboardController();
                           <input type="hidden" name="username" value="<?php echo $_SESSION['username'];?>"/>
                           <div class="contact-form">
                               <div class="form-group">
-                                <label class="control-label col-sm-2" for="fname">First Name:</label>
+                                <label class="control-label col-sm-2" for="fname"><?php echo $languages[$lang]['first_name'];?>:</label>
                                 <div class="col-sm-10">          
-                                <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="firstName" required>
+                                <input type="text" class="form-control" id="fname" placeholder="<?php echo $languages[$lang]['first_name'];?>" name="firstName" required>
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label class="control-label col-sm-2" for="lname">Last Name:</label>
+                                <label class="control-label col-sm-2" for="lname"><?php echo $languages[$lang]['last_name'];?>:</label>
                                 <div class="col-sm-10">          
-                                <input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lastName" required>
+                                <input type="text" class="form-control" id="lname" placeholder="<?php echo $languages[$lang]['last_name'];?>" name="lastName" required>
                                 </div>
                               </div>
                               <div class="form-group">
-                                <label class="control-label col-sm-2" for="comment">Comment:</label>
+                                <label class="control-label col-sm-2" for="comment"><?php echo $languages[$lang]['comment'];?>:</label>
                                 <div class="col-sm-10">
                                 <textarea class="form-control" rows="5" id="comment" name="comment" required></textarea>
                                 </div>
                               </div>
                               <div class="form-group">        
                                 <div class="col-sm-offset-2 col-sm-10" style="text-align:center;">
-                                <button type="submit" class="btn btn-default">Submit My Case</button>
+                                <button type="submit" class="btn btn-default"><?php echo $languages[$lang]['submit'];?></button>
                                 </div>
                               </div>
                             </div>
@@ -372,7 +384,7 @@ $controllers = new DashboardController();
 
                     <div class="col-md-2">
                        <a class="nav-link" href="ContactUs.php" target="_blank" style="color:blue;">
-                                Contact Us
+                        <?php echo $languages[$lang]['contact_us'];?>
                        </a>
                     </div>
                 </main>
@@ -385,14 +397,14 @@ $controllers = new DashboardController();
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Success Message</h4>
+						<h4 class="modal-title"><?php echo $languages[$lang]['success'];?></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Successfully created!</p>
+						<p><?php echo $languages[$lang]['successfully_created'];?></p>
 					</div>
 					<div class="modal-footer">
-                        <a href="dashboard_vm.php" class="btn btn-danger" data-dismiss="modal">Close</a>
+                        <a href="dashboard_vm.php" class="btn btn-danger" data-dismiss="modal"><?php echo $languages[$lang]['close'];?></a>
 					</div>
 				</div>
 			</div>
@@ -401,14 +413,14 @@ $controllers = new DashboardController();
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Error Message</h4>
+						<h4 class="modal-title"><?php echo $languages[$lang]['error'];?></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Failed to create a virtual machine.</p>
+						<p><?php echo $languages[$lang]['failed_to_create'];?></p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $languages[$lang]['close'];?></button>
 					</div>
 				</div>
 			</div>

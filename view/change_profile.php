@@ -4,9 +4,14 @@
         header('location: login.php');
     }
     require_once('../controller/profile_controller.php');
+    include('../lib/common/languages.php');
     $controllers = new ProfileController();
     $username = $_SESSION['username'];
     $row = $controllers->getProfile($username);
+
+    //! LANGUAGE SETTINGS
+    $lang = $_SESSION['userLanguage'] ?? "en";
+
 ?>
 <DOCTYPE html>
     <html>
@@ -45,23 +50,23 @@
             <div id="logoImageContainer">
                 <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" style="width:50%" />
             </div>
-            <h1 id="profileHeader">Profile Change</h1>
+            <h1 id="profileHeader"><?php echo $languages[$lang]['change_profile'];?></h1>
             <div id="profileBodyContainer">
                 <form method="post" autocomplete="off">
-                <span class="profileLabel">Username</span><br />
+                <span class="profileLabel"><?php echo $languages[$lang]['username'];?></span><br />
                     <input type="text" id="username" name="username" placeholder="Type your username" value="<?php echo $row['username'];?>" readonly/><br />
-                    <span class="profileLabel">User Email</span><br />
-                    <input type="text" id="userEmail" name="userEmail" placeholder="Type your email" value="<?php echo $row['userEmail'];?>" required/><br />
-                    <span class="profileLabel">New Password</span><br />
-                    <input type="password" id="userPwd" name="userPwd" placeholder="Type your password" required/><br />
-                    <span class="profileLabel">Re-enter Password</span><br />
-                    <input type="password" id="userPwdConfirm" name="userPwdConfirm" placeholder="Re-enter your password" required/><br />
+                    <span class="profileLabel"><?php echo $languages[$lang]['user_email'];?></span><br />
+                    <input type="text" id="userEmail" name="userEmail" placeholder="<?php echo $languages[$lang]['user_email'];?>" value="<?php echo $row['userEmail'];?>" required/><br />
+                    <span class="profileLabel"><?php echo $languages[$lang]['new_password'];?></span><br />
+                    <input type="password" id="userPwd" name="userPwd" placeholder="<?php echo $languages[$lang]['new_password'];?>" required/><br />
+                    <span class="profileLabel"><?php echo $languages[$lang]['re_enter_password'];?></span><br />
+                    <input type="password" id="userPwdConfirm" name="userPwdConfirm" placeholder="<?php echo $languages[$lang]['re_enter_password'];?>" required/><br />
                     <table>
                         <tbody>
                             <tr>
-                                <td><a class="profileBtn" href="dashboard.php">Go Back</a></td>
+                                <td><a class="profileBtn" href="dashboard.php"><?php echo $languages[$lang]['go_back'];?></a></td>
                                 <td>&nbsp;</td>
-                                <td><input type="submit" class="profileBtn" value="Submit" /></td>
+                                <td><input type="submit" class="profileBtn" value="<?php echo $languages[$lang]['submit'];?>" /></td>
                             </tr>
                         </tbody>
                     </table>
@@ -76,14 +81,14 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Success Message</h4>
+						<h4 class="modal-title"><?php echo $languages[$lang]['success'];?></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Successfully updated!</p>
+						<p><?php echo $languages[$lang]['successfully_updated'];?></p>
 					</div>
 					<div class="modal-footer">
-                        <a href="dashboard.php" class="btn btn-danger" data-dismiss="modal">Close</a>
+                        <a href="dashboard.php" class="btn btn-danger" data-dismiss="modal"><?php echo $languages[$lang]['close'];?></a>
 					</div>
 				</div>
 			</div>
@@ -92,14 +97,14 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Error Message</h4>
+						<h4 class="modal-title"><?php echo $languages[$lang]['error'];?></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Failed to change the profile.</p>
+						<p><?php echo $languages[$lang]['failed_to_update'];?></p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $languages[$lang]['close'];?></button>
 					</div>
 				</div>
 			</div>

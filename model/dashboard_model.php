@@ -12,6 +12,13 @@
             return $row;
         }
 
+        public function getAllVMSummaryData() {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT vm_details.uuid, vm_details.domainName, AVG(vm_usage.cpuUsed) AS cpuAvg, AVG(vm_usage.memoryUsed) AS memoryAvg FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_details.uuid, vm_details.domainName";
+            $r1 = @mysqli_query ($dbc, $q1);
+            return $r1;
+        }
+
         public function getAllVMData() {
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());

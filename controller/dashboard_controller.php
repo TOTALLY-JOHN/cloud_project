@@ -14,6 +14,11 @@
             return $result;
         }
 
+        public function getAllVirtualMachinesSummary() {
+            $result = $this->dashboardModel->getAllVMSummaryData();
+            return $result;
+        }
+
         public function getAllVirtualMachines() {
             $result = $this->dashboardModel->getAllVMData();
             return $result;

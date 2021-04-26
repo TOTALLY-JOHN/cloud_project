@@ -5,9 +5,12 @@ if (!isset($_SESSION['username'])) {
 }
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
+include('../lib/common/languages.php');
 $controllers = new DashboardController();
 $uuid = $_GET["uuid"];
 $queryResult = $controllers->deleteVirtualMachine($uuid);
+//! LANGUAGE SETTINGS
+$lang = $_SESSION['userLanguage'] ?? "en";
 ?>
 <DOCTYPE html>
     <html>
@@ -33,13 +36,13 @@ $queryResult = $controllers->deleteVirtualMachine($uuid);
                         <h2 style="padding: 25px">
                             <?php
                                 if($queryResult == "success") {
-                                    echo "Successfully deleted!";
+                                    echo $languages[$lang]['successfully_deleted'];
                                 } else {
-                                    echo "Failed to delete!";
+                                    echo $languages[$lang]['failed_to_delete'];
                                 }
                             ?>
                         </h2>
-                        <a href="dashboard_vm.php" class="login">Go Back</a>
+                        <a href="dashboard_vm.php" class="login"><?php echo $languages[$lang]['go_back'];?></a>
                     </div>
                     
                 </div>

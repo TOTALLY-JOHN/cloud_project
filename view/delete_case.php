@@ -5,9 +5,12 @@ if (!isset($_SESSION['username'])) {
 }
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
+include('../lib/common/languages.php');
 $controllers = new DashboardController();
 $caseId = $_GET["caseId"];
 $queryResult = $controllers->deleteCase($caseId);
+//! LANGUAGE SETTINGS
+$lang = $_SESSION['userLanguage'] ?? "en";
 ?>
 <DOCTYPE html>
     <html>
@@ -33,20 +36,20 @@ $queryResult = $controllers->deleteCase($caseId);
                         <h2 style="padding: 25px">
                             <?php
                                 if($queryResult == "success") {
-                                    echo "Successfully deleted!";
+                                    echo $languages[$lang]['successfully_deleted'];
                                 } else {
-                                    echo "Failed to delete!";
+                                    echo $languages[$lang]['failed_to_delete'];
                                 }
                             ?>
                         </h2>
                         <?php
                             if($_SESSION['userRole'] == "admin") {
                         ?>
-                            <a href="manage_cases.php" class="login">Go Back</a>
+                            <a href="manage_cases.php" class="login"><?php echo $languages[$lang]['go_back'];?></a>
                         <?php
                             } else {
                         ?>
-                            <a href="cases.php" class="login">Go Back</a>
+                            <a href="cases.php" class="login"><?php echo $languages[$lang]['go_back'];?></a>
                         <?php
                             }
                         ?>

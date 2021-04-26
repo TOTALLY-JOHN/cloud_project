@@ -3,6 +3,13 @@ session_start();
 if (!isset($_SESSION['username'])) {
     header('location: login.php');
 }
+//! LANGUAGE SETTINGS
+include('../lib/common/languages.php');
+$lang = $_SESSION['userLanguage'] ?? "en";
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $lang = $_POST["lang"];
+    $_SESSION['userLanguage'] = $lang;
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +26,20 @@ if (!isset($_SESSION['username'])) {
     </head>
 
     <style>
-
+        #languageLabel {
+            color: white;
+        }
+        .dropdownInputItem {
+            padding: 12px;
+            background-color: white;
+            border: none;
+            width: 155px;
+            height: 50px;
+            text-align: left;
+        }
+        .dropdownInputItem:hover {
+            background-color: #eeeeee;
+        }
     </style>
 
     <body class="sb-nav-fixed">
@@ -30,10 +50,53 @@ if (!isset($_SESSION['username'])) {
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form> 
             <!-- Navbar-->
             <ul class="navbar-nav ml-auto ml-md-0">
+                <li class="nav-item">
+                	<div class="dropdown btn-group">
+	                    <a class="btn dropdown-toggle" data-toggle="dropdown" id="languageLabel">
+                            <?php echo $languages[$lang]['language'];?>
+	                    </a>
+	                    <ul id="language" class="dropdown-menu">
+                            <li>
+                                <div class="langDropdownItem">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="en"/>
+                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['english'];?>">
+                                    </form>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="langDropdownItem">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="cn"/>
+                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['chinese'];?>"/>
+                                    </form>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="langDropdownItem">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="my"/>
+                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['malay'];?>"/>
+                                    </form>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="langDropdownItem">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="kr"/>
+                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['korean'];?>"/>
+                                    </form>
+                                </div>
+                            </li>
+	                    </ul>
+	                </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto ml-md-0">
                 <li class="nav-item" >
                     <a class="nav-link" href="logout.php" role="button">
                         <i class="fas fa-sign-out-alt"></i>
-                        Logout
+                        <span id="logoutLabel"><?php echo $languages[$lang]['logout'];?></span>
                     </a>
                 </li>
             </ul>
@@ -43,63 +106,70 @@ if (!isset($_SESSION['username'])) {
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" style="color:white; ">
+                        <a class="nav-link" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
-                                &nbsp; Hi, <?php echo $_SESSION['username'];?>
+                                <span id="currentUserLabel">&nbsp; <?php echo $languages[$lang]['hi'];?></span>, <?php echo $_SESSION['username'];?>
+                                <span id="koreanHiLabelAdd">
+                                <?php 
+                                    if ($_SESSION['userLanguage'] == "kr") {
+                                        echo "님";
+                                    } 
+                                ?>
+                                </span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] == "admin") {
                             ?>
                                 <a href="manage_users.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Users
+                                    <div id="manageUsersLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_users'];?>
                                     </div>
                                 </a>
                                 <a href="manage_cases.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Cases
+                                    <div id="manageCasesLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_cases'];?>
                                     </div>
                                 </a>
                             <?php
                                 }
                             ?>
-                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <br />
                             <a class="nav-link" href="dashboard.php" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                <span id="dashboardMenuLabel"><?php echo $languages[$lang]['dashboard'];?></span>
                             </a>
-                            <div class="sb-sidenav-menu-heading">Appliances</div>
+                            <div class="sb-sidenav-menu-heading" id="appliancesMenuLabel"><?php echo $languages[$lang]['appliances'];?></div>
                             <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
-                                CPU
+                                <span>CPU</span>
                             </a>
                             <a class="nav-link" href="dashboard_memory.php" style="color:white;">
-                                Memory
+                                <span id="memoryMenuLabel"><?php echo $languages[$lang]['memory'];?></span>
                             </a>
                             <a class="nav-link" href="dashboard_disk.php" style="color:white;">
                                 HDD/SSD
                             </a>
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
-                                Virtual Machines
+                                <span id="virtualMachinesMenuLabel" ><?php echo $languages[$lang]['virtual_machines'];?></span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] != "admin") {
                             ?>
-                            <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="change_profile.php" style="color:white;">
-                                Change Profile
+                            <div class="sb-sidenav-menu-heading" id="userMenuLabel"><?php echo $languages[$lang]['users'];?></div>
+                            <a id="changeProfileMenuLabel" class="nav-link" href="change_profile.php" style="color:white;">
+                                <?php echo $languages[$lang]['change_profile'];?>
                             </a>
-                            <a class="nav-link" href="help.php" style="color:white;">
-                                Help
+                            <a id="helpMenuLabel" class="nav-link" href="help.php" style="color:white;">
+                                <?php echo $languages[$lang]['help'];?>
                             </a>
-                            <a class="nav-link" href="cases.php" style="color:white;">
-                                My Cases
+                            <a id="myCasesMenuLabel" class="nav-link" href="cases.php" style="color:white;">
+                                <?php echo $languages[$lang]['my_cases'];?>
                             </a>
                             <?php
                                 }
                             ?>
                             <hr />
-                            <a class="nav-link" href="about.php" style="color:white;">
-                                About Us
+                            <a id="aboutUsMenuLabel" class="nav-link" href="about.php" style="color:white;">
+                                <?php echo $languages[$lang]['about_us'];?>
                             </a>
                         </div>
                     </div>
@@ -108,23 +178,20 @@ if (!isset($_SESSION['username'])) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Memory</h1>
+                        <h1 class="mt-4"><?php echo $languages[$lang]['memory'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Memory</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                            The <b>Memory Usage </b> window displays the amount of memory available on your system, as well as the memory currently in use by 
-                            all applications, including Windows itself. The memory available on your system is the sum of all physical memory installed 
-                            on your system and the pagefile on your hard disk, which is used to complement the physical memory.
-                            
+                            <?php echo $languages[$lang]['memory_usage'];?>
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-line mr-1"></i>
-                                Memory Usage
+                                <?php echo $languages[$lang]['memory_usage'];?>
                             </div>
                             <div class="card-body"><canvas id="chartjs_bar"></canvas> </div>
                     </div>

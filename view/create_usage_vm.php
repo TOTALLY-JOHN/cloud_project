@@ -6,9 +6,11 @@ if (!isset($_SESSION['username'])) {
 
 /// [CONNECT THE DASHBOARD CONTROLLER]
 require_once('../controller/dashboard_controller.php');
+include('../lib/common/languages.php');
 $controllers = new DashboardController();
 $uuid = $_GET["uuid"];
-
+//! LANGUAGE SETTINGS
+$lang = $_SESSION['userLanguage'] ?? "en";
 ?>
 <DOCTYPE html>
     <html>
@@ -131,7 +133,7 @@ $uuid = $_GET["uuid"];
                 <li class="nav-item" >
                     <a class="nav-link" href="logout.php" role="button">
                         <i class="fas fa-sign-out-alt"></i>
-                        Logout
+                        <span id="logoutLabel"><?php echo $languages[$lang]['logout'];?></span>
                     </a>
                 </li>
             </ul>
@@ -141,63 +143,70 @@ $uuid = $_GET["uuid"];
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link" style="color:white; ">
+                        <a class="nav-link" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
-                                &nbsp; Hi, <?php echo $_SESSION['username'];?>
+                                <span id="currentUserLabel">&nbsp; <?php echo $languages[$lang]['hi'];?></span>, <?php echo $_SESSION['username'];?>
+                                <span id="koreanHiLabelAdd">
+                                <?php 
+                                    if ($_SESSION['userLanguage'] == "kr") {
+                                        echo "님";
+                                    } 
+                                ?>
+                                </span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] == "admin") {
                             ?>
                                 <a href="manage_users.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Users
+                                    <div id="manageUsersLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_users'];?>
                                     </div>
                                 </a>
                                 <a href="manage_cases.php" class="nav-link" style="color:white;">
-                                    <div class="sb-nav-link-icon" style="color:white;" >
-                                        Manage Cases
+                                    <div id="manageCasesLabel" class="sb-nav-link-icon" style="color:white;" >
+                                        <?php echo $languages[$lang]['manage_cases'];?>
                                     </div>
                                 </a>
                             <?php
                                 }
                             ?>
-                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <br />
                             <a class="nav-link" href="dashboard.php" style="color:white; ">
                                 <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                                <span id="dashboardMenuLabel"><?php echo $languages[$lang]['dashboard'];?></span>
                             </a>
-                            <div class="sb-sidenav-menu-heading">Appliances</div>
+                            <div class="sb-sidenav-menu-heading" id="appliancesMenuLabel"><?php echo $languages[$lang]['appliances'];?></div>
                             <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
-                                CPU
+                                <span>CPU</span>
                             </a>
                             <a class="nav-link" href="dashboard_memory.php" style="color:white;">
-                                Memory
+                                <span id="memoryMenuLabel"><?php echo $languages[$lang]['memory'];?></span>
                             </a>
                             <a class="nav-link" href="dashboard_disk.php" style="color:white;">
                                 HDD/SSD
                             </a>
                             <a class="nav-link" href="dashboard_vm.php" style="color:white;">
-                                Virtual Machines
+                                <span id="virtualMachinesMenuLabel" ><?php echo $languages[$lang]['virtual_machines'];?></span>
                             </a>
                             <?php
                                 if ($_SESSION['userRole'] != "admin") {
                             ?>
-                            <div class="sb-sidenav-menu-heading">Users</div>
-                            <a class="nav-link" href="change_profile.php" style="color:white;">
-                                Change Profile
+                            <div class="sb-sidenav-menu-heading" id="userMenuLabel"><?php echo $languages[$lang]['users'];?></div>
+                            <a id="changeProfileMenuLabel" class="nav-link" href="change_profile.php" style="color:white;">
+                                <?php echo $languages[$lang]['change_profile'];?>
                             </a>
-                            <a class="nav-link" href="help.php" style="color:white;">
-                                Help
+                            <a id="helpMenuLabel" class="nav-link" href="help.php" style="color:white;">
+                                <?php echo $languages[$lang]['help'];?>
                             </a>
-                            <a class="nav-link" href="cases.php" style="color:white;">
-                                My Cases
+                            <a id="myCasesMenuLabel" class="nav-link" href="cases.php" style="color:white;">
+                                <?php echo $languages[$lang]['my_cases'];?>
                             </a>
                             <?php
                                 }
                             ?>
                             <hr />
-                            <a class="nav-link" href="about.php" style="color:white;">
-                                About Us
+                            <a id="aboutUsMenuLabel" class="nav-link" href="about.php" style="color:white;">
+                                <?php echo $languages[$lang]['about_us'];?>
                             </a>
                         </div>
                     </div>
@@ -206,33 +215,32 @@ $uuid = $_GET["uuid"];
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Virtual Machines</h1>
+                        <h1 class="mt-4"><?php echo $languages[$lang]['virtual_machines'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">VM Usage</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                Write previous virtual machine usage.
+                            <?php echo $languages[$lang]['virtual_machines'];?>
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <form method="post" autocomplete="off">
                                     <span class="vmLabel">UUID</span><br />
-                                    <input type="text" id="vmUUID" name="vmUUID" placeholder="Type VM UUID" value="<?php echo $uuid;?>" readonly/><br />
+                                    <input type="text" id="vmUUID" name="vmUUID" placeholder="VM UUID" value="<?php echo $uuid;?>" readonly/><br />
 
-                                    <span class="vmLabel">Usage Date</span><br />
-                                    <input type="date" id="usageDate" name="usageDate" placeholder="Select Usage Date" required/><br />
+                                    <span class="vmLabel"><?php echo $languages[$lang]['usage_date'];?></span><br />
+                                    <input type="date" id="usageDate" name="usageDate" placeholder="<?php echo $languages[$lang]['usage_date'];?>" required/><br />
 
-                                    <span class="vmLabel">CPU Usage</span><br />
-                                    <input type="number" id="cpuUsed" name="cpuUsed" placeholder="Type VM CPU Used" required/><br />
+                                    <span class="vmLabel"><?php echo $languages[$lang]['cpu_usage'];?></span><br />
+                                    <input type="number" id="cpuUsed" name="cpuUsed" placeholder="<?php echo $languages[$lang]['cpu_usage'];?>" required/><br />
 
-                                    <span class="vmLabel">Memory Usage</span><br />
-                                    <input type="number" id="memoryUsed" name="memoryUsed" placeholder="Type VM Memory Used" required/><br />
+                                    <span class="vmLabel"><?php echo $languages[$lang]['memory_usage'];?></span><br />
+                                    <input type="number" id="memoryUsed" name="memoryUsed" placeholder="<?php echo $languages[$lang]['memory_usage'];?>" required/><br />
                                     
-                                    <input type="submit" class="createVMUsageBtn" value="Create" /><br />
-                                    <!-- <input type="submit" class="createVMBtn" value="SIGN UP" onclick="matchPassword(pwdInput1, pwdInput2)" /><br /> -->
+                                    <input type="submit" class="createVMUsageBtn" value="<?php echo $languages[$lang]['create'];?>" /><br />
                                 </form>
                             </div>
                         </div>
@@ -248,14 +256,14 @@ $uuid = $_GET["uuid"];
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Success Message</h4>
+						<h4 class="modal-title"><?php echo $languages[$lang]['success'];?></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Successfully created!</p>
+						<p><?php echo $languages[$lang]['successfully_created'];?></p>
 					</div>
 					<div class="modal-footer">
-                        <a href="dashboard_vm.php" class="btn btn-danger" data-dismiss="modal">Close</a>
+                        <a href="dashboard_vm.php" class="btn btn-danger" data-dismiss="modal"><?php echo $languages[$lang]['close'];?></a>
 					</div>
 				</div>
 			</div>
@@ -264,14 +272,14 @@ $uuid = $_GET["uuid"];
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Error Message</h4>
+						<h4 class="modal-title"><?php echo $languages[$lang]['error'];?></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Failed to create a virtual machine usage.</p>
+						<p><?php echo $languages[$lang]['failed_to_create'];?></p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo $languages[$lang]['close'];?></button>
 					</div>
 				</div>
 			</div>
