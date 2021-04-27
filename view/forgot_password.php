@@ -41,8 +41,9 @@
             .error {color: #FF0000;}
         </style>
     </head>
-    <link rel="stylesheet" href="../lib/styles/forgot_password_style.css">
-    <link rel="stylesheet" href="../lib/styles/change_profile_style.css">
+    <link rel="stylesheet" href="../lib/assets/css/utilLogin.css">
+    <link rel="stylesheet" href="../lib/assets/css/forgotpswd_style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -71,7 +72,39 @@
         
     </style>
     <body>
-        <div id="forgotPwdContainer">
+        <div class="limiter">
+			<div class="forgotContainer">
+				<div class="wrap-forgot100 p-l-85 p-r-85 p-t-40 p-b-55">
+					<div id="logoImageContainer">
+						<img id="logoImage" src="../lib/assets/img/techlogo1.png" alt="tech_army_logo" style="width:50%" />
+					</div>
+					<form class="forgot100-form validate-form flex-sb flex-w" method="post" autocomplete="off" name="myFormOne" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+						<span class="forgotTittle p-t-40 p-b-40">
+							Forgot Password
+						</span>
+
+                        <div class="resetpwheader p-b-40">
+                            <p style="font-size: 16px;">Please enter the username your account is registered with: </p>   
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-12">
+                            <input type="text" class="input100" placeholder="Username" name="username" style="font-size: 16px;" required="required">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-user" aria-hidden="true"></i>
+							</span>
+                            <span class="error"> <?php echo $usernameErr;?></span>
+						</div>
+
+						<div class="conatinerSubmitButton p-t-40">
+							<input type="submit" class="submit" value="Submit" style="color: white;" />
+						</div> 
+					</form>
+				</div>
+			</div>
+		</div>
+
+        <!-- <div id="forgotPwdContainer">
             <div id="logoImageContainer">
                 <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" />
             </div>
@@ -87,8 +120,8 @@
                     <input type="submit" class="submitButton" value="<?php echo $languages[$lang]['submit'];?>"/><br />               
                 </form>
             </div>
+        </div> -->
 
-        </div>
         <div id="successModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
