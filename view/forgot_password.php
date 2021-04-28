@@ -98,7 +98,9 @@
 
 						<div class="conatinerSubmitButton p-t-40">
 							<input type="submit" class="submit" value="Submit" style="color: white;" />
-						</div> 
+						</div> <br />
+
+                        <div style="width: 100%; text-align:center;"><a href="login.php">Go Back</a></p>
 					</form>
 				</div>
 			</div>

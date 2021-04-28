@@ -15,10 +15,9 @@
 
             $username = test_input($_REQUEST["username"]);
             $userPwd = test_input($_REQUEST["userPwd"]);
-            $userEmail = test_input($_REQUEST["userEmail"]);
 
             if($row['NUM']<1) {
-                $sql = "INSERT INTO users (username, userPwd, userEmail) VALUES ('".$username."','".hash('sha256', $userPwd)."','".$userEmail."')";
+                $sql = "INSERT INTO users (username, userPwd, userRole, forgotPwd) VALUES ('".$username."','".hash('sha256', $userPwd)."', 'staff', 0)";
                 if ($dbc->query($sql) === TRUE) {
                     $_SESSION["signup_status"] = "success";
                     return "signup-success";

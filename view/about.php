@@ -8,11 +8,6 @@ session_start();
 include('../lib/common/languages.php');
 $lang = $_SESSION['userLanguage'] ?? "en";
 
-//! TEMPORARY INITIALIZING
-$_SESSION['userRole'] = "admin";
-$_SESSION['username'] = "admin123";
-//!
-
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lang = $_POST["lang"];
     $_SESSION['userLanguage'] = $lang;
@@ -25,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>About Us</title>
+        <title>Tech Army</title>
         <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
         <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
@@ -265,102 +260,101 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
                 <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <div class="navbar-toggle d-inline">
-                    <button type="button" class="navbar-toggler">
-                        <span class="navbar-toggler-bar bar1"></span>
-                        <span class="navbar-toggler-bar bar2"></span>
-                        <span class="navbar-toggler-bar bar3"></span>
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle d-inline">
+                        <button type="button" class="navbar-toggler">
+                            <span class="navbar-toggler-bar bar1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </button>
+                        </div>
+                        <a class="navbar-brand" href="dashboard.php">Cloud Analytics</a> <!-- :void(0) to prevent the page from refreshing -->
+                        </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
                     </button>
-                    </div>
-                    <a class="navbar-brand" href="javascript:void(0)"> <?php echo $languages[$lang]['about_us'];?> </a> <!-- :void(0) to prevent the page from refreshing -->
-                    </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navigation">
-                    <ul class="navbar-nav ml-auto">
-                    <li>
-                        <input type="checkbox" class="checkbox" id="checkbox">
-                        <label for="checkbox" class="label_theme">
-                            <i class="fas fa-sun"></i>
-                            <i class="fas fa-moon"></i>
-                            <div class="ball"></div>
-                        </label>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        
-                        <div class="photo">
-                            <img src="../lib/assets/img/languages_icon.png" alt="Language Translation">
-                            <i class="fa fa-language" aria-hidden="true"></i>
-                        </div>
-                        <b class="caret d-none d-lg-block d-xl-block"></b>
-                        <p class="d-lg-none">
-                            <?php echo $languages[$lang]['language'];?>
-                        </p>
-                        </a>
-                        <ul class="dropdown-menu dropdown-navbar">
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="en"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['english'];?>">
-                                </form>
-                            </li>
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="cn"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['chinese'];?>"/>
-                                </form>
-                            </li>
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="my"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['malay'];?>"/>
-                                </form>
-                            </li>
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="kr"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['korean'];?>"/>
-                                </form>
-                            </li>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                        <li>
+                            <input type="checkbox" class="checkbox" id="checkbox">
+                            <label for="checkbox" class="label_theme">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                                <div class="ball"></div>
+                            </label>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            
+                            <div class="photo">
+                                <img src="../lib/assets/img/languages_icon.png" alt="Language Translation">
+                                <i class="fa fa-language" aria-hidden="true"></i>
+                            </div>
+                            <b class="caret d-none d-lg-block d-xl-block"></b>
+                            <p class="d-lg-none">
+                                <?php echo $languages[$lang]['language'];?>
+                            </p>
+                            </a>
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="en"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['english'];?>">
+                                    </form>
+                                </li>
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="cn"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['chinese'];?>"/>
+                                    </form>
+                                </li>
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="my"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['malay'];?>"/>
+                                    </form>
+                                </li>
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="kr"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['korean'];?>"/>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <div class="photo">
+                                <img src="../lib/assets/img/anime3.png" alt="Profile Photo">
+                            </div>
+                            <b class="caret d-none d-lg-block d-xl-block"></b>
+                            <p class="d-lg-none">
+                                User
+                            </p>
+                            </a>
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li class="nav-link">
+                                    <p class="nav-item dropdown-item "> 
+                                        <?php echo $languages[$lang]['hi'];?>, 
+                                        <?php echo $_SESSION['username'];?> 
+                                        <?php 
+                                        if ($_SESSION['userLanguage'] == "kr") {
+                                            echo "님";
+                                        } 
+                                        ?>
+                                    </p>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="nav-link">
+                                    <a href="./logout.php" class="nav-item dropdown-item"><?php echo $languages[$lang]['logout'];?> &nbsp;<i class="fas fa-sign-out-alt"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="separator d-lg-none"></li>
                         </ul>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <div class="photo">
-                            <img src="../lib/assets/img/anime3.png" alt="Profile Photo">
-                        </div>
-                        <b class="caret d-none d-lg-block d-xl-block"></b>
-                        <p class="d-lg-none">
-                            User
-                        </p>
-                        </a>
-                        <ul class="dropdown-menu dropdown-navbar">
-                            <li class="nav-link">
-                                <p class="nav-item dropdown-item "> 
-                                    <?php echo $languages[$lang]['hi'];?>, <?php echo $_SESSION['username'] ?? "admin123";?> 
-                                </p>
-                                <!-- <p id="koreanHiLabelAdd" class="nav-item dropdown-item">
-                                <?php 
-                                    if ($_SESSION['userLanguage'] == "kr") {
-                                        echo "님";
-                                    } 
-                                ?>
-                                </p> -->
-                            </li>
-                            <li class="dropdown-divider"></li>
-                            <li class="nav-link">
-                                <a href="./logout.php" class="nav-item dropdown-item"><?php echo $languages[$lang]['logout'];?> &nbsp;<i class="fas fa-sign-out-alt"></i></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="separator d-lg-none"></li>
-                    </ul>
-                </div>
+                    </div>
                 </div>
             </nav>
             <!-- End Navbar -->
@@ -464,8 +458,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../lib/assets/js/black-dashboard.min.js"></script>
         <script>
-            
-            /* --- CHANGE THEME MODE --- */
             $('#checkbox').change(function(){
                 if($(this).is(":checked")) {
                 $('body').addClass('change-background');
@@ -481,7 +473,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }, 100);
                 }
             });
-
 
             $(document).ready(function() {
             $().ready(function() {

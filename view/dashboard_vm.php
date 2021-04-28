@@ -8,7 +8,6 @@ require_once('../controller/dashboard_controller.php');
 include('../lib/common/languages.php');
 $controllers = new DashboardController();
 $data = $controllers->getAllVirtualMachines();
-echo $_SESSION['userRole'];
 //! LANGUAGE SETTINGS
 $lang = $_SESSION['userLanguage'] ?? "en";
 ?>
@@ -18,24 +17,19 @@ $lang = $_SESSION['userLanguage'] ?? "en";
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
+        <!-- <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
-        <script>
-            $(document).ready(function() {
-                $("#searchVM").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#vmTable tr").filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                    });
-                });
-            });
-        </script>
-
-        <title>VM Usage</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"> -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+        <!-- Nucleo Icons -->
+        <link href="../lib/assets/css/nucleo-icons.css" rel="stylesheet" />
+        <!-- CSS Files -->
+        <link href="../lib/assets/css/black-dashboard.css" rel="stylesheet" />
+        <title>Tech Army</title>
     </head>
     
 
@@ -64,11 +58,6 @@ $lang = $_SESSION['userLanguage'] ?? "en";
         .material-icons-outlined {
             transform: scale(1.5);
         }
-
-        .vm_table_header {
-            background-color: #eeeeee;
-            font-weight: bold;
-        }
         
         #tableContainer {
             width: 100%; 
@@ -77,7 +66,7 @@ $lang = $_SESSION['userLanguage'] ?? "en";
             overflow-y: scroll;
         }
 
-        #searchVM {
+        #myInput {
             height: 40px; 
             border: 2px solid black; 
             border-radius: 5px; 
@@ -85,232 +74,337 @@ $lang = $_SESSION['userLanguage'] ?? "en";
         }
 
         #createVMBtn {
+            width: 220px;
             height: 40px;
         }
 
         #downloadBtn {
+            margin-top: 18px;
             height: 40px;
         }
 
         
     </style>
     </head>
-
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="dashboard.php">TechArmy</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form> 
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item" >
-                    <a class="nav-link" href="logout.php" role="button">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span id="logoutLabel"><?php echo $languages[$lang]['logout'];?></span>
+    <body class="">
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                    <a href="dashboard.php" class="simple-text logo-mini">
+                        <strong>T</strong> <strong>A</strong>
                     </a>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                        <a class="nav-link" style="color:white; ">
-                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
-                                <span id="currentUserLabel">&nbsp; <?php echo $languages[$lang]['hi'];?></span>, <?php echo $_SESSION['username'];?>
-                                <span id="koreanHiLabelAdd">
-                                <?php 
-                                    if ($_SESSION['userLanguage'] == "kr") {
-                                        echo "님";
-                                    } 
-                                ?>
-                                </span>
-                            </a>
-                            <?php
-                                if ($_SESSION['userRole'] == "admin") {
-                            ?>
-                                <a href="manage_users.php" class="nav-link" style="color:white;">
-                                    <div id="manageUsersLabel" class="sb-nav-link-icon" style="color:white;" >
-                                        <?php echo $languages[$lang]['manage_users'];?>
-                                    </div>
-                                </a>
-                                <a href="manage_cases.php" class="nav-link" style="color:white;">
-                                    <div id="manageCasesLabel" class="sb-nav-link-icon" style="color:white;" >
-                                        <?php echo $languages[$lang]['manage_cases'];?>
-                                    </div>
-                                </a>
-                            <?php
-                                }
-                            ?>
-                            <br />
-                            <a class="nav-link" href="dashboard.php" style="color:white; ">
-                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
-                                <span id="dashboardMenuLabel"><?php echo $languages[$lang]['dashboard'];?></span>
-                            </a>
-                            <div class="sb-sidenav-menu-heading" id="appliancesMenuLabel"><?php echo $languages[$lang]['appliances'];?></div>
-                            <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
-                                <span>CPU</span>
-                            </a>
-                            <a class="nav-link" href="dashboard_memory.php" style="color:white;">
-                                <span id="memoryMenuLabel"><?php echo $languages[$lang]['memory'];?></span>
-                            </a>
-                            <a class="nav-link" href="dashboard_disk.php" style="color:white;">
-                                HDD/SSD
-                            </a>
-                            <a class="nav-link" href="dashboard_vm.php" style="color:white;">
-                                <span id="virtualMachinesMenuLabel" ><?php echo $languages[$lang]['virtual_machines'];?></span>
-                            </a>
-                            <?php
-                                if ($_SESSION['userRole'] != "admin") {
-                            ?>
-                            <div class="sb-sidenav-menu-heading" id="userMenuLabel"><?php echo $languages[$lang]['users'];?></div>
-                            <a id="changeProfileMenuLabel" class="nav-link" href="change_profile.php" style="color:white;">
-                                <?php echo $languages[$lang]['change_profile'];?>
-                            </a>
-                            <a id="helpMenuLabel" class="nav-link" href="help.php" style="color:white;">
-                                <?php echo $languages[$lang]['help'];?>
-                            </a>
-                            <a id="myCasesMenuLabel" class="nav-link" href="cases.php" style="color:white;">
-                                <?php echo $languages[$lang]['my_cases'];?>
-                            </a>
-                            <?php
-                                }
-                            ?>
-                            <hr />
-                            <a id="aboutUsMenuLabel" class="nav-link" href="about.php" style="color:white;">
-                                <?php echo $languages[$lang]['about_us'];?>
-                            </a>
-                        </div>
+                    <a href="dashboard.php" class="simple-text logo-normal">
+                        TechArmy
+                    </a>
                     </div>
-                </nav>
+                    <ul class="nav">
+                    <?php
+                        if ($_SESSION['userRole'] == "admin") {
+                    ?>
+                        <li>
+                            <a href="./manage_users.php">
+                            <i class="fas fa-users-cog"></i>
+                            <p> <?php echo $languages[$lang]['manage_users'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./manage_cases.php">
+                            <i class="fas fa-cogs"></i>
+                            <p> <?php echo $languages[$lang]['manage_cases'];?> </p>
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
+                    <li>
+                        <a href="./dashboard.php">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p><?php echo $languages[$lang]['dashboard'];?></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_cpu.php">
+                        <i class="fa fa-microchip" aria-hidden="true"></i>
+                        <p>CPU</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_memory.php">
+                        <i class="fas fa-database"></i>
+                        <p><?php echo $languages[$lang]['memory'];?></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_disk.php">
+                        <i class="fas fa-hdd"></i>
+                        <p>HDD / SSD</p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="./dashboard_vm.php">
+                        <i class="fas fa-server"></i>
+                        <p> <?php echo $languages[$lang]['virtual_machines'];?> </p>
+                        </a>
+                    </li>
+                    <?php
+                        if ($_SESSION['userRole'] != "admin") {
+                    ?>
+                        <li>
+                            <a href="./change_profile.php">
+                            <i class="tim-icons icon-single-02"></i>
+                            <p> <?php echo $languages[$lang]['change_profile'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./help.php">
+                            <i class="fas fa-question-circle"></i>
+                            <p> <?php echo $languages[$lang]['help'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./cases.php">
+                            <i class="tim-icons icon-settings"></i>
+                            <p> <?php echo $languages[$lang]['my_cases'];?> </p>
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
+                    <li>
+                        <a href="./about.php">
+                        <i class="tim-icons icon-puzzle-10"></i>
+                        <p> <?php echo $languages[$lang]['about_us'];?> </p>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
             </div>
-            <div id="layoutSidenav_content">
-                <main>
+            <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
                 <div class="container-fluid">
-                    <h1 class="mt-4"><?php echo $languages[$lang]['virtual_machines'];?></h1>
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle d-inline">
+                        <button type="button" class="navbar-toggler">
+                            <span class="navbar-toggler-bar bar1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </button>
+                        </div>
+                        <a class="navbar-brand" href="dashboard.php">Cloud Analytics</a> <!-- :void(0) to prevent the page from refreshing -->
+                        </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                        <li>
+                            <input type="checkbox" class="checkbox" id="checkbox">
+                            <label for="checkbox" class="label_theme">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                                <div class="ball"></div>
+                            </label>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <div class="photo">
+                                <img src="../lib/assets/img/anime3.png" alt="Profile Photo">
+                            </div>
+                            <b class="caret d-none d-lg-block d-xl-block"></b>
+                            <p class="d-lg-none">
+                                User
+                            </p>
+                            </a>
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li class="nav-link">
+                                    <p class="nav-item dropdown-item "> 
+                                        <?php echo $languages[$lang]['hi'];?>, 
+                                        <?php echo $_SESSION['username'];?> 
+                                        <?php 
+                                        if ($_SESSION['userLanguage'] == "kr") {
+                                            echo "님";
+                                        } 
+                                        ?>
+                                    </p>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="nav-link">
+                                    <a href="./logout.php" class="nav-item dropdown-item"><?php echo $languages[$lang]['logout'];?> &nbsp;<i class="fas fa-sign-out-alt"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="separator d-lg-none"></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4"><?php echo $languages[$lang]['virtual_machines'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Virtual Machines</li>
                         </ol>
-                        <div class="card mb-4">
+                        <div class="card mb-4" style="overflow-x: auto;">
                             <div class="card-body">
-                            <?php echo $languages[$lang]['virtual_machines_details'];?>
-                            </div>
-                        </div>
-                        <div class="card mb-4" id="tableContainer">
-                        <div style="margin: 15px;">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div style="margin:10px;">
-                                            <a id="createVMBtn" href="create_vm.php" class="btn btn-primary"><?php echo $languages[$lang]['create_new_vm'];?> +</a>
-                                        </div>    
-                                    </td>
-                                    <td>
-                                        <div style="margin:13px;">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td><a id="createVMBtn" href="create_vm.php" class="btn btn-primary"><?php echo $languages[$lang]['create_new_vm'];?> +</a></td>
+                                        <td>
                                             <form method="post" action="export_vm.php">
                                                 <input id="downloadBtn" type="submit" class="btn btn-success" name="export_vm" value="<?php echo $languages[$lang]['download_report_as_excel'];?>"/>
                                             </form>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="margin:2px;">
-                                            <input type="text" name="searchVM" id="searchVM" placeholder="<?php echo $languages[$lang]['search_for_vm'];?>..."/>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <table class="table table-bordered" style="width: 1800px;">
-                            <thead>
-                                <th class="vm_table_header">UUID</th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['domain_name'];?></th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['storage_allocation'];?></th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['memory_allocation'];?></th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['cpu_allocation'];?></th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['device_type'];?></th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['source_path'];?></th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['storage_format'];?></th>
-                                <th class="vm_table_header"><?php echo $languages[$lang]['actions'];?></th>
-                            </thead>
-                            <tbody id="vmTable">
-                                <?php
-                                    while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
-                                ?>
-                                    <tr>
-                                        <td><?php echo $row['uuid']; ?></td>
-                                        <td><?php echo $row['domainName']; ?></td>
-                                        <td><?php echo $row['storageAllocation']; ?></td>
-                                        <td><?php echo $row['memoryAllocation']; ?></td>
-                                        <td><?php echo $row['cpuAllocation']; ?></td>
-                                        <td><?php echo $row['deviceType']; ?></td>
-                                        <td><?php echo $row['sourcePath']; ?></td>
-                                        <td><?php echo $row['storageFormat']; ?></td>
-                                        <td>
-                                            <a href="usage_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-primary"><?php echo $languages[$lang]['usage'];?></a>
-                                            <a href="update_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-success"><?php echo $languages[$lang]['edit'];?></a>
-                                            <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger" onclick="return confirm('<?php echo $languages[$lang]['delete_item'];?>');"><?php echo $languages[$lang]['delete'];?></a>
                                         </td>
+                                        <td><input type="text" name="searchDisk" id="myInput" placeholder="<?php echo $languages[$lang]['search_for_disk'];?>..."/></td>
                                     </tr>
-                                <?php
-                                    }
-                                ?>
-                            </tbody>
-                        </table>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card mb-4" style="overflow-x: auto;">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="vm_table_header">UUID</th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['domain_name'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['storage_allocation'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['memory_allocation'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['cpu_allocation'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['device_type'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['storage_format'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['usage'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['edit'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['delete'];?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vmTable">
+                                        <?php
+                                            while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $row['uuid']; ?></td>
+                                                <td><?php echo $row['domainName']; ?></td>
+                                                <td><?php echo number_format($row['storageAllocation'] / 1000000000, 2); ?>GB</td>
+                                                <td><?php echo number_format($row['memoryAllocation'] / 1000, 2); ?>mib</td>
+                                                <td><?php echo $row['cpuAllocation']; ?> <?php echo $row['cpuAllocation'] == 1 ? "core" : "cores" ?></td>
+                                                <td><?php echo $row['deviceType']; ?></td>
+                                                <td><?php echo $row['storageFormat']; ?></td>
+                                                <td>
+                                                    <a href="usage_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-primary"><?php echo $languages[$lang]['usage'];?></a>
+                                                </td>
+                                                <td>
+                                                    <a href="update_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-success"><?php echo $languages[$lang]['edit'];?></a>
+                                                </td>
+                                                <td>
+                                                    <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger"><?php echo $languages[$lang]['delete'];?></a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </main>
-                <footer class="container-fluid text-center">
-                    <p>Copyright 2021 &copy; Cloud Analytics provided by Tech Army</p>
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                    <div class="copyright">
+                        <script>
+                        document.write(new Date().getFullYear())
+                        </script> &copy; Cloud Analytics provided by Tech Army.
+                    </div>
+                    </div>
                 </footer>
             </div>
         </div>
-        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+        </div>
+        <!--   Core JS Files   -->
+        <script src="../lib/assets/js/core/jquery.min.js"></script>
+        <script src="../lib/assets/js/core/popper.min.js"></script>
+        <script src="../lib/assets/js/core/bootstrap.min.js"></script>
+        <script src="../lib/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!-- Chart JS
+        <script src="../lib/assets/js/plugins/chartjs.min.js"></script> -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-        <script type="text/javascript">
-            <?php
-                $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-                $sql = "SELECT SUM(vm_usage.cpuUsed) AS cpuUsed, SUM(vm_usage.memoryUsed) AS memoryUsed, vm_usage.usageDate AS useDate FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_usage.usageDate";
-                $result = mysqli_query($dbc, $sql);
-                while($row = mysqli_fetch_array($result)) {
-                    $dates[] = $row['useDate'];
-                    $usage[] = $row['cpuUsed'];
+        <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="../lib/assets/js/black-dashboard.min.js"></script>
+        <script>
+            
+            /* --- CHANGE THEME MODE --- */
+            $('#checkbox').change(function(){
+                if($(this).is(":checked")) {
+                $('body').addClass('change-background');
+                    setTimeout(function() {
+                    $('body').removeClass('change-background');
+                    $('body').addClass('white-content');
+                    }, 100);
+                } else {
+                $('body').addClass('change-background');
+                    setTimeout(function() {
+                    $('body').removeClass('change-background');
+                    $('body').removeClass('white-content');
+                    }, 100);
                 }
-            ?>
-            var ctx = document.getElementById("chartjs_bar").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels:<?php echo json_encode($dates); ?>,
-                    datasets: [{
-                        backgroundColor: [
-                            "#5969ff",
-                            "#ff407b",
-                            "#25d5f2",
-                            "#ffc750",
-                            "#2ec551",
-                            "#7040fa",
-                            "#ff004e"
-                        ],
-                        data:<?php echo json_encode($usage); ?>,
-                    }]
-                },
-                options: {
-                        legend: {
-                    display: false,
-                    position: 'bottom',
+            });
 
-                    labels: {
-                        fontColor: '#71748d',
-                        fontFamily: 'Circular Std Book',
-                        fontSize: 14,
-                    }
-                },
-            }
+
+            $(document).ready(function() {
+                $(document).ready(function() {
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#vmTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+            });
+            $().ready(function() {
+                $sidebar = $('.sidebar');
+                $navbar = $('.navbar');
+                $main_panel = $('.main-panel');
+
+                $full_page = $('.full-page');
+
+                $sidebar_responsive = $('body > .navbar-collapse');
+                sidebar_mini_active = true;
+
+                window_width = $(window).width();
+
+                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+                var $btn = $(this);
+
+                if (sidebar_mini_active == true) {
+                    $('body').removeClass('sidebar-mini');
+                    sidebar_mini_active = false;
+                    blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+                } else {
+                    $('body').addClass('sidebar-mini');
+                    sidebar_mini_active = true;
+                    blackDashboard.showSidebarMessage('Sidebar mini activated...');
+                }
+
+                // we simulate the window Resize so the charts will get updated in realtime.
+                var simulateWindowResize = setInterval(function() {
+                    window.dispatchEvent(new Event('resize'));
+                }, 180);
+
+                // we stop the simulation of Window Resize after the animations are completed
+                setTimeout(function() {
+                    clearInterval(simulateWindowResize);
+                }, 1000);
+                });
+            });
             });
         </script>
     </body>
-
-    </html>
+</html>

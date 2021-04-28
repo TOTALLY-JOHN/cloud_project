@@ -42,34 +42,47 @@ $lang = $_SESSION['userLanguage'] ?? "en";
 				?>
 			});
 		</script>
-        <title>Update VM</title>
+        <title>Tech Army</title>
     </head>
-    
 
     <style>
-                /* Make sure that padding behaves as expected */
-        * {box-sizing:border-box}
-
-        /* Container for skill bars */
-        .container {
-          width: 100%; /* Full width */
-          background-color: #ddd; /* Grey background */
+        body {
+            background-size: 100% 1600px;
+            background-repeat: no-repeat;
         }
 
-        .vm {
-          text-align: right; /* Right-align text */
-          padding-top: 10px; /* Add top padding */
-          padding-bottom: 10px; /* Add bottom padding */
-          color: white; /* White text color */
+        #updateContainer {
+            width: 70%;
+            height: 1500px;
+            padding: 1em;
+            margin: 2em auto 2em auto;
+            background-color: white;
+            border-radius: 25px;
         }
 
-        .one {width: 90%; background-color: #4CAF50;} /* Green */
-        .two {width: 80%; background-color: #2196F3;} /* Blue */
-        .three {width: 65%; background-color: #f44336;} /* Red */
-        .four {width: 60%; background-color: #808080;} /* Dark Grey */
-        .vmLabel {
+        #logoImageContainer {
+            text-align: center;
+        }
+
+        #logoImage {
+            width: 200px;
+        }
+
+        #updateHeader {
+            font-size: 2.5em;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-align: center;
+        }
+
+        #updateBodyContainer {
+            width: 85%;
+            margin: 0px auto 0px auto;
+        }
+
+        .updateLabel {
             font-size: 1.0em;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
         }
 
         input[type=email],
@@ -92,11 +105,11 @@ $lang = $_SESSION['userLanguage'] ?? "en";
             outline: none;
         }
 
-        .updateVMBtn {
+        .updateBtn {
             background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%)
         }
 
-        .updateVMBtn {
+        .updateBtn {
             width: 100%;
             padding: 15px 45px;
             text-align: center;
@@ -111,161 +124,56 @@ $lang = $_SESSION['userLanguage'] ?? "en";
             font-size: 1em;
         }
 
-        .updateVMBtn:hover {
+        .updateBtn:hover {
             background-position: right center;
             color: #fff;
             text-decoration: none;
         }
     </style>
 
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="dashboard.php">TechArmy</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form> 
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item" >
-                    <a class="nav-link" href="logout.php" role="button">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span id="logoutLabel"><?php echo $languages[$lang]['logout'];?></span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                        <a class="nav-link" style="color:white; ">
-                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
-                                <span id="currentUserLabel">&nbsp; <?php echo $languages[$lang]['hi'];?></span>, <?php echo $_SESSION['username'];?>
-                                <span id="koreanHiLabelAdd">
-                                <?php 
-                                    if ($_SESSION['userLanguage'] == "kr") {
-                                        echo "님";
-                                    } 
-                                ?>
-                                </span>
-                            </a>
-                            <?php
-                                if ($_SESSION['userRole'] == "admin") {
-                            ?>
-                                <a href="manage_users.php" class="nav-link" style="color:white;">
-                                    <div id="manageUsersLabel" class="sb-nav-link-icon" style="color:white;" >
-                                        <?php echo $languages[$lang]['manage_users'];?>
-                                    </div>
-                                </a>
-                                <a href="manage_cases.php" class="nav-link" style="color:white;">
-                                    <div id="manageCasesLabel" class="sb-nav-link-icon" style="color:white;" >
-                                        <?php echo $languages[$lang]['manage_cases'];?>
-                                    </div>
-                                </a>
-                            <?php
-                                }
-                            ?>
-                            <br />
-                            <a class="nav-link" href="dashboard.php" style="color:white; ">
-                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
-                                <span id="dashboardMenuLabel"><?php echo $languages[$lang]['dashboard'];?></span>
-                            </a>
-                            <div class="sb-sidenav-menu-heading" id="appliancesMenuLabel"><?php echo $languages[$lang]['appliances'];?></div>
-                            <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
-                                <span>CPU</span>
-                            </a>
-                            <a class="nav-link" href="dashboard_memory.php" style="color:white;">
-                                <span id="memoryMenuLabel"><?php echo $languages[$lang]['memory'];?></span>
-                            </a>
-                            <a class="nav-link" href="dashboard_disk.php" style="color:white;">
-                                HDD/SSD
-                            </a>
-                            <a class="nav-link" href="dashboard_vm.php" style="color:white;">
-                                <span id="virtualMachinesMenuLabel" ><?php echo $languages[$lang]['virtual_machines'];?></span>
-                            </a>
-                            <?php
-                                if ($_SESSION['userRole'] != "admin") {
-                            ?>
-                            <div class="sb-sidenav-menu-heading" id="userMenuLabel"><?php echo $languages[$lang]['users'];?></div>
-                            <a id="changeProfileMenuLabel" class="nav-link" href="change_profile.php" style="color:white;">
-                                <?php echo $languages[$lang]['change_profile'];?>
-                            </a>
-                            <a id="helpMenuLabel" class="nav-link" href="help.php" style="color:white;">
-                                <?php echo $languages[$lang]['help'];?>
-                            </a>
-                            <a id="myCasesMenuLabel" class="nav-link" href="cases.php" style="color:white;">
-                                <?php echo $languages[$lang]['my_cases'];?>
-                            </a>
-                            <?php
-                                }
-                            ?>
-                            <hr />
-                            <a id="aboutUsMenuLabel" class="nav-link" href="about.php" style="color:white;">
-                                <?php echo $languages[$lang]['about_us'];?>
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
-                        <h1 class="mt-4"><?php echo $languages[$lang]['virtual_machines'];?></h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Create Virtual Machine</li>
-                        </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                            <?php echo $languages[$lang]['virtual_machines'];?>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <form method="post" autocomplete="off">
-                                    <span class="vmLabel">UUID</span><br />
-                                    <input type="text" id="vmUUID" name="vmUUID" placeholder="VM UUID" value="<?php echo $row['uuid'];?>" readonly/><br />
+    <body style="background-image: url('../images/bg-01.jpg');">
+        <div id="updateContainer">
+            <div id="logoImageContainer">
+                <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo"/>
+            </div><br />
+            <div id="updateBodyContainer">
+                <form method="post" autocomplete="off">
+                    <span class="vmLabel">UUID</span><br />
+                    <input type="text" id="vmUUID" name="vmUUID" placeholder="VM UUID" value="<?php echo $row['uuid'];?>" readonly/><br />
 
-                                    <span class="vmLabel"><?php echo $languages[$lang]['domain_name'];?></span><br />
-                                    <input type="text" id="domainName" name="domainName" placeholder="<?php echo $languages[$lang]['domain_name'];?>" value="<?php echo $row['domainName'];?>" required/><br />
+                    <span class="vmLabel"><?php echo $languages[$lang]['domain_name'];?></span><br />
+                    <input type="text" id="domainName" name="domainName" placeholder="<?php echo $languages[$lang]['domain_name'];?>" value="<?php echo $row['domainName'];?>" required/><br />
 
-                                    <span class="vmLabel"><?php echo $languages[$lang]['storage_capacity'];?></span><br />
-                                    <input type="text" id="storageCapacity" name="storageCapacity" placeholder="<?php echo $languages[$lang]['storage_capacity'];?>" value="<?php echo $row['storageCapacity'];?>" required/><br />
+                    <span class="vmLabel"><?php echo $languages[$lang]['storage_capacity'];?></span><br />
+                    <input type="text" id="storageCapacity" name="storageCapacity" placeholder="<?php echo $languages[$lang]['storage_capacity'];?>" value="<?php echo $row['storageCapacity'];?>" required/><br />
 
-                                    <span class="vmLabel"><?php echo $languages[$lang]['storage_allocation'];?></span><br />
-                                    <input type="text" id="storageAllocation" name="storageAllocation" placeholder="<?php echo $languages[$lang]['storage_allocation'];?>" value="<?php echo $row['storageAllocation'];?>" required/><br />
-                                    
-                                    <span class="vmLabel"><?php echo $languages[$lang]['storage_available'];?></span><br />
-                                    <input type="text" id="storageAvailable" name="storageAvailable" placeholder="<?php echo $languages[$lang]['storage_available'];?>" value="<?php echo $row['storageAvailable'];?>" required/><br />
-
-                                    <span class="vmLabel"><?php echo $languages[$lang]['memory_allocation'];?></span><br />
-                                    <input type="text" id="memoryAllocation" name="memoryAllocation" placeholder="<?php echo $languages[$lang]['memory_allocation'];?>" value="<?php echo $row['memoryAllocation'];?>" required/><br />
-
-                                    <span class="vmLabel"><?php echo $languages[$lang]['cpu_allocation'];?></span><br />
-                                    <input type="text" id="cpuAllocation" name="cpuAllocation" placeholder="<?php echo $languages[$lang]['cpu_allocation'];?>" value="<?php echo $row['cpuAllocation'];?>" required/><br />
-
-                                    <span class="vmLabel"><?php echo $languages[$lang]['device_type'];?></span><br />
-                                    <input type="text" id="deviceType" name="deviceType" placeholder="<?php echo $languages[$lang]['device_type'];?>" value="<?php echo $row['deviceType'];?>" required/><br />
-
-                                    <span class="vmLabel"><?php echo $languages[$lang]['source_path'];?></span><br />
-                                    <input type="text" id="sourcePath" name="sourcePath" placeholder="<?php echo $languages[$lang]['source_path'];?>" value="<?php echo $row['sourcePath'];?>" required/><br />
-
-                                    <span class="vmLabel"><?php echo $languages[$lang]['storage_format'];?></span><br />
-                                    <input type="text" id="storageFormat" name="storageFormat" placeholder="<?php echo $languages[$lang]['storage_format'];?>" value="<?php echo $row['storageFormat'];?>" required/><br /><br />
-
-                                    <input type="submit" class="updateVMBtn" value="<?php echo $languages[$lang]['update'];?>" /><br />
-                                </form>
-                            </div>
-                        </div>
+                    <span class="vmLabel"><?php echo $languages[$lang]['storage_allocation'];?></span><br />
+                    <input type="text" id="storageAllocation" name="storageAllocation" placeholder="<?php echo $languages[$lang]['storage_allocation'];?>" value="<?php echo $row['storageAllocation'];?>" required/><br />
                     
-                    </div>
-                </main>
-                <footer class="container-fluid text-center">
-                    <p>Copyright 2021 &copy; Cloud Analytics provided by Tech Army</p>
-                </footer>
+                    <span class="vmLabel"><?php echo $languages[$lang]['storage_available'];?></span><br />
+                    <input type="text" id="storageAvailable" name="storageAvailable" placeholder="<?php echo $languages[$lang]['storage_available'];?>" value="<?php echo $row['storageAvailable'];?>" required/><br />
+
+                    <span class="vmLabel"><?php echo $languages[$lang]['memory_allocation'];?></span><br />
+                    <input type="text" id="memoryAllocation" name="memoryAllocation" placeholder="<?php echo $languages[$lang]['memory_allocation'];?>" value="<?php echo $row['memoryAllocation'];?>" required/><br />
+
+                    <span class="vmLabel"><?php echo $languages[$lang]['cpu_allocation'];?></span><br />
+                    <input type="text" id="cpuAllocation" name="cpuAllocation" placeholder="<?php echo $languages[$lang]['cpu_allocation'];?>" value="<?php echo $row['cpuAllocation'];?>" required/><br />
+
+                    <span class="vmLabel"><?php echo $languages[$lang]['device_type'];?></span><br />
+                    <input type="text" id="deviceType" name="deviceType" placeholder="<?php echo $languages[$lang]['device_type'];?>" value="<?php echo $row['deviceType'];?>" required/><br />
+
+                    <span class="vmLabel"><?php echo $languages[$lang]['source_path'];?></span><br />
+                    <input type="text" id="sourcePath" name="sourcePath" placeholder="<?php echo $languages[$lang]['source_path'];?>" value="<?php echo $row['sourcePath'];?>" required/><br />
+
+                    <span class="vmLabel"><?php echo $languages[$lang]['storage_format'];?></span><br />
+                    <input type="text" id="storageFormat" name="storageFormat" placeholder="<?php echo $languages[$lang]['storage_format'];?>" value="<?php echo $row['storageFormat'];?>" required/><br /><br />
+
+                    <input type="submit" class="updateBtn" value="<?php echo $languages[$lang]['update'];?>" /><br />
+                    <p style="text-align:center;"><a href="dashboard_vm.php"><?php echo $languages[$lang]['go_back'];?></a></p>
+                </form>
             </div>
         </div>
+
         <div id="successModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -299,5 +207,4 @@ $lang = $_SESSION['userLanguage'] ?? "en";
 			</div>
 		</div>
     </body>
-
-    </html>
+</html>

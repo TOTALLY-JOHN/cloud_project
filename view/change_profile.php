@@ -11,7 +11,6 @@
 
     //! LANGUAGE SETTINGS
     $lang = $_SESSION['userLanguage'] ?? "en";
-
 ?>
 <DOCTYPE html>
     <html>
@@ -20,7 +19,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tech Army</title>
     </head>
-    <link rel="stylesheet" href="../lib/styles/change_profile_style.css">
     <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 		<!-- jQuery library -->
@@ -45,38 +43,110 @@
 				?>
 			});
 		</script>
+        <style>
+            body {
+                background-image: url("../images/bg-01.jpg");
+                background-size: 100% 800px;
+            }
+
+            #profileContainer {
+                width: 70%;
+                height: 750;
+                padding: 1em;
+                margin: 2em auto 0px auto;
+                background-color: white;
+                border-radius: 25px;
+            }
+
+            #logoImageContainer {
+                text-align: center;
+            }
+
+            #logoImage {
+                width: 200px;
+            }
+
+            #profileHeader {
+                font-size: 2.5em;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                text-align: center;
+            }
+
+            #profileBodyContainer {
+                width: 85%;
+                margin: 0px auto 0px auto;
+            }
+
+            .profileLabel {
+                font-size: 1.0em;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+            }
+
+            input[type=email],
+            input[type=text],
+            input[type=password] {
+                width: 100%;
+                padding: 15px;
+                margin: 5px 0 22px 0;
+                display: inline-block;
+                border: none;
+                background: #f1f1f1;
+                border-radius: 25px;
+            }
+
+            input[type=email]:focus,
+            input[type=text]:focus,
+            input[type=password]:focus {
+                border-radius: 25px;
+                background-color: #eeeeee;
+                outline: none;
+            }
+
+            .profileBtn {
+                background-image: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%)
+            }
+
+            .profileBtn {
+                width: 100%;
+                padding: 15px 45px;
+                text-align: center;
+                text-transform: uppercase;
+                transition: 0.5s;
+                background-size: 200% auto;
+                color: white;
+                box-shadow: 0 0 20px #eee;
+                border-radius: 25px;
+                border: none;
+                display: block;
+                font-size: 1em;
+            }
+
+            .profileBtn:hover {
+                background-position: right center;
+                color: #fff;
+                text-decoration: none;
+            }
+        </style>
     <body>
         <div id="profileContainer">
             <div id="logoImageContainer">
-                <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" style="width:50%" />
+                <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo"/>
             </div>
             <h1 id="profileHeader"><?php echo $languages[$lang]['change_profile'];?></h1>
             <div id="profileBodyContainer">
                 <form method="post" autocomplete="off">
                 <span class="profileLabel"><?php echo $languages[$lang]['username'];?></span><br />
                     <input type="text" id="username" name="username" placeholder="Type your username" value="<?php echo $row['username'];?>" readonly/><br />
-                    <span class="profileLabel"><?php echo $languages[$lang]['user_email'];?></span><br />
-                    <input type="text" id="userEmail" name="userEmail" placeholder="<?php echo $languages[$lang]['user_email'];?>" value="<?php echo $row['userEmail'];?>" required/><br />
                     <span class="profileLabel"><?php echo $languages[$lang]['new_password'];?></span><br />
                     <input type="password" id="userPwd" name="userPwd" placeholder="<?php echo $languages[$lang]['new_password'];?>" required/><br />
                     <span class="profileLabel"><?php echo $languages[$lang]['re_enter_password'];?></span><br />
-                    <input type="password" id="userPwdConfirm" name="userPwdConfirm" placeholder="<?php echo $languages[$lang]['re_enter_password'];?>" required/><br />
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><a class="profileBtn" href="dashboard.php"><?php echo $languages[$lang]['go_back'];?></a></td>
-                                <td>&nbsp;</td>
-                                <td><input type="submit" class="profileBtn" value="<?php echo $languages[$lang]['submit'];?>" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <input type="password" id="userPwdConfirm" name="userPwdConfirm" placeholder="<?php echo $languages[$lang]['re_enter_password'];?>" required/><br /><br />
+                    <input type="submit" class="profileBtn" value="<?php echo $languages[$lang]['submit'];?>" /><br />
+                    <p style="text-align:center;"><a href="dashboard.php"><?php echo $languages[$lang]['go_back'];?></a></p>
                 </form>
             </div>
-
         </div>
-
-        <footer>
-        </footer>
         <div id="successModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">

@@ -26,9 +26,8 @@
             }
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $username = test_input($_REQUEST["username"]);
-            $userEmail = test_input($_REQUEST["userEmail"]);
             $userPwd = test_input($_REQUEST["userPwd"]);
-            $sql = "UPDATE users SET userPwd = '".hash('sha256', $userPwd)."', userEmail = '".$userEmail."' WHERE username = '".$username."'";
+            $sql = "UPDATE users SET userPwd = '".hash('sha256', $userPwd)."' WHERE username = '".$username."'";
             if ($dbc->query($sql) === TRUE) {
                 return "success";
             } else {

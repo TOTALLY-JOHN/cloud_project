@@ -17,22 +17,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
+        <!-- <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>Contact Us</title>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+        <!-- Nucleo Icons -->
+        <link href="../lib/assets/css/nucleo-icons.css" rel="stylesheet" />
+        <!-- CSS Files -->
+        <link href="../lib/assets/css/black-dashboard.css" rel="stylesheet" />
+        <title>Tech Army</title>
     </head>
-    
-
-    <script type="text/javascript">
-        
-    </script>
-  
 
     <style>
-            input 
+        input 
         {
           border: 1px solid transparent;
           background-color: #f1f1f1;
@@ -49,80 +49,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         /* The width is the width of the web page */
         }
 
-        #left
-		{
-			/*background-color: azure;*/
-			float: left;
-		}
-
-        .svg-icon 
-        {
-          width: 30px;
-          height: 30px;
-        }
-
-        .svg-icon path,
-        .svg-icon polygon,
-        .svg-icon rect 
-        {
-          fill: #4691f6;
-        }
-
-        .svg-icon circle 
-        {
-          stroke: #4691f6;
-          stroke-width: 1;
-        }
-       
-        #containerLoc 
-        {
-            position: relative;
-            float:left;
-            text-align: center;
-        }
-        #containerContact 
-        {
-            position: relative;
-            text-align: center;
-        }
-        #containerEmail
-        {
-            position: relative;
-            float:right;
-            text-align: center;
-        }
-        
-        #circle 
-        {
-            background: #A6F9D0;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
         #containerLogo
         {
           display: grid;
           grid-template-columns: auto auto auto;
           grid-template-rows: 80px 160px;
           grid-gap: 10px;
-          background-color: #004953;
           padding: 10px;
           color:white;
 
         }
 
-        /* */
-        body{margin-top:20px;
-        background:#eee;
-        }
-
         /* CONTACTS */
         .contact-box {
-        background-color: #ffffff;
-        border: 1px solid #e7eaec;
         padding: 20px;
         margin-bottom: 20px;
 
@@ -131,12 +70,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         color: inherit;
         }
         .contact-box.center-version {
-        border: 1px solid #e7eaec;
         padding: 0;
         }
         .contact-box.center-version > a {
         display: block;
-        background-color: #ffffff;
         padding: 20px;
         text-align: center;
         }
@@ -151,8 +88,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         .contact-box .contact-box-footer {
         text-align: center;
-        background-color: #ffffff;
-        border-top: 1px solid #e7eaec;
         padding: 15px 20px;
         }
         a{
@@ -160,356 +95,317 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         .container
         {
-            background-color: #be7eff;
             padding: 20px;
             border-radius: 3px;
             margin-bottom: 30px;
             border-radius: 40px;
         }
-
-        #languageLabel {
-            color: white;
-        }
-        .dropdownInputItem {
-            padding: 12px;
-            background-color: white;
-            border: none;
-            width: 155px;
-            height: 50px;
-            text-align: left;
-        }
-        .dropdownInputItem:hover {
-            background-color: #eeeeee;
-        }
     </style>
-    </head>
-
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="dashboard.php">TechArmy</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form> 
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item">
-                	<div class="dropdown btn-group">
-	                    <a class="btn dropdown-toggle" data-toggle="dropdown" id="languageLabel">
-                            <?php echo $languages[$lang]['language'];?>
-	                    </a>
-	                    <ul id="language" class="dropdown-menu">
-                            <li>
-                                <div class="langDropdownItem">
-                                    <form method="post">
-                                        <input type="hidden" name="lang" value="en"/>
-                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['english'];?>">
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="langDropdownItem">
-                                    <form method="post">
-                                        <input type="hidden" name="lang" value="cn"/>
-                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['chinese'];?>"/>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="langDropdownItem">
-                                    <form method="post">
-                                        <input type="hidden" name="lang" value="my"/>
-                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['malay'];?>"/>
-                                    </form>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="langDropdownItem">
-                                    <form method="post">
-                                        <input type="hidden" name="lang" value="kr"/>
-                                        <input class="dropdownInputItem" type="submit" value="<?php echo $languages[$lang]['korean'];?>"/>
-                                    </form>
-                                </div>
-                            </li>
-	                    </ul>
-	                </div>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item" >
-                    <a class="nav-link" href="logout.php" role="button">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span id="logoutLabel"><?php echo $languages[$lang]['logout'];?></span>
+    <body class="">
+        <div class="wrapper">
+            <div class="sidebar">
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                    <a href="dashboard.php" class="simple-text logo-mini">
+                        <strong>T</strong> <strong>A</strong>
                     </a>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                        <a class="nav-link" style="color:white; ">
-                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-user"></i></div>
-                                <span id="currentUserLabel">&nbsp; <?php echo $languages[$lang]['hi'];?></span>, <?php echo $_SESSION['username'];?>
-                                <span id="koreanHiLabelAdd">
-                                <?php 
-                                    if ($_SESSION['userLanguage'] == "kr") {
-                                        echo "님";
-                                    } 
-                                ?>
-                                </span>
-                            </a>
-                            <?php
-                                if ($_SESSION['userRole'] == "admin") {
-                            ?>
-                                <a href="manage_users.php" class="nav-link" style="color:white;">
-                                    <div id="manageUsersLabel" class="sb-nav-link-icon" style="color:white;" >
-                                        <?php echo $languages[$lang]['manage_users'];?>
-                                    </div>
-                                </a>
-                                <a href="manage_cases.php" class="nav-link" style="color:white;">
-                                    <div id="manageCasesLabel" class="sb-nav-link-icon" style="color:white;" >
-                                        <?php echo $languages[$lang]['manage_cases'];?>
-                                    </div>
-                                </a>
-                            <?php
-                                }
-                            ?>
-                            <br />
-                            <a class="nav-link" href="dashboard.php" style="color:white; ">
-                                <div class="sb-nav-link-icon" style="color:white;" ><i class="fas fa-tachometer-alt"></i></div>
-                                <span id="dashboardMenuLabel"><?php echo $languages[$lang]['dashboard'];?></span>
-                            </a>
-                            <div class="sb-sidenav-menu-heading" id="appliancesMenuLabel"><?php echo $languages[$lang]['appliances'];?></div>
-                            <a class="nav-link" href="dashboard_cpu.php" style="color:white;">
-                                <span>CPU</span>
-                            </a>
-                            <a class="nav-link" href="dashboard_memory.php" style="color:white;">
-                                <span id="memoryMenuLabel"><?php echo $languages[$lang]['memory'];?></span>
-                            </a>
-                            <a class="nav-link" href="dashboard_disk.php" style="color:white;">
-                                HDD/SSD
-                            </a>
-                            <a class="nav-link" href="dashboard_vm.php" style="color:white;">
-                                <span id="virtualMachinesMenuLabel" ><?php echo $languages[$lang]['virtual_machines'];?></span>
-                            </a>
-                            <?php
-                                if ($_SESSION['userRole'] != "admin") {
-                            ?>
-                            <div class="sb-sidenav-menu-heading" id="userMenuLabel"><?php echo $languages[$lang]['users'];?></div>
-                            <a id="changeProfileMenuLabel" class="nav-link" href="change_profile.php" style="color:white;">
-                                <?php echo $languages[$lang]['change_profile'];?>
-                            </a>
-                            <a id="helpMenuLabel" class="nav-link" href="help.php" style="color:white;">
-                                <?php echo $languages[$lang]['help'];?>
-                            </a>
-                            <a id="myCasesMenuLabel" class="nav-link" href="cases.php" style="color:white;">
-                                <?php echo $languages[$lang]['my_cases'];?>
-                            </a>
-                            <?php
-                                }
-                            ?>
-                            <hr />
-                            <a id="aboutUsMenuLabel" class="nav-link" href="about.php" style="color:white;">
-                                <?php echo $languages[$lang]['about_us'];?>
-                            </a>
-                        </div>
+                    <a href="dashboard.php" class="simple-text logo-normal">
+                        TechArmy
+                    </a>
                     </div>
-                </nav>
+                    <ul class="nav">
+                    <?php
+                        if ($_SESSION['userRole'] == "admin") {
+                    ?>
+                        <li>
+                            <a href="./manage_users.php">
+                            <i class="fas fa-users-cog"></i>
+                            <p> <?php echo $languages[$lang]['manage_users'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./manage_cases.php">
+                            <i class="fas fa-cogs"></i>
+                            <p> <?php echo $languages[$lang]['manage_cases'];?> </p>
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
+                    <li>
+                        <a href="./dashboard.php">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p><?php echo $languages[$lang]['dashboard'];?></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_cpu.php">
+                        <i class="fa fa-microchip" aria-hidden="true"></i>
+                        <p>CPU</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_memory.php">
+                        <i class="fas fa-database"></i>
+                        <p><?php echo $languages[$lang]['memory'];?></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_disk.php">
+                        <i class="fas fa-hdd"></i>
+                        <p>HDD / SSD</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_vm.php">
+                        <i class="fas fa-server"></i>
+                        <p> <?php echo $languages[$lang]['virtual_machines'];?> </p>
+                        </a>
+                    </li>
+                    <?php
+                        if ($_SESSION['userRole'] != "admin") {
+                    ?>
+                        <li>
+                            <a href="./change_profile.php">
+                            <i class="tim-icons icon-single-02"></i>
+                            <p> <?php echo $languages[$lang]['change_profile'];?> </p>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="./help.php">
+                            <i class="fas fa-question-circle"></i>
+                            <p> <?php echo $languages[$lang]['help'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./cases.php">
+                            <i class="tim-icons icon-settings"></i>
+                            <p> <?php echo $languages[$lang]['my_cases'];?> </p>
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
+                    <li>
+                        <a href="./about.php">
+                        <i class="tim-icons icon-puzzle-10"></i>
+                        <p> <?php echo $languages[$lang]['about_us'];?> </p>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
             </div>
-            <div id="layoutSidenav_content">
+            <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle d-inline">
+                        <button type="button" class="navbar-toggler">
+                            <span class="navbar-toggler-bar bar1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </button>
+                        </div>
+                        <a class="navbar-brand" href="dashboard.php">Cloud Analytics</a> <!-- :void(0) to prevent the page from refreshing -->
+                        </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                        <li>
+                            <input type="checkbox" class="checkbox" id="checkbox">
+                            <label for="checkbox" class="label_theme">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                                <div class="ball"></div>
+                            </label>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <div class="photo">
+                                <img src="../lib/assets/img/anime3.png" alt="Profile Photo">
+                            </div>
+                            <b class="caret d-none d-lg-block d-xl-block"></b>
+                            <p class="d-lg-none">
+                                User
+                            </p>
+                            </a>
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li class="nav-link">
+                                    <p class="nav-item dropdown-item "> 
+                                        <?php echo $languages[$lang]['hi'];?>, 
+                                        <?php echo $_SESSION['username'];?> 
+                                        <?php 
+                                        if ($_SESSION['userLanguage'] == "kr") {
+                                            echo "님";
+                                        } 
+                                        ?>
+                                    </p>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="nav-link">
+                                    <a href="./logout.php" class="nav-item dropdown-item"><?php echo $languages[$lang]['logout'];?> &nbsp;<i class="fas fa-sign-out-alt"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="separator d-lg-none"></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Contact Us</h1>
+                      <h1 class="mt-4"><?php echo $languages[$lang]['contact_us'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Contact Us</li>
                         </ol>
-                    </div>
-
-                    <div class="text-center">
-                        <h2>Get In touch with us</h2>
-                        <p>For any problem feel free to contact us</p>
-                    </div>
-                    <!----------------------------------------------->
-                    <div class="container" >
-                        <div class="row justify-content-center">
-                            <div class="col-md-3">
-                                <div class="contact-box center-version">
-                                    <a href="#profile.html">
-                                        <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                                        <h3 class="m-b-xs"><strong>John Smith</strong></h3>
-                            
-                                        <div class="font-bold">Graphics designer</div>
-                                        <address class="m-t-md">
-                                            <strong>TechArmy, Inc.</strong><br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
-                                            </svg>
-                                            3, Jalan SS 15/8, Ss 15, 47500 Subang Jaya, Selangor<br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path d="M14.911,1.295H5.09c-0.737,0-1.339,0.603-1.339,1.339v14.733c0,0.736,0.603,1.338,1.339,1.338h9.821c0.737,0,1.339-0.602,1.339-1.338V2.634C16.25,1.898,15.648,1.295,14.911,1.295 M15.357,17.367c0,0.24-0.205,0.445-0.446,0.445H5.09c-0.241,0-0.446-0.205-0.446-0.445v-0.893h10.714V17.367z M15.357,15.58H4.644V4.42h10.714V15.58z M15.357,3.527H4.644V2.634c0-0.241,0.205-0.446,0.446-0.446h9.821c0.241,0,0.446,0.206,0.446,0.446V3.527z"></path>
-                                            </svg>
-                                            012-3456789 ( Phone )<br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path fill="none" d="M16.999,4.975L16.999,4.975C16.999,4.975,16.999,4.975,16.999,4.975c-0.419-0.4-0.979-0.654-1.604-0.654H4.606c-0.584,0-1.104,0.236-1.514,0.593C3.076,4.928,3.05,4.925,3.037,4.943C3.034,4.945,3.035,4.95,3.032,4.953C2.574,5.379,2.276,5.975,2.276,6.649v6.702c0,1.285,1.045,2.329,2.33,2.329h10.79c1.285,0,2.328-1.044,2.328-2.329V6.649C17.724,5.989,17.441,5.399,16.999,4.975z M15.396,5.356c0.098,0,0.183,0.035,0.273,0.055l-5.668,4.735L4.382,5.401c0.075-0.014,0.145-0.045,0.224-0.045H15.396z M16.688,13.351c0,0.712-0.581,1.294-1.293,1.294H4.606c-0.714,0-1.294-0.582-1.294-1.294V6.649c0-0.235,0.081-0.445,0.192-0.636l6.162,5.205c0.096,0.081,0.215,0.122,0.334,0.122c0.118,0,0.235-0.041,0.333-0.12l6.189-5.171c0.099,0.181,0.168,0.38,0.168,0.6V13.351z"></path>
-                                            </svg>
-                                            TechArmy@gmail.com
-                                        </address>
-                            
-                                    </a>
-                                    <div class="contact-box-footer">
-                                        <div class="m-t-xs btn-group">
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-phone"></i> Call </a>
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-3">
+                                            <div class="contact-box center-version" style="text-align:center;">
+                                                <img alt="image" class="img-circle" src="../lib/assets/img/fyp_member_picture/jihwan.png" style="width:80%;"><br /><br />
+                                                <h3 class="m-b-xs"><strong>Jihwan Jeong</strong></h3>
+                                                <p><?php echo $languages[$lang]['project_manager'];?></p><br />
+                                                <p>wnaks5945@gmail.com</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="contact-box center-version" style="text-align:center;">
+                                                <img alt="image" class="img-circle" src="../lib/assets/img/fyp_member_picture/junhong.png" style="width:80%;"><br /><br />
+                                                <h3 class="m-b-xs"><strong>Tan Jun Hong</strong></h3>
+                                                <p><?php echo $languages[$lang]['lead_programmer'];?>, <?php echo $languages[$lang]['quality_assurance'];?></p><br />
+                                                <p>tanjunhong4d@gmail.com</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="contact-box center-version" style="text-align:center;">
+                                                <img alt="image" class="img-circle" src="../lib/assets/img/fyp_member_picture/yikai.png" style="width:80%;"><br /><br />
+                                                <h3 class="m-b-xs"><strong>Lee Yi Kai</strong></h3>
+                                                <p><?php echo $languages[$lang]['lead_programmer'];?>, <?php echo $languages[$lang]['analyst'];?></p><br />
+                                                <p>yikailee0120@gmail.com</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="contact-box center-version" style="text-align:center;">
+                                                <img alt="image" class="img-circle" src="../lib/assets/img/fyp_member_picture/suethui.png" style="width:80%;"><br /><br />
+                                                <h3 class="m-b-xs"><strong>Lee Suet Hui</strong></h3>
+                                                <p><?php echo $languages[$lang]['ui_ux_developer'];?></p><br />
+                                                <p>sharonsuet988@gmail.com</p>
+                                            </div>
                                         </div>
                                     </div>
-                            
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="contact-box center-version">
-                                    <a href="#profile.html">
-                                        <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png">
-                                        <h3 class="m-b-xs"><strong>Jonny Depp</strong></h3>
-                            
-                                        <div class="font-bold">Lead Programmer</div>
-                                        <address class="m-t-md">
-                                            <strong>TechArmy, Inc.</strong><br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
-                                            </svg>
-                                            3, Jalan SS 15/8, Ss 15, 47500 Subang Jaya, Selangor<br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path d="M14.911,1.295H5.09c-0.737,0-1.339,0.603-1.339,1.339v14.733c0,0.736,0.603,1.338,1.339,1.338h9.821c0.737,0,1.339-0.602,1.339-1.338V2.634C16.25,1.898,15.648,1.295,14.911,1.295 M15.357,17.367c0,0.24-0.205,0.445-0.446,0.445H5.09c-0.241,0-0.446-0.205-0.446-0.445v-0.893h10.714V17.367z M15.357,15.58H4.644V4.42h10.714V15.58z M15.357,3.527H4.644V2.634c0-0.241,0.205-0.446,0.446-0.446h9.821c0.241,0,0.446,0.206,0.446,0.446V3.527z"></path>
-                                            </svg>
-                                            012-3456789 ( Phone )<br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path fill="none" d="M16.999,4.975L16.999,4.975C16.999,4.975,16.999,4.975,16.999,4.975c-0.419-0.4-0.979-0.654-1.604-0.654H4.606c-0.584,0-1.104,0.236-1.514,0.593C3.076,4.928,3.05,4.925,3.037,4.943C3.034,4.945,3.035,4.95,3.032,4.953C2.574,5.379,2.276,5.975,2.276,6.649v6.702c0,1.285,1.045,2.329,2.33,2.329h10.79c1.285,0,2.328-1.044,2.328-2.329V6.649C17.724,5.989,17.441,5.399,16.999,4.975z M15.396,5.356c0.098,0,0.183,0.035,0.273,0.055l-5.668,4.735L4.382,5.401c0.075-0.014,0.145-0.045,0.224-0.045H15.396z M16.688,13.351c0,0.712-0.581,1.294-1.293,1.294H4.606c-0.714,0-1.294-0.582-1.294-1.294V6.649c0-0.235,0.081-0.445,0.192-0.636l6.162,5.205c0.096,0.081,0.215,0.122,0.334,0.122c0.118,0,0.235-0.041,0.333-0.12l6.189-5.171c0.099,0.181,0.168,0.38,0.168,0.6V13.351z"></path>
-                                            </svg>
-                                            TechArmy@gmail.com
-                                        </address>
-                            
-                                    </a>
-                                    <div class="contact-box-footer">
-                                        <div class="m-t-xs btn-group">
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-phone"></i> Call </a>
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
-                                        </div>
-                                    </div>
-                            
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="contact-box center-version">
-                                    <a href="#profile.html">
-                                        <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar3.png">
-                                        <h3 class="m-b-xs"><strong>Emma Watson</strong></h3>
-                            
-                                        <div class="font-bold">Database Administrator</div>
-                                        <address class="m-t-md">
-                                            <strong>TechArmy, Inc.</strong><br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
-                                            </svg>
-                                            3, Jalan SS 15/8, Ss 15, 47500 Subang Jaya, Selangor<br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path d="M14.911,1.295H5.09c-0.737,0-1.339,0.603-1.339,1.339v14.733c0,0.736,0.603,1.338,1.339,1.338h9.821c0.737,0,1.339-0.602,1.339-1.338V2.634C16.25,1.898,15.648,1.295,14.911,1.295 M15.357,17.367c0,0.24-0.205,0.445-0.446,0.445H5.09c-0.241,0-0.446-0.205-0.446-0.445v-0.893h10.714V17.367z M15.357,15.58H4.644V4.42h10.714V15.58z M15.357,3.527H4.644V2.634c0-0.241,0.205-0.446,0.446-0.446h9.821c0.241,0,0.446,0.206,0.446,0.446V3.527z"></path>
-                                            </svg>
-                                            012-3456789 ( Phone )<br>
-                                            <svg class="svg-icon" viewBox="0 0 20 20">
-                                                <path fill="none" d="M16.999,4.975L16.999,4.975C16.999,4.975,16.999,4.975,16.999,4.975c-0.419-0.4-0.979-0.654-1.604-0.654H4.606c-0.584,0-1.104,0.236-1.514,0.593C3.076,4.928,3.05,4.925,3.037,4.943C3.034,4.945,3.035,4.95,3.032,4.953C2.574,5.379,2.276,5.975,2.276,6.649v6.702c0,1.285,1.045,2.329,2.33,2.329h10.79c1.285,0,2.328-1.044,2.328-2.329V6.649C17.724,5.989,17.441,5.399,16.999,4.975z M15.396,5.356c0.098,0,0.183,0.035,0.273,0.055l-5.668,4.735L4.382,5.401c0.075-0.014,0.145-0.045,0.224-0.045H15.396z M16.688,13.351c0,0.712-0.581,1.294-1.293,1.294H4.606c-0.714,0-1.294-0.582-1.294-1.294V6.649c0-0.235,0.081-0.445,0.192-0.636l6.162,5.205c0.096,0.081,0.215,0.122,0.334,0.122c0.118,0,0.235-0.041,0.333-0.12l6.189-5.171c0.099,0.181,0.168,0.38,0.168,0.6V13.351z"></path>
-                                            </svg>
-                                            TechArmy@gmail.com
-                                        </address>
-                            
-                                    </a>
-                                    <div class="contact-box-footer">
-                                        <div class="m-t-xs btn-group">
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-phone"></i> Call </a>
-                                            <a class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
-                                        </div>
-                                    </div>
-                            
+                        </div>
+                        <div class="card mb-4" style="overflow-x: auto;">
+                            <div class="card-body">
+                                <div style="padding: 10px">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.0757713853427!2d101.58901761470446!3d3.0744364977611744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4c5f8bdfaba7%3A0x31aac7ab1af0abc!2sINTI%20International%20College%20Subang!5e0!3m2!1sen!2smy!4v1617431323703!5m2!1sen!2smy" style="width:100%;" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <!--------------------
-                    <div id="containerLogo" class="container-fluid">
-                        <div id="containerLoc">
-                            <div id="circle">
-                                <svg class="svg-icon" viewBox="0 0 20 20">
-							        <path d="M10,1.375c-3.17,0-5.75,2.548-5.75,5.682c0,6.685,5.259,11.276,5.483,11.469c0.152,0.132,0.382,0.132,0.534,0c0.224-0.193,5.481-4.784,5.483-11.469C15.75,3.923,13.171,1.375,10,1.375 M10,17.653c-1.064-1.024-4.929-5.127-4.929-10.596c0-2.68,2.212-4.861,4.929-4.861s4.929,2.181,4.929,4.861C14.927,12.518,11.063,16.627,10,17.653 M10,3.839c-1.815,0-3.286,1.47-3.286,3.286s1.47,3.286,3.286,3.286s3.286-1.47,3.286-3.286S11.815,3.839,10,3.839 M10,9.589c-1.359,0-2.464-1.105-2.464-2.464S8.641,4.661,10,4.661s2.464,1.105,2.464,2.464S11.359,9.589,10,9.589"></path>
-						        </svg>
-                            </div>
-                            <b>Tech Army Office</b>
-                            <p>3, Jalan SS 15/8, Ss 15, 47500 Subang Jaya, Selangor</p>
-                        </div>
-
-                        <div id="containerContact">
-                            <div id="circle">
-                                <svg class="svg-icon" viewBox="0 0 20 20">
-							        <path d="M13.372,1.781H6.628c-0.696,0-1.265,0.569-1.265,1.265v13.91c0,0.695,0.569,1.265,1.265,1.265h6.744c0.695,0,1.265-0.569,1.265-1.265V3.045C14.637,2.35,14.067,1.781,13.372,1.781 M13.794,16.955c0,0.228-0.194,0.421-0.422,0.421H6.628c-0.228,0-0.421-0.193-0.421-0.421v-0.843h7.587V16.955z M13.794,15.269H6.207V4.731h7.587V15.269z M13.794,3.888H6.207V3.045c0-0.228,0.194-0.421,0.421-0.421h6.744c0.228,0,0.422,0.194,0.422,0.421V3.888z"></path>
-						        </svg>
-                            </div>
-                            <b>Tech Army Office</b>
-                            <p>07-1234567 (Phone)</p>
-                            <b>Mr.Tan Jun Hong</b>
-                            <p>012-3456789 (Phone)</p>
-                        </div>
-
-                        <div id="containerEmail">
-                            <div id="circle">
-                                <svg class="svg-icon" viewBox="0 0 20 20">
-							        <path d="M17.388,4.751H2.613c-0.213,0-0.389,0.175-0.389,0.389v9.72c0,0.216,0.175,0.389,0.389,0.389h14.775c0.214,0,0.389-0.173,0.389-0.389v-9.72C17.776,4.926,17.602,4.751,17.388,4.751 M16.448,5.53L10,11.984L3.552,5.53H16.448zM3.002,6.081l3.921,3.925l-3.921,3.925V6.081z M3.56,14.471l3.914-3.916l2.253,2.253c0.153,0.153,0.395,0.153,0.548,0l2.253-2.253l3.913,3.916H3.56z M16.999,13.931l-3.921-3.925l3.921-3.925V13.931z"></path>
-						        </svg> 
-                            </div>
-                            <b>Request for help</b>
-                            <p>techarmy@gmail.com (IT Support)</p>
-                        </div>
-                   </div>
-                   --------------------------->
-
-                    <!--
-                    <div class="row">
-                        <div class= col-md-6 id="left">
-                            <h3>Contact number</h3>
-                                <i style="font-size:35px" class="fa">&#xf095;</i>
-                                <LI style="list-style-type: circle; font-size: 2em">07-1234567 (John)</LI>
-                                <LI style="list-style-type: circle; font-size: 2em">012-3456789 (Mr.Tan)</LI>
-                                <br><br>
-                            <h3>Email:</h3>
-                                <i style="font-size:35px" class="fa">&#xf0e0;</i>
-                                <LI style="list-style-type: circle; font-size: 2em">techarmy@gmail.com (IT Support)</LI>
-
-                        </div>
-                    </div>
-                    -->
-                        <div class= col-md-12 id="left">
-                            <h3>Location</h3>  
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.0757713853427!2d101.58901761470446!3d3.0744364977611744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc4c5f8bdfaba7%3A0x31aac7ab1af0abc!2sINTI%20International%20College%20Subang!5e0!3m2!1sen!2smy!4v1617431323703!5m2!1sen!2smy" width="1200" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>"
-                        </div>
-                     
-
-
-
-
-
-
-
                 </main>
-                <footer class="container-fluid text-center">
-                    <p>Copyright 2021 &copy; Cloud Analytics provided by Tech Army</p>
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="copyright">
+                            <script>
+                            document.write(new Date().getFullYear())
+                            </script> &copy; Cloud Analytics provided by Tech Army.
+                        </div>
+                    </div>
                 </footer>
             </div>
         </div>
+        </div>
+        
+        <!--   Core JS Files   -->
+        <script src="../lib/assets/js/core/jquery.min.js"></script>
+        <script src="../lib/assets/js/core/popper.min.js"></script>
+        <script src="../lib/assets/js/core/bootstrap.min.js"></script>
+        <script src="../lib/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!-- Chart JS
+        <script src="../lib/assets/js/plugins/chartjs.min.js"></script> -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="../lib/assets/js/black-dashboard.min.js"></script>
+        <script>
+            
+            /* --- CHANGE THEME MODE --- */
+            $('#checkbox').change(function(){
+                if($(this).is(":checked")) {
+                $('body').addClass('change-background');
+                    setTimeout(function() {
+                    $('body').removeClass('change-background');
+                    $('body').addClass('white-content');
+                    }, 100);
+                } else {
+                $('body').addClass('change-background');
+                    setTimeout(function() {
+                    $('body').removeClass('change-background');
+                    $('body').removeClass('white-content');
+                    }, 100);
+                }
+            });
 
+            $(document).ready(function() {
+                $(document).ready(function() {
+                $("#searchUser").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#userTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+            });
+            $().ready(function() {
+                $sidebar = $('.sidebar');
+                $navbar = $('.navbar');
+                $main_panel = $('.main-panel');
+
+                $full_page = $('.full-page');
+
+                $sidebar_responsive = $('body > .navbar-collapse');
+                sidebar_mini_active = true;
+
+                window_width = $(window).width();
+
+                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+                var $btn = $(this);
+
+                if (sidebar_mini_active == true) {
+                    $('body').removeClass('sidebar-mini');
+                    sidebar_mini_active = false;
+                    blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+                } else {
+                    $('body').addClass('sidebar-mini');
+                    sidebar_mini_active = true;
+                    blackDashboard.showSidebarMessage('Sidebar mini activated...');
+                }
+
+                // we simulate the window Resize so the charts will get updated in realtime.
+                var simulateWindowResize = setInterval(function() {
+                    window.dispatchEvent(new Event('resize'));
+                }, 180);
+
+                // we stop the simulation of Window Resize after the animations are completed
+                setTimeout(function() {
+                    clearInterval(simulateWindowResize);
+                }, 1000);
+                });
+            });
+            });
+        </script>
     </body>
-
-
-    </body>
-
-    </html>
+</html>

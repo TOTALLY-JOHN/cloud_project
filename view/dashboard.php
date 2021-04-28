@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['username'] = "admin";
-$_SESSION['userRole'] = "admin";
 if (!isset($_SESSION['username'])) {
     header('location: login.php');
 }
@@ -9,7 +7,7 @@ if (!isset($_SESSION['username'])) {
 require_once('../controller/dashboard_controller.php');
 include('../lib/common/languages.php');
 $controllers = new DashboardController();
-// $data = $controllers->getAllVirtualMachinesSummary();
+$data = $controllers->getAllVirtualMachinesSummary();
 
 //! LANGUAGE SETTINGS
 $lang = $_SESSION['userLanguage'] ?? "en";
@@ -58,198 +56,196 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body class="">
         <div class="wrapper">
             <div class="sidebar">
-                
-            <div class="sidebar-wrapper">
-                <div class="logo">
-                <a href="javascript:void(0)" class="simple-text logo-mini">
-                    <strong>T</strong> <strong>A</strong>
-                </a>
-                <a href="javascript:void(0)" class="simple-text logo-normal">
-                    TechArmy
-                </a>
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                    <a href="dashboard.php" class="simple-text logo-mini">
+                        <strong>T</strong> <strong>A</strong>
+                    </a>
+                    <a href="dashboard.php" class="simple-text logo-normal">
+                        TechArmy
+                    </a>
+                    </div>
+                    <ul class="nav">
+                    <?php
+                        if ($_SESSION['userRole'] == "admin") {
+                    ?>
+                        <li>
+                            <a href="./manage_users.php">
+                            <i class="fas fa-users-cog"></i>
+                            <p> <?php echo $languages[$lang]['manage_users'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./manage_cases.php">
+                            <i class="fas fa-cogs"></i>
+                            <p> <?php echo $languages[$lang]['manage_cases'];?> </p>
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
+                    <li class="active">
+                        <a href="./dashboard.php">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p><?php echo $languages[$lang]['dashboard'];?></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_cpu.php">
+                        <i class="fa fa-microchip" aria-hidden="true"></i>
+                        <p>CPU</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_memory.php">
+                        <i class="fas fa-database"></i>
+                        <p><?php echo $languages[$lang]['memory'];?></p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_disk.php">
+                        <i class="fas fa-hdd"></i>
+                        <p>HDD / SSD</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./dashboard_vm.php">
+                        <i class="fas fa-server"></i>
+                        <p> <?php echo $languages[$lang]['virtual_machines'];?> </p>
+                        </a>
+                    </li>
+                    <?php
+                        if ($_SESSION['userRole'] != "admin") {
+                    ?>
+                        <li>
+                            <a href="./change_profile.php">
+                            <i class="tim-icons icon-single-02"></i>
+                            <p> <?php echo $languages[$lang]['change_profile'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./help.php">
+                            <i class="fas fa-question-circle"></i>
+                            <p> <?php echo $languages[$lang]['help'];?> </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./cases.php">
+                            <i class="tim-icons icon-settings"></i>
+                            <p> <?php echo $languages[$lang]['my_cases'];?> </p>
+                            </a>
+                        </li>
+                    <?php
+                        }
+                    ?>
+                    <li>
+                        <a href="./about.php">
+                        <i class="tim-icons icon-puzzle-10"></i>
+                        <p> <?php echo $languages[$lang]['about_us'];?> </p>
+                        </a>
+                    </li>
+                    </ul>
                 </div>
-                <ul class="nav">
-                <?php
-                    if ($_SESSION['userRole'] == "admin") {
-                ?>
-                    <li>
-                        <a href="./manage_users.php">
-                        <i class="fas fa-users-cog"></i>
-                        <p> <?php echo $languages[$lang]['manage_users'];?> </p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./manage_cases.php">
-                        <i class="fas fa-cogs"></i>
-                        <p> <?php echo $languages[$lang]['manage_cases'];?> </p>
-                        </a>
-                    </li>
-                <?php
-                    }
-                ?>
-                <li class="active ">
-                    <a href="./dashboard.php">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <p><?php echo $languages[$lang]['dashboard'];?></p>
-                    </a>
-                </li>
-                <li>
-                    <a href="./dashboard_cpu.php">
-                    <i class="fa fa-microchip" aria-hidden="true"></i>
-                    <p>CPU</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="./dashboard_memory.php">
-                    <i class="fas fa-database"></i>
-                    <p><?php echo $languages[$lang]['memory'];?></p>
-                    </a>
-                </li>
-                <li>
-                    <a href="./dashboard_disk.php">
-                    <i class="fas fa-hdd"></i>
-                    <p>HDD / SSD</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="./dashboard_vm.php">
-                    <i class="fas fa-server"></i>
-                    <p> <?php echo $languages[$lang]['virtual_machines'];?> </p>
-                    </a>
-                </li>
-                <?php
-                    if ($_SESSION['userRole'] != "admin") {
-                ?>
-                    <li>
-                        <a href="./change_profile.php">
-                        <i class="tim-icons icon-single-02"></i>
-                        <p> <?php echo $languages[$lang]['change_profile'];?> </p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./help.php">
-                        <i class="fas fa-question-circle"></i>
-                        <p> <?php echo $languages[$lang]['help'];?> </p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./cases.php">
-                        <i class="tim-icons icon-settings"></i>
-                        <p> <?php echo $languages[$lang]['my_cases'];?> </p>
-                        </a>
-                    </li>
-                <?php
-                    }
-                ?>
-                <li>
-                    <a href="./about.php">
-                    <i class="tim-icons icon-puzzle-10"></i>
-                    <p> <?php echo $languages[$lang]['about_us'];?> </p>
-                    </a>
-                </li>
-                </ul>
-            </div>
             </div>
             <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
                 <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <div class="navbar-toggle d-inline">
-                    <button type="button" class="navbar-toggler">
-                        <span class="navbar-toggler-bar bar1"></span>
-                        <span class="navbar-toggler-bar bar2"></span>
-                        <span class="navbar-toggler-bar bar3"></span>
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle d-inline">
+                        <button type="button" class="navbar-toggler">
+                            <span class="navbar-toggler-bar bar1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </button>
+                        </div>
+                        <a class="navbar-brand" href="dashboard.php">Cloud Analytics</a> <!-- :void(0) to prevent the page from refreshing -->
+                        </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
                     </button>
-                    </div>
-                    <a class="navbar-brand" href="javascript:void(0)"> <?php echo $languages[$lang]['about_us'];?> </a> <!-- :void(0) to prevent the page from refreshing -->
-                    </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                    <span class="navbar-toggler-bar navbar-kebab"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navigation">
-                    <ul class="navbar-nav ml-auto">
-                    <li>
-                        <input type="checkbox" class="checkbox" id="checkbox">
-                        <label for="checkbox" class="label_theme">
-                            <i class="fas fa-sun"></i>
-                            <i class="fas fa-moon"></i>
-                            <div class="ball"></div>
-                        </label>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        
-                        <div class="photo">
-                            <img src="../lib/assets/img/languages_icon.png" alt="Language Translation">
-                            <i class="fa fa-language" aria-hidden="true"></i>
-                        </div>
-                        <b class="caret d-none d-lg-block d-xl-block"></b>
-                        <p class="d-lg-none">
-                            <?php echo $languages[$lang]['language'];?>
-                        </p>
-                        </a>
-                        <ul class="dropdown-menu dropdown-navbar">
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="en"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['english'];?>">
-                                </form>
-                            </li>
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="cn"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['chinese'];?>"/>
-                                </form>
-                            </li>
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="my"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['malay'];?>"/>
-                                </form>
-                            </li>
-                            <li class="nav-link">
-                                <form method="post">
-                                    <input type="hidden" name="lang" value="kr"/>
-                                    <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['korean'];?>"/>
-                                </form>
-                            </li>
+                    <div class="collapse navbar-collapse" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                        <li>
+                            <input type="checkbox" class="checkbox" id="checkbox">
+                            <label for="checkbox" class="label_theme">
+                                <i class="fas fa-sun"></i>
+                                <i class="fas fa-moon"></i>
+                                <div class="ball"></div>
+                            </label>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            
+                            <div class="photo">
+                                <img src="../lib/assets/img/languages_icon.png" alt="Language Translation">
+                                <i class="fa fa-language" aria-hidden="true"></i>
+                            </div>
+                            <b class="caret d-none d-lg-block d-xl-block"></b>
+                            <p class="d-lg-none">
+                                <?php echo $languages[$lang]['language'];?>
+                            </p>
+                            </a>
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="en"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['english'];?>">
+                                    </form>
+                                </li>
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="cn"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['chinese'];?>"/>
+                                    </form>
+                                </li>
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="my"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['malay'];?>"/>
+                                    </form>
+                                </li>
+                                <li class="nav-link">
+                                    <form method="post">
+                                        <input type="hidden" name="lang" value="kr"/>
+                                        <input class="nav-item dropdown-item" type="submit" value="<?php echo $languages[$lang]['korean'];?>"/>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <div class="photo">
+                                <img src="../lib/assets/img/anime3.png" alt="Profile Photo">
+                            </div>
+                            <b class="caret d-none d-lg-block d-xl-block"></b>
+                            <p class="d-lg-none">
+                                User
+                            </p>
+                            </a>
+                            <ul class="dropdown-menu dropdown-navbar">
+                                <li class="nav-link">
+                                    <p class="nav-item dropdown-item "> 
+                                        <?php echo $languages[$lang]['hi'];?>, 
+                                        <?php echo $_SESSION['username'];?> 
+                                        <?php 
+                                        if ($_SESSION['userLanguage'] == "kr") {
+                                            echo "님";
+                                        } 
+                                        ?>
+                                    </p>
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li class="nav-link">
+                                    <a href="./logout.php" class="nav-item dropdown-item"><?php echo $languages[$lang]['logout'];?> &nbsp;<i class="fas fa-sign-out-alt"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="separator d-lg-none"></li>
                         </ul>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <div class="photo">
-                            <img src="../lib/assets/img/anime3.png" alt="Profile Photo">
-                        </div>
-                        <b class="caret d-none d-lg-block d-xl-block"></b>
-                        <p class="d-lg-none">
-                            User
-                        </p>
-                        </a>
-                        <ul class="dropdown-menu dropdown-navbar">
-                            <li class="nav-link">
-                                <p class="nav-item dropdown-item "> 
-                                    <?php echo $languages[$lang]['hi'];?>, <?php echo $_SESSION['username'] ?? "admin123";?> 
-                                </p>
-                                <!-- <p id="koreanHiLabelAdd" class="nav-item dropdown-item">
-                                <?php 
-                                    if ($_SESSION['userLanguage'] == "kr") {
-                                        echo "님";
-                                    } 
-                                ?>
-                                </p> -->
-                            </li>
-                            <li class="dropdown-divider"></li>
-                            <li class="nav-link">
-                                <a href="./logout.php" class="nav-item dropdown-item"><?php echo $languages[$lang]['logout'];?> &nbsp;<i class="fas fa-sign-out-alt"></i></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="separator d-lg-none"></li>
-                    </ul>
-                </div>
+                    </div>
                 </div>
             </nav>
             <!-- End Navbar -->
@@ -307,34 +303,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            <table class="table tablesorter " id="">
-                                <thead class=" text-primary">
-                                <tr>
-                                    <th>
-                                    UUID
-                                    </th>
-                                    <th>
-                                    Domain Name
-                                    </th>
-                                    <th>
-                                    Average CPU Usage
-                                    </th>
-                                    <th class="text-center">
-                                    Average Memory Usage
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                <td>1075c585-29eb-498d-b61b-b0fea7d85053</td>
-                                        <td>win10</td>
-                                        <td>177.22222222222223</td>
-                                        <td class="text-center">1593399.2222222222</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                <table class ="table">
+                                    <thead>
+                                        <tr>
+                                            <th>UUID</th>
+                                            <th><?php echo $languages[$lang]['domain_name'];?></th>
+                                            <th><?php echo $languages[$lang]['average_cpu_usage'];?></th>
+                                            <th><?php echo $languages[$lang]['average_memory_usage'];?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="summaryTable">
+                                        <?php
+                                            while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $row['uuid']; ?></td>
+                                                <td><?php echo $row['domainName']; ?></td>
+                                                <td><?php echo number_format($row['cpuAvg'], 2); ?>m</td>
+                                                <td><?php echo number_format($row['memoryAvg'] / 1000, 2); ?>mib</td>
+                                            </tr>
+                                        <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -366,17 +359,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             /* --- CHANGE THEME MODE --- */
             $('#checkbox').change(function(){
                 if($(this).is(":checked")) {
-                $('body').addClass('change-background');
-                    setTimeout(function() {
-                    $('body').removeClass('change-background');
-                    $('body').addClass('white-content');
-                    }, 100);
-                } else {
-                $('body').addClass('change-background');
-                    setTimeout(function() {
-                    $('body').removeClass('change-background');
-                    $('body').removeClass('white-content');
-                    }, 100);
+                    $('body').addClass('change-background');
+                        setTimeout(function() {
+                        $('body').removeClass('change-background');
+                        $('body').addClass('white-content');
+                        }, 100);
+                    } else {
+                    $('body').addClass('change-background');
+                        setTimeout(function() {
+                        $('body').removeClass('change-background');
+                        $('body').removeClass('white-content');
+                        }, 100);
                 }
             });
 

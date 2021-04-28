@@ -17,7 +17,7 @@
         echo '<p style="text-align:right; font-size:12px;">Date:'.date("d/m/Y").'<br /></p><br /></th></tr>';
         echo '<tr><th>UUID</th><th>Domain Name</th><th>Storage Allocation</th><th>Memory Allocation</th><th>CPU Allocation</th><th>Device Type</th><th>Storage Format</th></tr>';
         while ($row = mysqli_fetch_assoc($result)){
-            echo "<tr><td>".$row['uuid']."</td><td>".$row['domainName']."</td><td>".$row['storageAllocation']."</td><td>".$row['memoryAllocation']."</td><td>".$row['cpuAllocation']."</td><td>".$row['deviceType']."</td><td>".$row['storageFormat']."</td></tr>";
+            echo "<tr><td>".$row['uuid']."</td><td>".$row['domainName']."</td><td>".number_format($row['storageAllocation'] / 1000000000, 2)."GB</td><td>".number_format($row['memoryAllocation'] / 1000, 2)."mib</td><td>".$row['cpuAllocation'].($row['cpuAllocation'] == 1 ? ' core':' cores')."</td><td>".$row['deviceType']."</td><td>".$row['storageFormat']."</td></tr>";
         }
 
         $query2 = "SELECT COUNT(uuid) AS total FROM vm_details";
@@ -31,9 +31,9 @@
         
 
         while ($row = mysqli_fetch_assoc($result3)) {
-            echo '&nbsp; <b>Storage Average Usage:</b> '.$row['storageAvg'].'<br />';
-            echo '&nbsp; <b>Memory Average Usage:</b> '.$row['memoryAvg'].'<br />';
-            echo '&nbsp; <b>CPU Average Usage:</b> '.$row['cpuAvg'].'<br /><br /><p style="font-size:20px; font-weight:bold; text-align:center;">TECH ARMY<br /><br /></p></td></tr>';
+            echo '&nbsp; <b>Storage Average Usage:</b> '.number_format($row['storageAvg'] / 1000000000, 2).'GB<br />';
+            echo '&nbsp; <b>Memory Average Usage:</b> '.number_format($row['memoryAvg'] / 1000, 2).'mib<br />';
+            echo '&nbsp; <b>CPU Average Usage:</b> '.number_format($row['cpuAvg'], 2).'m<br /><br /><p style="font-size:20px; font-weight:bold; text-align:center;">TECH ARMY<br /><br /></p></td></tr>';
         }
         echo '</table>';
     }  

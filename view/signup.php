@@ -22,8 +22,12 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		<script>
 			$(document).ready(function() {
+                <?php
+                    if ($_SESSION['signup_status'] == "success") {
+                ?>
+                    $("#signupSuccessModal").modal();
 				<?php
-				if ($_SESSION["signup_status"] == "failure") {
+				    } else if ($_SESSION["signup_status"] == "failure") {
 				?>
 					$("#signupfailedModal").modal();
 				<?php
@@ -33,19 +37,6 @@
 				?>
 			});
 		</script>
-    <!-- <script type="text/javascript">
-        function matchPassword(x, y){
-            if (x.value == y.value){
-                alert("Sign Up Successful");
-                window.location.replace(login.php);
-            }
-            else {
-                alert("Password does not match!");
-                document.getElementById('userPwd').style.borderColor = "red";
-                document.getElementById('userPwdConfirm').style.borderColor = "red";
-            };
-        }
-    </script> -->
     <body>
 
         <div id="signupContainer">
@@ -55,8 +46,6 @@
             <h1 id="signupHeader">Sign Up</h1>
             <div id="signupBodyContainer">
                 <form method="post" autocomplete="off">
-                    <span class="signupLabel">Email</span><br />
-                    <input type="text" id="userEmail" name="userEmail" placeholder="Type your email" required/><br />
                     <span class="signupLabel">Username</span><br />
                     <input type="text" id="username" name="username" placeholder="Type your username" required/><br />
                     <span class="signupLabel">Password</span><br />
@@ -64,6 +53,7 @@
                     <span class="signupLabel">Re-enter Password</span><br />
                     <input type="password" id="userPwdConfirm" name="userPwdConfirm" placeholder="Re-enter your password" required/><br />
                     <input type="submit" class="signupBtn" value="SIGN UP" /><br />
+                    <p style="text-align:center;"><a href="login.php">Go to Login Page</a></p>
                     <!-- <input type="submit" class="signupBtn" value="SIGN UP" onclick="matchPassword(pwdInput1, pwdInput2)" /><br /> -->
                 </form>
             </div>
@@ -72,6 +62,22 @@
 
         <footer>
         </footer>
+        <div id="signupSuccessModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Success Message</h4>
+					</div>
+					<div class="modal-body">
+						<p>Successfully signed up!</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
         <div id="signupfailedModal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">

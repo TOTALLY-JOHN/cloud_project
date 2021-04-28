@@ -12,6 +12,7 @@
                     $_SESSION['username'] = "admin";
                     $_SESSION['userRole'] = "admin";
                     $_SESSION['userLanguage'] = "en";
+                    $_SESSION['themeMode'] = "light";
                     return 'login-success';    
                 }
             }
@@ -27,6 +28,7 @@
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['userRole'] = $row['userRole'];
                     $_SESSION['userLanguage'] = "en";
+                    $_SESSION['themeMode'] = "light";
                     return 'login-success';
                 } 
                 else {
