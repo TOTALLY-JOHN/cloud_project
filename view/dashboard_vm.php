@@ -278,6 +278,7 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                             <th class="vm_table_header"><?php echo $languages[$lang]['cpu_allocation'];?></th>
                                             <th class="vm_table_header"><?php echo $languages[$lang]['device_type'];?></th>
                                             <th class="vm_table_header"><?php echo $languages[$lang]['storage_format'];?></th>
+                                            <th class="vm_table_header"><?php echo $languages[$lang]['status'];?></th>
                                             <th class="vm_table_header"><?php echo $languages[$lang]['usage'];?></th>
                                             <th class="vm_table_header"><?php echo $languages[$lang]['edit'];?></th>
                                             <th class="vm_table_header"><?php echo $languages[$lang]['delete'];?></th>
@@ -295,6 +296,7 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                                 <td><?php echo $row['cpuAllocation']; ?> <?php echo $row['cpuAllocation'] == 1 ? "core" : "cores" ?></td>
                                                 <td><?php echo $row['deviceType']; ?></td>
                                                 <td><?php echo $row['storageFormat']; ?></td>
+                                                <td><?php echo $row['status'] ?></td>
                                                 <td>
                                                     <a href="usage_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-primary"><?php echo $languages[$lang]['usage'];?></a>
                                                 </td>

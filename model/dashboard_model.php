@@ -14,7 +14,7 @@
 
         public function getAllVMSummaryData() {
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-            $q1 = "SELECT vm_details.uuid, vm_details.domainName, AVG(vm_usage.cpuUsed) AS cpuAvg, AVG(vm_usage.memoryUsed) AS memoryAvg FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_details.uuid, vm_details.domainName";
+            $q1 = "SELECT vm_details.uuid, vm_details.domainName, vm_details.status, AVG(vm_usage.cpuUsed) AS cpuAvg, AVG(vm_usage.memoryUsed) AS memoryAvg FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_details.uuid, vm_details.domainName, vm_details.status";
             $r1 = @mysqli_query ($dbc, $q1);
             return $r1;
         }
@@ -47,7 +47,7 @@
             $sourcePath = test_input($_REQUEST["sourcePath"]);
             $storageFormat = test_input($_REQUEST["storageFormat"]);
 
-            $sql = "INSERT INTO vm_details VALUES ('".$vmUUID."','".$domainName."','".$storageCapacity."','".$storageAllocation."','".$storageAvailable."','".$memoryAllocation."','".$cpuAllocation."','".$deviceType."','".$sourcePath."','".$storageFormat."')";
+            $sql = "INSERT INTO vm_details VALUES ('".$vmUUID."','".$domainName."','".$storageCapacity."','".$storageAllocation."','".$storageAvailable."','".$memoryAllocation."','".$cpuAllocation."','".$deviceType."','".$sourcePath."','".$storageFormat."', 'stopping')";
             if ($dbc->query($sql) === TRUE) {
                 return "success";
             } else {
@@ -73,9 +73,10 @@
             $cpuAllocation = test_input2($_REQUEST["cpuAllocation"]);
             $deviceType = test_input2($_REQUEST["deviceType"]);
             $sourcePath = test_input2($_REQUEST["sourcePath"]);
-            $storageFormat = test_input2($_REQUEST["storageFormat"]); // 60122419438
+            $storageFormat = test_input2($_REQUEST["storageFormat"]);
+            $status = test_input2($_REQUEST["status"]);
 
-            $sql = "UPDATE vm_details SET domainName = '".$domainName."', storageCapacity = '".$storageCapacity."', storageAllocation = '".$storageAllocation."', storageAvailable = '".$storageAvailable."', memoryAllocation = '".$memoryAllocation."', cpuAllocation = '".$cpuAllocation."', deviceType = '".$deviceType."', sourcePath = '".$sourcePath."', storageFormat = '".$storageFormat."' WHERE uuid = '".$vmUUID."'";
+            $sql = "UPDATE vm_details SET domainName = '".$domainName."', storageCapacity = '".$storageCapacity."', storageAllocation = '".$storageAllocation."', storageAvailable = '".$storageAvailable."', memoryAllocation = '".$memoryAllocation."', cpuAllocation = '".$cpuAllocation."', deviceType = '".$deviceType."', sourcePath = '".$sourcePath."', storageFormat = '".$storageFormat."', status = '".$status."' WHERE uuid = '".$vmUUID."'";
             if ($dbc->query($sql) === TRUE) {
                 return "success";
             } else {

@@ -130,8 +130,8 @@
             "successfully_updated" => "Successfully updated!",
             "failed_to_update" => "Failed to update!",
             "virtual_machines_usage" => "Virtual Machines Usage",
-            "virtual_machines_usage_details" => "Virtual Machines Usage Details"
-
+            "virtual_machines_usage_details" => "Virtual Machines Usage Details",
+            "status" => "Status"
         ),
         "cn" => array(
             "dashboard" => "仪表盘",
@@ -263,7 +263,8 @@
             "successfully_updated" => "成功更新！",
             "failed_to_update" => "更新失败！",
             "virtual_machines_usage" => "虚拟机使用",
-            "virtual_machines_usage_details" => "虚拟机使用情况详细信息"
+            "virtual_machines_usage_details" => "虚拟机使用情况详细信息",
+            "status" => "状态"
         ),
         "my" => array(
             "dashboard" => "Papan Pemuka",
@@ -395,7 +396,8 @@
             "successfully_updated" => "Berjaya dikemaskini",
             "failed_to_update" => "Gagal dikemaskini",
             "virtual_machines_usage" => "Penggunaan Mesin Maya",
-            "virtual_machines_usage_details" => "Butiran Penggunaan Mesin Maya"
+            "virtual_machines_usage_details" => "Butiran Penggunaan Mesin Maya",
+            "status" => "Status"
         ),
         "kr" => array(
             "dashboard" => "대시보드",
@@ -527,7 +529,8 @@
             "successfully_updated" => "성공적으로 업데이트 되었습니다!",
             "failed_to_update" => "업데이트에 실패하였습니다!",
             "virtual_machines_usage" => "가상머신 사용량",
-            "virtual_machines_usage_details" => "가상머신 사용량 자세한 정보"
+            "virtual_machines_usage_details" => "가상머신 사용량 자세한 정보",
+            "status" => "상태"
         )
     )
 ?>

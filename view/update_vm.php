@@ -166,7 +166,10 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                     <input type="text" id="sourcePath" name="sourcePath" placeholder="<?php echo $languages[$lang]['source_path'];?>" value="<?php echo $row['sourcePath'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['storage_format'];?></span><br />
-                    <input type="text" id="storageFormat" name="storageFormat" placeholder="<?php echo $languages[$lang]['storage_format'];?>" value="<?php echo $row['storageFormat'];?>" required/><br /><br />
+                    <input type="text" id="storageFormat" name="storageFormat" placeholder="<?php echo $languages[$lang]['storage_format'];?>" value="<?php echo $row['storageFormat'];?>" required/><br />
+
+                    <span class="vmLabel"><?php echo $languages[$lang]['status'];?></span><br />
+                    <input type="text" id="status" name="status" placeholder="<?php echo $languages[$lang]['status'];?>" value="<?php echo $row['status'];?>" required/><br /><br />
 
                     <input type="submit" class="updateBtn" value="<?php echo $languages[$lang]['update'];?>" /><br />
                     <p style="text-align:center;"><a href="dashboard_vm.php"><?php echo $languages[$lang]['go_back'];?></a></p>

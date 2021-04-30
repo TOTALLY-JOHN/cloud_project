@@ -310,6 +310,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <th><?php echo $languages[$lang]['domain_name'];?></th>
                                             <th><?php echo $languages[$lang]['average_cpu_usage'];?></th>
                                             <th><?php echo $languages[$lang]['average_memory_usage'];?></th>
+                                            <th><?php echo $languages[$lang]['status'];?></th>
                                         </tr>
                                     </thead>
                                     <tbody id="summaryTable">
@@ -321,6 +322,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 <td><?php echo $row['domainName']; ?></td>
                                                 <td><?php echo number_format($row['cpuAvg'], 2); ?>m</td>
                                                 <td><?php echo number_format($row['memoryAvg'] / 1000, 2); ?>mib</td>
+                                                <td><?php echo $row['status']; ?></td>
                                             </tr>
                                         <?php
                                             }
