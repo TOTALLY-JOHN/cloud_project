@@ -127,6 +127,10 @@
                 color: #fff;
                 text-decoration: none;
             }
+
+            .nav li p {
+                font-size: 15px;
+            }
         </style>
     <body>
         <div id="profileContainer">

@@ -89,6 +89,9 @@
         .dropdownInputItem:hover {
             background-color: #eeeeee;
         }
+        .nav li p {
+            font-size: 15px;
+        }
     </style>
     </head>
     <body class="">

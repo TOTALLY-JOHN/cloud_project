@@ -51,6 +51,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         .dropdownInputItem:hover {
             background-color: #eeeeee;
         }
+        .nav li p {
+            font-size: 15px;
+        }
     </style>
 
     <body class="">
@@ -65,7 +68,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         TechArmy
                     </a>
                     </div>
-                    <ul class="nav">
+                    <ul class="nav"> 
                     <?php
                         if ($_SESSION['userRole'] == "admin") {
                     ?>

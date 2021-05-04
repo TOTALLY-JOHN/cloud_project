@@ -133,6 +133,10 @@ $lang = $_SESSION['userLanguage'] ?? "en";
             color: #fff;
             text-decoration: none;
         }
+
+        .nav li p {
+            font-size: 15px;
+        }
     </style>
 
     <body style="background-image: url('../images/bg-01.jpg');">

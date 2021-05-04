@@ -92,6 +92,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         .dropdownInputItem:hover {
             background-color: #eeeeee;
         }
+        .nav li p {
+            font-size: 15px;
+        }
     </style>
     <body class="">
         <div class="wrapper">

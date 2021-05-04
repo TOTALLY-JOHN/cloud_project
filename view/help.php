@@ -60,7 +60,8 @@ $lang = $_SESSION['userLanguage'] ?? "en";
 
         input[type=submit] 
         {
-          background-color: DodgerBlue;
+          /* background-color: DodgerBlue; */
+          background-color: #e16747;
           color: #fff;
           cursor: pointer;
           margin-top: 100px;
@@ -100,45 +101,59 @@ $lang = $_SESSION['userLanguage'] ?? "en";
 
         /*Form*/
         .container-contact{
-          background-color: #8bd5ff;
+          /* background-color: #8bd5ff; */
           padding-left: 10px;
           padding-right: 10px;
         }
+
         .contact{
           padding: 4%;
           height: 400px;
         }
+
         .col-md-3{
-          background: #ff9b00;
+          /* background: #ff9b00; */
+          background-color: #E16747;
           padding: 4%;
           border-top-left-radius: 0.5rem;
           border-bottom-left-radius: 0.5rem;
         }
+
         .contact-info{
           margin-top:10%;
         }
         .contact-info img{
           margin-bottom: 15%;
         }
+
         .contact-info h2{
           margin-bottom: 10%;
         }
+
         .col-md-9{
-          background: #fff;
+          /* background: #fff; */
           padding: 3%;
           border-top-right-radius: 0.5rem;
           border-bottom-right-radius: 0.5rem;
-          background-color: #8bd5ff;
+          /* background-color: #8bd5ff; */
+          /* background-color: #494949; */
         }
+
         .contact-form label{
           font-weight:600;
         }
+
         .contact-form button{
-          background: #25274d;
+          background: #e16747;
           color: #fff;
           font-weight: 600;
           width: 25%;
         }
+
+        .contact-form button{
+          background-color: #F35931;
+        }
+
         .contact-form button:focus{
           box-shadow:none;
         }
@@ -160,6 +175,9 @@ $lang = $_SESSION['userLanguage'] ?? "en";
           padding-right: 20px;
         }
 
+        .nav li p {
+            font-size: 15px;
+        }
     </style>
     </head>
     <body class="">
@@ -333,7 +351,7 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                               <div id="frequentlyAskedQuestionContainer">
                                 <div>
                                   <h2 class="accordion-header" id="flush-headingOne">
-                                    <a id="btn1" href="#question1" class="btn btn-warning" data-toggle="collapse">
+                                    <a id="btn1" href="#question1" class="btn btn-success" data-toggle="collapse">
                                       <?php echo $languages[$lang]['faq_q1'];?> #1
                                     </a>
                                   </h2>
@@ -353,7 +371,7 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                 </div>
                                 <div>
                                   <h2 class="accordion-header" id="flush-headingOne">
-                                    <a id="btn2" href="#question2" class="btn btn-warning" data-toggle="collapse">
+                                    <a id="btn2" href="#question2" class="btn btn-success" data-toggle="collapse">
                                     <?php echo $languages[$lang]['faq_q2'];?> #2
                                     </a>
                                   </h2>
@@ -369,7 +387,7 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                 </div>
                                 <div>
                                   <h2 class="accordion-header" id="flush-headingOne">
-                                    <a id="btn3" href="#question3" class="btn btn-warning" data-toggle="collapse">
+                                    <a id="btn3" href="#question3" class="btn btn-success" data-toggle="collapse">
                                     <?php echo $languages[$lang]['faq_q3'];?> #3
                                     </a>
                                   </h2>
@@ -400,19 +418,19 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                         <div class="form-group">
                                           <label class="control-label col-sm-2" for="fname"><?php echo $languages[$lang]['first_name'];?>:</label>
                                           <div class="col-sm-offset-2 col-sm-10" style="text-align:center;">
-                                          <input type="text" class="form-control" id="fname" placeholder="<?php echo $languages[$lang]['first_name'];?>" name="firstName" required>
+                                          <input type="text" class="form-control" id="fname" style="color: black; background-color: white;" placeholder="<?php echo $languages[$lang]['first_name'];?>" name="firstName" required>
                                           </div>
                                         </div>
                                         <div class="form-group">
                                           <label class="control-label col-sm-2" for="lname"><?php echo $languages[$lang]['last_name'];?>:</label>
                                           <div class="col-sm-offset-2 col-sm-10" style="text-align:center;">
-                                          <input type="text" class="form-control" id="lname" placeholder="<?php echo $languages[$lang]['last_name'];?>" name="lastName" required>
+                                          <input type="text" class="form-control" id="lname" style="color: black; background-color: white;" placeholder="<?php echo $languages[$lang]['last_name'];?>" name="lastName" required>
                                           </div>
                                         </div>
                                         <div class="form-group">
                                           <label class="control-label col-sm-2" for="comment"><?php echo $languages[$lang]['comment'];?>:</label>
                                           <div class="col-sm-offset-2 col-sm-10" style="text-align:center;">
-                                          <textarea class="form-control" rows="5" id="comment" name="comment" style="border:2px solid black; border-radius:10px;" required></textarea>
+                                          <textarea class="form-control" rows="5" id="comment" name="comment" placeholder="<?php echo $languages[$lang]['comment'] ?>" style="border:2px solid black; border-radius:10px; background-color: white; color: black;" required></textarea>
                                           </div>
                                         </div>
                                         <div class="form-group">        

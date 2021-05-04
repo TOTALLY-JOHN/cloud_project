@@ -158,6 +158,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 font-style: italic;
                 color: #96a2a7;
         }
+        .nav li p {
+            font-size: 15px;
+        }
 
     </style>
 

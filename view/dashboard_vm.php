@@ -83,7 +83,9 @@ $lang = $_SESSION['userLanguage'] ?? "en";
             height: 40px;
         }
 
-        
+        .nav li p {
+            font-size: 15px;
+        }
     </style>
     </head>
     <body class="">

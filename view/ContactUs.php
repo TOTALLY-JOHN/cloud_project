@@ -100,6 +100,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-bottom: 30px;
             border-radius: 40px;
         }
+        .nav li p {
+            font-size: 15px;
+        }
     </style>
     <body class="">
         <div class="wrapper">
