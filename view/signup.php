@@ -13,7 +13,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tech Army</title>
     </head>
-    <link rel="stylesheet" href="../lib/styles/signup_style.css">
+	<style>
+		/* BUTTON */
+		.signupBtn {
+			background: linear-gradient(to right, #4776E6 0%, #8E54E9 51%, #4776E6 100%);
+			width: 100%;
+			margin: 10px;
+			padding: 15px 45px;
+			text-align: center;
+			text-transform: uppercase;
+			transition: 0.5s;
+			background-size: 200% auto;
+			color: white;
+			box-shadow: 0 0 20px #eee;
+			border-radius: 25px;
+			border: none;
+			display: block;
+			font-size: 1em;
+			/*text-shadow: 2px 2px 4px #685D5F;
+			height: 50px;
+			color: white;
+			border: none;
+			border-radius: 24px;
+			margin-top: 10px;
+			margin-bottom: 10px;*/
+			}
+		
+			.signupBtn:hover {
+			/*background: linear-gradient(to right, #C8D6CA, #FFFFFF);
+			box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);*/
+			background-position: right center;
+			opacity: 0.5;
+			text-decoration: none;
+			}
+		
+			.signupBtn:active {
+				box-shadow: 0 5px #666;
+				transform: translateY(4px);
+			}
+	</style>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../lib/assets/css/login_style.css">
+	<link rel="stylesheet" href="../lib/assets/css/utilLogin.css">
     <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 		<!-- jQuery library -->
@@ -38,27 +79,51 @@
 			});
 		</script>
     <body>
+		<div class="limiter">
+			<div class="loginContainer">
+				<div class="wrap-login100 p-l-85 p-r-85 p-t-40 p-b-55">
+					<div id="logoImageContainer">
+						<img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" style="width:50%" />
+					</div>
+					<form class="login100-form validate-form flex-sb flex-w" method="post" autocomplete="off">
+						<span class="loginTittle p-t-40 p-b-40">
+							Sign Up
+						</span>
 
-        <div id="signupContainer">
-            <div id="logoImageContainer">
-                <img id="logoImage" src="../images/techlogo1.png" alt="tech_army_logo" style="width:50%" />
-            </div>
-            <h1 id="signupHeader">Sign Up</h1>
-            <div id="signupBodyContainer">
-                <form method="post" autocomplete="off">
-                    <span class="signupLabel">Username</span><br />
-                    <input type="text" id="username" name="username" placeholder="Type your username" required/><br />
-                    <span class="signupLabel">Password</span><br />
-                    <input type="password" id="userPwd" name="userPwd" placeholder="Type your password" required/><br />
-                    <span class="signupLabel">Re-enter Password</span><br />
-                    <input type="password" id="userPwdConfirm" name="userPwdConfirm" placeholder="Re-enter your password" required/><br />
-                    <input type="submit" class="signupBtn" value="SIGN UP" /><br />
-                    <p style="text-align:center;"><a href="login.php">Go to Login Page</a></p>
-                    <!-- <input type="submit" class="signupBtn" value="SIGN UP" onclick="matchPassword(pwdInput1, pwdInput2)" /><br /> -->
-                </form>
-            </div>
+						<div class="wrap-input100 validate-input m-b-36">
+							<input type="text" class="input100" placeholder="Username" id="username" name="username" style="font-size: 16px;" pattern="^[A-Za-z0-9]{4,}$" title="Username must contain at least 4 characters." required="required">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-user" aria-hidden="true"></i>
+							</span>
+						</div>
 
-        </div>
+						<div class="wrap-input100 validate-input m-b-36">
+							<input type="password" class="input100" placeholder="Password" id="userPwd" name="userPwd" style="font-size: 16px;" pattern="^.{8,}$" title="Password must contain at least 8 characters." required="required">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</span>
+						</div>
+
+						<div class="wrap-input100 validate-input m-b-36">
+							<input type="password" class="input100" placeholder="Re-enter Password" id="userPwdConfirm" name="userPwdConfirm" style="font-size: 16px;" pattern="^.{8,}$" title="Password must contain at least 8 characters." required="required">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</span>
+						</div>
+						
+						<div class="conatinerLoginButton">
+							<input type="submit" class="signupBtn" value="SIGN UP" style="color: white;" />
+						</div> <br />
+
+						<div style="width: 100%; text-align:center;"><a href="login.php">Go to Login Page</a></p>
+
+					</form>
+				</div>
+			</div>
+		</div>
 
         <footer>
         </footer>
