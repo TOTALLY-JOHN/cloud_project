@@ -296,10 +296,10 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                             <tr>
                                                 <td><?php echo $row['uuid']; ?></td>
                                                 <td><?php echo $row['usageDate']; ?></td>
-                                                <td><?php echo number_format($row['cpuUsed'], 2); ?>m</td>
+                                                <td><?php echo number_format($row['cpuUsed'], 2); ?>%</td>
                                                 <td><?php echo number_format($row['memoryUsed'] / 1000, 2); ?>mib</td>
                                                 <td>
-                                                    <a href="update_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-success"><?php echo $languages[$lang]['edit'];?></a>
+                                                    <a href="update_usage_vm.php?usageID=<?php echo $row['usageID'];?>&uuid=<?php echo $_GET["uuid"];?> " class="btn btn-success"><?php echo $languages[$lang]['edit'];?></a>
                                                 </td>
                                                 <td>
                                                     <a href="delete_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-danger"><?php echo $languages[$lang]['delete'];?></a>

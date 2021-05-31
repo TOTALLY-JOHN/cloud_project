@@ -18,7 +18,7 @@
         echo '<p style="text-align:right; font-size:12px;">Date:'.date("d/m/Y").'<br /></p><br /></th></tr>';
         echo '<tr><th>UUID</th><th>Usage Date</th><th>CPU Usage</th><th>Memory Usage</th></tr>';
         while ($row = mysqli_fetch_assoc($result)){
-            echo "<tr><td>".$row['uuid']."</td><td>".$row['usageDate']."</td><td>".number_format($row['cpuUsed'],2)."m</td><td>".number_format($row['memoryUsed']/1000,2)."mib</td></tr>";
+            echo "<tr><td>".$row['uuid']."</td><td>".$row['usageDate']."</td><td>".number_format($row['cpuUsed'],2)."%</td><td>".number_format($row['memoryUsed']/1000,2)."mib</td></tr>";
         }
 
         $query2 = "SELECT COUNT(uuid) AS total FROM vm_usage WHERE uuid = '".$uuid."'";
@@ -32,7 +32,7 @@
         
         while ($row = mysqli_fetch_assoc($result3)) {
             echo '&nbsp; <b>Memory Average Usage:</b> '.number_format($row['memoryAvg']/1000,2).'mib<br />';
-            echo '&nbsp; <b>CPU Average Usage:</b> '.number_format($row['cpuAvg'],2).'m<br /><br /><p style="font-size:20px; font-weight:bold; text-align:center;">TECH ARMY<br /><br /></p></td></tr>';
+            echo '&nbsp; <b>CPU Average Usage:</b> '.number_format($row['cpuAvg'],2).'%<br /><br /><p style="font-size:20px; font-weight:bold; text-align:center;">TECH ARMY<br /><br /></p></td></tr>';
         }
         echo '</table>';
     }  

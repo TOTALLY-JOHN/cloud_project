@@ -33,7 +33,7 @@
         while ($row = mysqli_fetch_assoc($result3)) {
             echo '&nbsp; <b>Storage Average Usage:</b> '.number_format($row['storageAvg'] / 1000000000, 2).'GB<br />';
             echo '&nbsp; <b>Memory Average Usage:</b> '.number_format($row['memoryAvg'] / 1000, 2).'mib<br />';
-            echo '&nbsp; <b>CPU Average Usage:</b> '.number_format($row['cpuAvg'], 2).'m<br /><br /><p style="font-size:20px; font-weight:bold; text-align:center;">TECH ARMY<br /><br /></p></td></tr>';
+            echo '&nbsp; <b>CPU Average Usage:</b> '.number_format($row['cpuAvg'], 2).'%<br /><br /><p style="font-size:20px; font-weight:bold; text-align:center;">TECH ARMY<br /><br /></p></td></tr>';
         }
         echo '</table>';
     }  

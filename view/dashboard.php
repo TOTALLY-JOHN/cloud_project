@@ -323,7 +323,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <tr>
                                                 <td><?php echo $row['uuid']; ?></td>
                                                 <td><?php echo $row['domainName']; ?></td>
-                                                <td><?php echo number_format($row['cpuAvg'], 2); ?>m</td>
+                                                <td><?php echo number_format($row['cpuAvg'], 2); ?>%</td>
                                                 <td><?php echo number_format($row['memoryAvg'] / 1000, 2); ?>mib</td>
                                                 <td><?php echo $row['status']; ?></td>
                                             </tr>

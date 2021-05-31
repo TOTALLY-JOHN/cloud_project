@@ -146,34 +146,34 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                     <input type="text" id="vmUUID" name="vmUUID" placeholder="VM UUID" value="<?php echo $row['uuid'];?>" readonly/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['domain_name'];?></span><br />
-                    <input type="text" id="domainName" name="domainName" placeholder="<?php echo $languages[$lang]['domain_name'];?>" value="<?php echo $row['domainName'];?>" required/><br />
+                    <input type="text" id="domainName" name="domainName" placeholder="<?php echo $languages[$lang]['domain_name'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['domainName'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['storage_capacity'];?></span><br />
-                    <input type="text" id="storageCapacity" name="storageCapacity" placeholder="<?php echo $languages[$lang]['storage_capacity'];?>" value="<?php echo $row['storageCapacity'];?>" required/><br />
+                    <input type="text" id="storageCapacity" name="storageCapacity" placeholder="<?php echo $languages[$lang]['storage_capacity'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['storageCapacity'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['storage_allocation'];?></span><br />
-                    <input type="text" id="storageAllocation" name="storageAllocation" placeholder="<?php echo $languages[$lang]['storage_allocation'];?>" value="<?php echo $row['storageAllocation'];?>" required/><br />
+                    <input type="text" id="storageAllocation" name="storageAllocation" placeholder="<?php echo $languages[$lang]['storage_allocation'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['storageAllocation'];?>" required/><br />
                     
                     <span class="vmLabel"><?php echo $languages[$lang]['storage_available'];?></span><br />
-                    <input type="text" id="storageAvailable" name="storageAvailable" placeholder="<?php echo $languages[$lang]['storage_available'];?>" value="<?php echo $row['storageAvailable'];?>" required/><br />
+                    <input type="text" id="storageAvailable" name="storageAvailable" placeholder="<?php echo $languages[$lang]['storage_available'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['storageAvailable'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['memory_allocation'];?></span><br />
-                    <input type="text" id="memoryAllocation" name="memoryAllocation" placeholder="<?php echo $languages[$lang]['memory_allocation'];?>" value="<?php echo $row['memoryAllocation'];?>" required/><br />
+                    <input type="text" id="memoryAllocation" name="memoryAllocation" placeholder="<?php echo $languages[$lang]['memory_allocation'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['memoryAllocation'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['cpu_allocation'];?></span><br />
-                    <input type="text" id="cpuAllocation" name="cpuAllocation" placeholder="<?php echo $languages[$lang]['cpu_allocation'];?>" value="<?php echo $row['cpuAllocation'];?>" required/><br />
+                    <input type="text" id="cpuAllocation" name="cpuAllocation" placeholder="<?php echo $languages[$lang]['cpu_allocation'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['cpuAllocation'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['device_type'];?></span><br />
-                    <input type="text" id="deviceType" name="deviceType" placeholder="<?php echo $languages[$lang]['device_type'];?>" value="<?php echo $row['deviceType'];?>" required/><br />
+                    <input type="text" id="deviceType" name="deviceType" placeholder="<?php echo $languages[$lang]['device_type'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['deviceType'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['source_path'];?></span><br />
-                    <input type="text" id="sourcePath" name="sourcePath" placeholder="<?php echo $languages[$lang]['source_path'];?>" value="<?php echo $row['sourcePath'];?>" required/><br />
+                    <input type="text" id="sourcePath" name="sourcePath" placeholder="<?php echo $languages[$lang]['source_path'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['sourcePath'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['storage_format'];?></span><br />
-                    <input type="text" id="storageFormat" name="storageFormat" placeholder="<?php echo $languages[$lang]['storage_format'];?>" value="<?php echo $row['storageFormat'];?>" required/><br />
+                    <input type="text" id="storageFormat" name="storageFormat" placeholder="<?php echo $languages[$lang]['storage_format'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['storageFormat'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['status'];?></span><br />
-                    <input type="text" id="status" name="status" placeholder="<?php echo $languages[$lang]['status'];?>" value="<?php echo $row['status'];?>" required/><br /><br />
+                    <input type="text" id="status" name="status" placeholder="<?php echo $languages[$lang]['status'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['status'];?>" required/><br /><br />
 
                     <input type="submit" class="updateBtn" value="<?php echo $languages[$lang]['update'];?>" /><br />
                     <p style="text-align:center;"><a href="dashboard_vm.php"><?php echo $languages[$lang]['go_back'];?></a></p>

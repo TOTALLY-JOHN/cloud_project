@@ -8,6 +8,7 @@ if (!isset($_SESSION['username'])) {
 require_once('../controller/dashboard_controller.php');
 include('../lib/common/languages.php');
 $controllers = new DashboardController();
+$uuid = $_GET["uuid"];
 $usageID = $_GET["usageID"];
 $row = $controllers->getVirtualMachineUsageDetails($usageID);
 //! LANGUAGE SETTINGS
@@ -148,19 +149,19 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                 <form method="post" autocomplete="off">
                     <span class="vmLabel">UUID</span><br />
                     <input type="hidden" id="usageID" name="usageID" value="<?php echo $row['usageID'];?>"/>
-                    <input type="text" id="vmUUID" name="vmUUID" placeholder="VM UUID" value="<?php echo $row['uuid'];?>" readonly/><br />
+                    <input type="text" id="vmUUID" name="vmUUID" placeholder="VM UUID" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['uuid'];?>" readonly/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['usage_date'];?></span><br />
-                    <input type="date" id="usageDate" name="usageDate" placeholder="<?php echo $languages[$lang]['usage_date'];?>" value="<?php echo $row['usageDate'];?>" required/><br />
+                    <input type="date" id="usageDate" name="usageDate" placeholder="<?php echo $languages[$lang]['usage_date'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['usageDate'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['cpu_usage'];?></span><br />
-                    <input type="number" id="cpuUsed" name="cpuUsed" placeholder="<?php echo $languages[$lang]['cpu_usage'];?>" value="<?php echo $row['cpuUsed'];?>" required/><br />
+                    <input type="number" id="cpuUsed" name="cpuUsed" placeholder="<?php echo $languages[$lang]['cpu_usage'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['cpuUsed'];?>" required/><br />
 
                     <span class="vmLabel"><?php echo $languages[$lang]['memory_usage'];?></span><br />
-                    <input type="number" id="memoryUsed" name="memoryUsed" placeholder="<?php echo $languages[$lang]['memory_usage'];?>" value="<?php echo $row['memoryUsed'];?>" required/><br /><br />
+                    <input type="number" id="memoryUsed" name="memoryUsed" placeholder="<?php echo $languages[$lang]['memory_usage'];?>" value="<?php if ($_SERVER['REQUEST_METHOD'] != 'POST') echo $row['memoryUsed'];?>" required/><br /><br />
 
                     <input type="submit" class="updateBtn" value="<?php echo $languages[$lang]['update'];?>" /><br />
-                    <p style="text-align:center;"><a href="usage_vm.php"><?php echo $languages[$lang]['go_back'];?></a></p>
+                    <p style="text-align:center;"><a href="usage_vm.php?uuid=<?php echo $_GET["uuid"]; ?>"><?php echo $languages[$lang]['go_back'];?></a></p>
                 </form>
             </div>
         </div>
