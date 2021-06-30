@@ -95,5 +95,38 @@
             $result = $this->dashboardModel->getAllMyHelpCases($username);
             return $result;
         }
+
+        //! CASE HISTORY
+        public function createCaseHistory() {
+            $result = $this->dashboardModel->createHistory();
+            return $result;
+        }
+
+        public function getAllCaseHistory() {
+            $result = $this->dashboardModel->getAllHistory();
+            return $result;
+        }
+
+        //! NOTIFICATIONS
+        public function createCaseNotification($sender, $recipient) {
+            if ($sender == "admin") {
+                $result = $this->dashboardModel->createNotification("admin", $recipient, "admin");
+                return $result;
+            }
+            else {
+                $result = $this->dashboardModel->createNotification($sender, "admin", "staff");
+                return $result;
+            }
+        }
+
+        public function readCaseNotification($recipient) {
+            $result = $this->dashboardModel->readNotification($recipient);
+            return $result;
+        }
+
+        public function getCaseNotifications($recipient) {
+            $result = $this->dashboardModel->getNotifications($recipient);
+            return $result;
+        }
     }
 ?>

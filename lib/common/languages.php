@@ -131,7 +131,11 @@
             "failed_to_update" => "Failed to update!",
             "virtual_machines_usage" => "Virtual Machines Usage",
             "virtual_machines_usage_details" => "Virtual Machines Usage Details",
-            "status" => "Status"
+            "status" => "Status",
+            "view_history" => "View History",
+            "view_notifications" => "View Notifications",
+            "history_id" => "History ID",
+            "message" => "Message"
         ),
         "cn" => array(
             "dashboard" => "仪表盘",
@@ -264,7 +268,11 @@
             "failed_to_update" => "更新失败！",
             "virtual_machines_usage" => "虚拟机使用",
             "virtual_machines_usage_details" => "虚拟机使用情况详细信息",
-            "status" => "状态"
+            "status" => "状态",
+            "view_history" => "历史记录",
+            "view_notifications" => "通知",
+            "history_id" => "记录 ID",
+            "message" => "信息"
         ),
         "my" => array(
             "dashboard" => "Papan Pemuka",
@@ -397,7 +405,11 @@
             "failed_to_update" => "Gagal dikemaskini",
             "virtual_machines_usage" => "Penggunaan Mesin Maya",
             "virtual_machines_usage_details" => "Butiran Penggunaan Mesin Maya",
-            "status" => "Status"
+            "status" => "Status",
+            "view_history" => "Lihat sejarah",
+            "view_notifications" => "Lihat pemberitahuan",
+            "history_id" => "Sejarah ID",
+            "message" => "Mesej"
         ),
         "kr" => array(
             "dashboard" => "대시보드",
@@ -530,7 +542,11 @@
             "failed_to_update" => "업데이트에 실패하였습니다!",
             "virtual_machines_usage" => "가상머신 사용량",
             "virtual_machines_usage_details" => "가상머신 사용량 자세한 정보",
-            "status" => "상태"
+            "status" => "상태",
+            "view_history" => "기록 보기",
+            "view_notifications" => "알림",
+            "history_id" => "기록 ID",
+            "message" => "메시지"
         )
     )
 ?>

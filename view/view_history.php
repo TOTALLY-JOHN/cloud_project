@@ -7,7 +7,7 @@ if (!isset($_SESSION['username'])) {
 require_once('../controller/dashboard_controller.php');
 include('../lib/common/languages.php');
 $controllers = new DashboardController();
-$data = $controllers->getAllCases();
+$data = $controllers->getAllCaseHistory();
 //! LANGUAGE SETTINGS
 $lang = $_SESSION['userLanguage'] ?? "en";
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -21,12 +21,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"> -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
         <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
         <!-- Nucleo Icons -->
@@ -295,25 +289,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4"><?php echo $languages[$lang]['manage_all_help_cases'];?></h1>
+                        <h1 class="mt-4"><?php echo $languages[$lang]['view_history'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Manage Cases</li>
+                            <li class="breadcrumb-item active">Case History</li>
                         </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                            <?php echo $languages[$lang]['all_manage_cases'];?>
-                            </div>
-                        </div>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <table style="width:100%">
                                     <tr>
-                                        <td style="text-align:left;">
-                                            <a class="btn btn-primary" href="view_history.php"><?php echo $languages[$lang]['view_history'];?></a>
-                                        </td>
                                         <td style="text-align:right;">
-                                            <input type="text" name="searchCase" id="searchCase" placeholder="Search Case..."/>
+                                            <input type="text" name="searchCase" id="searchCase" placeholder="Search History..."/>
                                         </td>
                                     </tr>
                                 </table>
@@ -323,28 +309,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="card-body">
                                 <table class="table">
                                     <thead>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['history_id'];?></th>
                                         <th class="case_table_header"><?php echo $languages[$lang]['case_id'];?></th>
-                                        <th class="case_table_header"><?php echo $languages[$lang]['first_name'];?></th>
-                                        <th class="case_table_header"><?php echo $languages[$lang]['last_name'];?></th>
-                                        <th class="case_table_header"><?php echo $languages[$lang]['comment'];?></th>
-                                        <th class="case_table_header"><?php echo $languages[$lang]['case_status'];?></th>
-                                        <th class="case_table_header"><?php echo $languages[$lang]['result_message'];?></th>
-                                        <th class="case_table_header"><?php echo $languages[$lang]['update'];?></th>
-                                        <th class="case_table_header"><?php echo $languages[$lang]['delete'];?></th>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['message'];?></th>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['status'];?></th>
                                     </thead>
                                     <tbody id="caseTable">
                                         <?php
                                             while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
                                         ?>
                                             <tr>
+                                                <td><?php echo $row['historyId']; ?></td>
                                                 <td><?php echo $row['caseId']; ?></td>
-                                                <td><?php echo $row['firstName']; ?></td>
-                                                <td><?php echo $row['lastName']; ?></td>
-                                                <td><?php echo $row['comment']; ?></td>
-                                                <td><?php echo $row['caseStatus']; ?></td>
-                                                <td><?php echo $row['resultMessage']; ?></td>
-                                                <td><a href="update_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-success"><?php echo $languages[$lang]['update'];?></a></td>
-                                                <td><a href="delete_case.php?caseId=<?php echo $row['caseId'];?>" class="btn btn-danger"><?php echo $languages[$lang]['delete'];?></a></td>
+                                                <td><?php echo $row['message']; ?></td>
+                                                <td><?php echo $row['status']; ?></td>
                                             </tr>
                                         <?php
                                             }

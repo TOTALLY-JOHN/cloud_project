@@ -29,6 +29,9 @@ $lang = $_SESSION['userLanguage'] ?? "en";
 				<?php
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $queryResult = $controllers->updateCaseStatus();
+                        $queryResult2 = $controllers->createCaseHistory();
+                        // NEED TO CHECK AGAIN (2021-06-30..)
+                        // $queryResult3 = $controllers->createCaseNotification($_SESSION['username'], $row['username']);
                         if ($queryResult == "success") {
                             ?>
                                 $("#successModal").modal();

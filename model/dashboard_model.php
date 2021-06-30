@@ -146,7 +146,6 @@
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $usageID = test_input4($_REQUEST["usageID"]);
-            // $vmUUID = test_input4($_REQUEST["vmUUID"]);
             $usageDate = test_input4($_REQUEST["usageDate"]);
             $cpuUsed = test_input4($_REQUEST["cpuUsed"]);
             $memoryUsed = test_input4($_REQUEST["memoryUsed"]);
@@ -180,7 +179,6 @@
                 return $data;
             }
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $firstName = test_input5($_REQUEST["firstName"]);
             $lastName = test_input5($_REQUEST["lastName"]);
             $username = test_input5($_REQUEST["username"]);
@@ -203,7 +201,6 @@
                 return $data;
             }
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-            // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $caseId = test_input6($_REQUEST["caseId"]);
             $caseStatus = test_input6($_REQUEST["caseStatus"]);
             $resultMessage = test_input6($_REQUEST["resultMessage"]);
@@ -238,7 +235,7 @@
         public function getAllHelpCases() {
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-            $q1 = "SELECT * FROM cases ORDER BY caseId ASC";
+            $q1 = "SELECT * FROM cases ORDER BY caseId DESC";
             $r1 = @mysqli_query ($dbc, $q1);
             return $r1;
         }
@@ -247,6 +244,75 @@
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             // $dbc = @mysqli_connect ('localhost', 'id16637642_techadmin', '57IJL!=zicWVUi#R', 'id16637642_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
             $q1 = "SELECT * FROM cases WHERE username = '".$username."' ORDER BY caseId ASC";
+            $r1 = @mysqli_query ($dbc, $q1);
+            return $r1;
+        }
+
+        ////////////////////////////////////!
+        //? CASE HISTORY DATA MODEL
+        ////////////////////////////////////!
+        public function createHistory() {
+            function test_input7($data) { 
+                $data = trim($data); 
+                $data = stripslashes($data); 
+                $data = htmlspecialchars($data); 
+                return $data;
+            }
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $caseId = test_input7($_REQUEST["caseId"]);
+            $message = test_input7($_REQUEST["resultMessage"]);
+            $status = test_input7($_REQUEST["caseStatus"]);
+
+            $sql = "INSERT INTO case_history (caseId, message, status) VALUES ('".$caseId."','".$message."','".$status."')";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function getAllHistory() {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT * FROM case_history ORDER BY historyId DESC";
+            $r1 = @mysqli_query ($dbc, $q1);
+            return $r1;
+        }
+
+        ////////////////////////////////////!
+        //? NOTIFICATION DATA MODEL
+        ////////////////////////////////////!
+        public function createNotification($sender, $recipient, $role) {
+            function test_input8($data) { 
+                $data = trim($data); 
+                $data = stripslashes($data); 
+                $data = htmlspecialchars($data); 
+                return $data;
+            }
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $message = "Case ID: " . test_input8($_REQUEST["caseId"]) . ", Message: " . test_input8($_REQUEST["resultMessage"]) . ", Status: " . test_input8($_REQUEST["caseStatus"]);
+
+            $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus) VALUES ('".$sender."','".$recipient."','".$message."','".$role."','0',)";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function readNotification($recipient) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+
+            $sql = "UPDATE notification SET readStatus = 1 WHERE notifyRecipient = '".$recipient."'";
+            if ($dbc->query($sql) === TRUE) {
+                return "success";
+            } else {
+                return "failed";
+            }
+        }
+
+        public function getNotifications($recipient) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT * FROM notification ORDER BY historyId DESC WHERE notifyRecipient = '".$recipient."'";
             $r1 = @mysqli_query ($dbc, $q1);
             return $r1;
         }
