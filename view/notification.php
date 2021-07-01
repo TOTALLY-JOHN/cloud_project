@@ -7,8 +7,9 @@ if (!isset($_SESSION['username'])) {
 require_once('../controller/dashboard_controller.php');
 include('../lib/common/languages.php');
 $controllers = new DashboardController();
-$data = $controllers->getAllVirtualMachines();
-$notificationCount = $controllers->getNumberOfNotifications($_SESSION['username']);
+$data = $controllers->getCaseNotifications($_SESSION['username']);
+$readNotifications = $controllers->readCaseNotification($_SESSION['username']);
+
 //! LANGUAGE SETTINGS
 $lang = $_SESSION['userLanguage'] ?? "en";
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -16,45 +17,27 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['userLanguage'] = $lang;
 }
 ?>
-<DOCTYPE html>
-    <html>
-
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="../lib/styles/dashboard_style.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
+        <title>Tech Army</title>
+        <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
         <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
         <!-- Nucleo Icons -->
         <link href="../lib/assets/css/nucleo-icons.css" rel="stylesheet" />
         <!-- CSS Files -->
         <link href="../lib/assets/css/black-dashboard.css" rel="stylesheet" />
-        <title>Tech Army</title>
     </head>
+    
 
     <style>
-        .searchBar
-        {
-          margin-top: 4px;
-          margin-right: 16px;
-          margin-bottom: 100px;
-        }
-
-        #myInput 
-        {
-          background-image: url('/css/searchicon.png');
-          background-position: 10px 10px;
-          background-repeat: no-repeat;
-          float:right;
-          font-size: 16px;
-          padding: 10px;
-          border: 2px solid black;
-          border-radius: 5px;
-        }
-
         #languageLabel {
             color: white;
         }
@@ -73,7 +56,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 15px;
         }
     </style>
-    </head>
 
     <body class="">
         <div class="wrapper">
@@ -87,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         TechArmy
                     </a>
                     </div>
-                    <ul class="nav">
+                    <ul class="nav"> 
                     <?php
                         if ($_SESSION['userRole'] == "admin") {
                     ?>
@@ -106,7 +88,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php
                         }
                     ?>
-                    <li>
+                    <li class="active">
                         <a href="./dashboard.php">
                         <i class="fas fa-tachometer-alt"></i>
                         <p><?php echo $languages[$lang]['dashboard'];?></p>
@@ -124,7 +106,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <p><?php echo $languages[$lang]['memory'];?></p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="./dashboard_disk.php">
                         <i class="fas fa-hdd"></i>
                         <p>HDD / SSD</p>
@@ -190,18 +172,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </button>
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto">
-                            <!-- NOTIFICATION BUTTON PART -->
+                        <!-- NOTIFICATION BUTTON PART -->
                         <li>
                             <a href="notification.php" style="background-color: transparent; display:flex; align-items:center; justify-content: space-between; border-radius:50px; position:relative; margin: 10px; padding: 5px; height: 30px; width: 30px;">
-                                
                                 <i class="fas fa-bell"></i>
-                                <?php
-                                    if ($notificationCount["num"] > 0) {
-                                ?>
-                                        <div style="position: absolute; margin-left:10px; margin-bottom:15px; width: 20px; height: 20px; background-color:goldenrod; border-radius:50%; text-align:center; font-weight:bold; font-size:13px;"><?php echo $notificationCount["num"];?></div>
-                                <?php
-                                    }
-                                ?>
                             </a>
                         </li>
                         <li>
@@ -285,49 +259,44 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </nav>
             <!-- End Navbar -->
+
             <div class="content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">HDD/SSD</h1>
+                        <h1 class="mt-4"><?php echo $languages[$lang]['view_notifications'];?></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Disk</li>
+                            <li class="breadcrumb-item active">Case History</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <table style="width:100%">
                                     <tr>
-                                        <td><?php echo $languages[$lang]['disk_summary'];?></td>
-                                        <td><input type="text" name="searchDisk" id="myInput" placeholder="<?php echo $languages[$lang]['search_for_disk'];?>..."/></td>
+                                        <td style="text-align:right;">
+                                            <input type="text" name="searchCase" id="searchCase" placeholder="Search ..."/>
+                                        </td>
                                     </tr>
                                 </table>
-                                
                             </div>
                         </div>
                         <div class="card mb-4" style="overflow-x: auto;">
                             <div class="card-body">
-                            <table class="table">
+                                <table class="table">
                                     <thead>
-                                        <tr>
-                                            <th>UUID</th>
-                                            <th><?php echo $languages[$lang]['device_type'];?></th>
-                                            <th><?php echo $languages[$lang]['storage_capacity'];?></th>
-                                            <th><?php echo $languages[$lang]['storage_allocation'];?></th>
-                                            <th><?php echo $languages[$lang]['storage_available'];?></th>
-                                            <th><?php echo $languages[$lang]['storage_format'];?></th>
-                                        </tr>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['notification_id'];?></th>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['sender'];?></th>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['recipient'];?></th>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['content'];?></th>
                                     </thead>
-                                    <tbody id="diskTable">
+                                    <tbody id="caseTable">
                                         <?php
                                             while($row = mysqli_fetch_array($data, MYSQLI_ASSOC)) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $row['uuid']; ?></td>
-                                                <td><?php echo $row['deviceType']; ?></td>
-                                                <td><?php echo $row['storageCapacity']; ?></td>
-                                                <td><?php echo $row['storageAllocation']; ?></td>
-                                                <td><?php echo $row['storageAvailable']; ?></td>
-                                                <td><?php echo $row['storageFormat']; ?></td>
+                                                <td><?php echo $row['notifyId']; ?></td>
+                                                <td><?php echo $row['notifySender']; ?></td>
+                                                <td><?php echo $row['notifyRecipient']; ?></td>
+                                                <td><?php echo $row['notifyContent']; ?></td>
                                             </tr>
                                         <?php
                                             }
@@ -350,7 +319,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </footer>
             </div>
         </div>
-        </div>
         <!--   Core JS Files   -->
         <script src="../lib/assets/js/core/jquery.min.js"></script>
         <script src="../lib/assets/js/core/popper.min.js"></script>
@@ -366,30 +334,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             /* --- CHANGE THEME MODE --- */
             $('#checkbox').change(function(){
                 if($(this).is(":checked")) {
-                $('body').addClass('change-background');
-                    setTimeout(function() {
-                    $('body').removeClass('change-background');
-                    $('body').addClass('white-content');
-                    }, 100);
-                } else {
-                $('body').addClass('change-background');
-                    setTimeout(function() {
-                    $('body').removeClass('change-background');
-                    $('body').removeClass('white-content');
-                    }, 100);
+                    $('body').addClass('change-background');
+                        setTimeout(function() {
+                        $('body').removeClass('change-background');
+                        $('body').addClass('white-content');
+                        }, 100);
+                    } else {
+                    $('body').addClass('change-background');
+                        setTimeout(function() {
+                        $('body').removeClass('change-background');
+                        $('body').removeClass('white-content');
+                        }, 100);
                 }
             });
 
 
             $(document).ready(function() {
-                $(document).ready(function() {
-                $("#myInput").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#diskTable tr").filter(function() {
-                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                    });
-                });
-            });
             $().ready(function() {
                 $sidebar = $('.sidebar');
                 $navbar = $('.navbar');

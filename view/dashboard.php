@@ -8,6 +8,7 @@ require_once('../controller/dashboard_controller.php');
 include('../lib/common/languages.php');
 $controllers = new DashboardController();
 $data = $controllers->getAllVirtualMachinesSummary();
+$notificationCount = $controllers->getNumberOfNotifications($_SESSION['username']);
 
 //! LANGUAGE SETTINGS
 $lang = $_SESSION['userLanguage'] ?? "en";
@@ -171,6 +172,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </button>
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto">
+                        <!-- NOTIFICATION BUTTON PART -->
+                        <li>
+                            <a href="notification.php" style="background-color: transparent; display:flex; align-items:center; justify-content: space-between; border-radius:50px; position:relative; margin: 10px; padding: 5px; height: 30px; width: 30px;">
+                                
+                                <i class="fas fa-bell"></i>
+                                <?php
+                                    if ($notificationCount["num"] > 0) {
+                                ?>
+                                        <div style="position: absolute; margin-left:10px; margin-bottom:15px; width: 20px; height: 20px; background-color:goldenrod; border-radius:50%; text-align:center; font-weight:bold; font-size:13px;"><?php echo $notificationCount["num"];?></div>
+                                <?php
+                                    }
+                                ?>
+                            </a>
+                        </li>
                         <li>
                             <input type="checkbox" class="checkbox" id="checkbox">
                             <label for="checkbox" class="label_theme">
@@ -299,8 +314,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title"> CPU <?php echo $languages[$lang]['usage'];?></h4>
+                            </div>
+                            <div class="card-body"><canvas id="chart_cpu"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                                <h4 class="card-title"> <?php echo $languages[$lang]['memory_usage'];?></h4>
+                            </div>
+                            <div class="card-body"><canvas id="chart_memory"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        <div class="card ">
+                        <div class="card">
                         <div class="card-header">
                             <h4 class="card-title"> Dashboard Table</h4>
                         </div>
@@ -337,6 +372,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
             </div>
+            
             <!-- Footer -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -360,6 +396,54 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../lib/assets/js/black-dashboard.min.js"></script>
         <script>
+            //! CPU CHART
+            <?php
+                $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+                $sql = "SELECT SUM(vm_usage.cpuUsed) AS cpuUsed, SUM(vm_usage.memoryUsed) AS memoryUsed, vm_usage.usageDate AS useDate FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_usage.usageDate LIMIT 14";
+                $result = mysqli_query($dbc, $sql);
+                while($row = mysqli_fetch_array($result)) {
+                    $dates[] = $row['useDate'];
+                    $usage[] = $row['cpuUsed'];
+                }
+            ?>
+            var ctx = document.getElementById("chart_cpu").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels:<?php echo json_encode($dates); ?>,
+                    datasets: [{
+                        backgroundColor: [
+                            "#5969ff",
+                            "#ff407b",
+                            "#25d5f2",
+                            "#ffc750",
+                            "#2ec551",
+                            "#7040fa",
+                            "#ff004e",
+                            "#5969ff",
+                            "#ff407b",
+                            "#25d5f2",
+                            "#ffc750",
+                            "#2ec551",
+                            "#7040fa",
+                            "#ff004e"
+                        ],
+                        data:<?php echo json_encode($usage); ?>,
+                    }]
+                },
+                options: {
+                        legend: {
+                    display: false,
+                    position: 'bottom',
+
+                    labels: {
+                        fontColor: '#71748d',
+                        fontFamily: 'Circular Std Book',
+                        fontSize: 14,
+                    }
+                },
+            }
+            });
             
             /* --- CHANGE THEME MODE --- */
             $('#checkbox').change(function(){
@@ -377,6 +461,48 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                         }, 100);
                 }
             });
+            //!
+
+            //! MEMORY CHART
+            <?php
+                $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+                $sql2 = "SELECT SUM(vm_usage.cpuUsed) AS cpuUsed, SUM(vm_usage.memoryUsed) AS memoryUsed, vm_usage.usageDate AS useDate FROM vm_details JOIN vm_usage ON vm_details.uuid = vm_usage.uuid GROUP BY vm_usage.usageDate LIMIT 14";
+                $result2 = mysqli_query($dbc, $sql2);
+                while($row2 = mysqli_fetch_array($result2)) {
+                    $dates2[] = $row2['useDate'];
+                    $usage2[] = $row2['memoryUsed'];
+                }
+            ?>
+            var ctx = document.getElementById("chart_memory").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels:<?php echo json_encode($dates2); ?>,
+                    datasets: [{
+                        label: '<?php echo $languages[$lang]['memory_usage'];?>',
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        data:<?php echo json_encode($usage2); ?>,
+                        tension: 0.1,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                    }]
+                },
+                options: {
+                        legend: {
+                    display: false,
+                    position: 'bottom',
+
+                    labels: {
+                        fontColor: '#71748d',
+                        fontFamily: 'Circular Std Book',
+                        fontSize: 14,
+                    }
+                },
+            }
+            });
+
+            //!
 
 
             $(document).ready(function() {

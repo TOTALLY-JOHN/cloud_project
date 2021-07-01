@@ -135,7 +135,11 @@
             "view_history" => "View History",
             "view_notifications" => "View Notifications",
             "history_id" => "History ID",
-            "message" => "Message"
+            "message" => "Message",
+            "notification_id" => "Notification ID",
+            "sender" => "Sender",
+            "recipient" => "Recipient",
+            "content" => "Content"
         ),
         "cn" => array(
             "dashboard" => "仪表盘",
@@ -272,7 +276,10 @@
             "view_history" => "历史记录",
             "view_notifications" => "通知",
             "history_id" => "记录 ID",
-            "message" => "信息"
+            "message" => "信息",
+            "sender" => "发件人",
+            "recipient" => "接受者",
+            "content" => "内容"
         ),
         "my" => array(
             "dashboard" => "Papan Pemuka",
@@ -409,7 +416,10 @@
             "view_history" => "Lihat sejarah",
             "view_notifications" => "Lihat pemberitahuan",
             "history_id" => "Sejarah ID",
-            "message" => "Mesej"
+            "message" => "Mesej",
+            "sender" => "penghantar",
+            "recipient" => "penerima",
+            "content" => "kandungan"
         ),
         "kr" => array(
             "dashboard" => "대시보드",
@@ -546,7 +556,10 @@
             "view_history" => "기록 보기",
             "view_notifications" => "알림",
             "history_id" => "기록 ID",
-            "message" => "메시지"
+            "message" => "메시지",
+            "sender" => "발신자",
+            "recipient" => "수신자",
+            "content" => "내용"
         )
     )
 ?>

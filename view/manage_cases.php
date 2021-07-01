@@ -7,6 +7,7 @@ if (!isset($_SESSION['username'])) {
 require_once('../controller/dashboard_controller.php');
 include('../lib/common/languages.php');
 $controllers = new DashboardController();
+$notificationCount = $controllers->getNumberOfNotifications($_SESSION['username']);
 $data = $controllers->getAllCases();
 //! LANGUAGE SETTINGS
 $lang = $_SESSION['userLanguage'] ?? "en";
@@ -211,6 +212,20 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </button>
                     <div class="collapse navbar-collapse" id="navigation">
                         <ul class="navbar-nav ml-auto">
+                            <!-- NOTIFICATION BUTTON PART -->
+                        <li>
+                            <a href="notification.php" style="background-color: transparent; display:flex; align-items:center; justify-content: space-between; border-radius:50px; position:relative; margin: 10px; padding: 5px; height: 30px; width: 30px;">
+                                
+                                <i class="fas fa-bell"></i>
+                                <?php
+                                    if ($notificationCount["num"] > 0) {
+                                ?>
+                                        <div style="position: absolute; margin-left:10px; margin-bottom:15px; width: 20px; height: 20px; background-color:goldenrod; border-radius:50%; text-align:center; font-weight:bold; font-size:13px;"><?php echo $notificationCount["num"];?></div>
+                                <?php
+                                    }
+                                ?>
+                            </a>
+                        </li>
                         <li>
                             <input type="checkbox" class="checkbox" id="checkbox">
                             <label for="checkbox" class="label_theme">

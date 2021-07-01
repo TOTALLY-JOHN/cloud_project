@@ -289,13 +289,23 @@
                 return $data;
             }
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-            $message = "Case ID: " . test_input8($_REQUEST["caseId"]) . ", Message: " . test_input8($_REQUEST["resultMessage"]) . ", Status: " . test_input8($_REQUEST["caseStatus"]);
 
-            $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus) VALUES ('".$sender."','".$recipient."','".$message."','".$role."','0',)";
-            if ($dbc->query($sql) === TRUE) {
-                return "success";
+            if ($recipient == "admin") {
+                $message = "Full Name: " . test_input8($_REQUEST["firstName"]) . " " . test_input8($_REQUEST["lastName"]) . ", Comment: " . test_input8($_REQUEST["comment"]);
+                $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus) VALUES ('".$sender."','".$recipient."','".$message."','".$role."',0)";
+                if ($dbc->query($sql) === TRUE) {
+                    return "success";
+                } else {
+                    return "failed";
+                }
             } else {
-                return "failed";
+                $message = "Case ID: " . test_input8($_REQUEST["caseId"]) . ", Message: " . test_input8($_REQUEST["resultMessage"]) . ", Status: " . test_input8($_REQUEST["caseStatus"]);
+                    $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus) VALUES ('".$sender."','".$recipient."','".$message."','".$role."',0)";
+                if ($dbc->query($sql) === TRUE) {
+                    return "success";
+                } else {
+                    return "failed";
+                }
             }
         }
 
@@ -310,9 +320,17 @@
             }
         }
 
+        public function getNumOfNotifications($recipient) {
+            $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
+            $q1 = "SELECT COUNT(*) AS num FROM notification WHERE notifyRecipient = '".$recipient."' AND readStatus = 0";
+            $r1 = @mysqli_query ($dbc, $q1);
+            $row = mysqli_fetch_array($r1, MYSQLI_ASSOC);
+            return $row;
+        }
+
         public function getNotifications($recipient) {
             $dbc = @mysqli_connect ('localhost', 'id11209645_techadmin', '5W(gtMlz?748#gUX', 'id11209645_techarmy') OR die ('Could not connect to MySQL: ' . mysqli_connect_error());
-            $q1 = "SELECT * FROM notification ORDER BY historyId DESC WHERE notifyRecipient = '".$recipient."'";
+            $q1 = "SELECT * FROM notification WHERE notifyRecipient = '".$recipient."' ORDER BY notifyId DESC ";
             $r1 = @mysqli_query ($dbc, $q1);
             return $r1;
         }

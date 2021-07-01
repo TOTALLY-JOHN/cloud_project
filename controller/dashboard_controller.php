@@ -124,6 +124,11 @@
             return $result;
         }
 
+        public function getNumberOfNotifications($recipient) {
+            $result = $this->dashboardModel->getNumOfNotifications($recipient);
+            return $result;
+        }
+
         public function getCaseNotifications($recipient) {
             $result = $this->dashboardModel->getNotifications($recipient);
             return $result;
