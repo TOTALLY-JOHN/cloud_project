@@ -263,7 +263,7 @@
             $message = test_input7($_REQUEST["resultMessage"]);
             $status = test_input7($_REQUEST["caseStatus"]);
 
-            $sql = "INSERT INTO case_history (caseId, message, status) VALUES ('".$caseId."','".$message."','".$status."')";
+            $sql = "INSERT INTO case_history (caseId, message, status, historyDateTime) VALUES ('".$caseId."','".$message."','".$status."', NOW() + INTERVAL 8 HOUR)";
             if ($dbc->query($sql) === TRUE) {
                 return "success";
             } else {
@@ -292,7 +292,7 @@
 
             if ($recipient == "admin") {
                 $message = "Full Name: " . test_input8($_REQUEST["firstName"]) . " " . test_input8($_REQUEST["lastName"]) . ", Comment: " . test_input8($_REQUEST["comment"]);
-                $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus) VALUES ('".$sender."','".$recipient."','".$message."','".$role."',0)";
+                $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus, notifyDateTime) VALUES ('".$sender."','".$recipient."','".$message."','".$role."',0, NOW() + INTERVAL 8 HOUR)";
                 if ($dbc->query($sql) === TRUE) {
                     return "success";
                 } else {
@@ -300,7 +300,7 @@
                 }
             } else {
                 $message = "Case ID: " . test_input8($_REQUEST["caseId"]) . ", Message: " . test_input8($_REQUEST["resultMessage"]) . ", Status: " . test_input8($_REQUEST["caseStatus"]);
-                    $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus) VALUES ('".$sender."','".$recipient."','".$message."','".$role."',0)";
+                    $sql = "INSERT INTO notification (notifySender, notifyRecipient, notifyContent, role, readStatus, notifyDateTime) VALUES ('".$sender."','".$recipient."','".$message."','".$role."',0, NOW() + INTERVAL 8 HOUR)";
                 if ($dbc->query($sql) === TRUE) {
                     return "success";
                 } else {

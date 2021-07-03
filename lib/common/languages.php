@@ -139,7 +139,8 @@
             "notification_id" => "Notification ID",
             "sender" => "Sender",
             "recipient" => "Recipient",
-            "content" => "Content"
+            "content" => "Content",
+            "dateTime" => "Date & Time",
         ),
         "cn" => array(
             "dashboard" => "仪表盘",
@@ -279,7 +280,8 @@
             "message" => "信息",
             "sender" => "发件人",
             "recipient" => "接受者",
-            "content" => "内容"
+            "content" => "内容",
+            "dateTime" => "日期和时间",
         ),
         "my" => array(
             "dashboard" => "Papan Pemuka",
@@ -419,7 +421,8 @@
             "message" => "Mesej",
             "sender" => "penghantar",
             "recipient" => "penerima",
-            "content" => "kandungan"
+            "content" => "kandungan",
+            "dateTime" => "tarikh dan masa",
         ),
         "kr" => array(
             "dashboard" => "대시보드",
@@ -559,7 +562,8 @@
             "message" => "메시지",
             "sender" => "발신자",
             "recipient" => "수신자",
-            "content" => "내용"
+            "content" => "내용",
+            "dateTime" => "날짜와 시간",
         )
     )
 ?>

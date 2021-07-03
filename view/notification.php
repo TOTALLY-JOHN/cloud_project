@@ -287,6 +287,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <th class="case_table_header"><?php echo $languages[$lang]['sender'];?></th>
                                         <th class="case_table_header"><?php echo $languages[$lang]['recipient'];?></th>
                                         <th class="case_table_header"><?php echo $languages[$lang]['content'];?></th>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['dateTime'];?></th>
                                     </thead>
                                     <tbody id="caseTable">
                                         <?php
@@ -297,6 +298,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 <td><?php echo $row['notifySender']; ?></td>
                                                 <td><?php echo $row['notifyRecipient']; ?></td>
                                                 <td><?php echo $row['notifyContent']; ?></td>
+                                                <td><?php echo $row['notifyDateTime']; ?></td>
                                             </tr>
                                         <?php
                                             }

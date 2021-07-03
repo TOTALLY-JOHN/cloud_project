@@ -328,6 +328,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <th class="case_table_header"><?php echo $languages[$lang]['case_id'];?></th>
                                         <th class="case_table_header"><?php echo $languages[$lang]['message'];?></th>
                                         <th class="case_table_header"><?php echo $languages[$lang]['status'];?></th>
+                                        <th class="case_table_header"><?php echo $languages[$lang]['dateTime'];?></th>
                                     </thead>
                                     <tbody id="caseTable">
                                         <?php
@@ -338,6 +339,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 <td><?php echo $row['caseId']; ?></td>
                                                 <td><?php echo $row['message']; ?></td>
                                                 <td><?php echo $row['status']; ?></td>
+                                                <td><?php echo $row['historyDateTime']; ?></td>
                                             </tr>
                                         <?php
                                             }
