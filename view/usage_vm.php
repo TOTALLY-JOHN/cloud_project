@@ -316,8 +316,35 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                                 <td>
                                                     <a href="update_usage_vm.php?usageID=<?php echo $row['usageID'];?>&uuid=<?php echo $_GET["uuid"];?> " class="btn btn-success"><?php echo $languages[$lang]['edit'];?></a>
                                                 </td>
+                                                <!-- <td>
+                                                    <a href="delete_usage_vm.php?usageID=<?php //echo $row['usageID'];?>" class="btn btn-danger"><?php echo $languages[$lang]['delete'];?></a>
+                                                </td> -->
                                                 <td>
-                                                    <a href="delete_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-danger"><?php echo $languages[$lang]['delete'];?></a>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUsageModal<?php echo $row['usageID'];?>">Delete</button>
+                                                    <div class="modal" id="deleteUsageModal<?php echo $row['usageID'];?>">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!-- Modal Header -->
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title">Warning Message</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                </div><br />
+
+                                                                <!-- Modal body -->
+                                                                <div class="modal-body" style="color:black; text-align:center">
+                                                                    <i style="font-size:70px; color:gold;" class="fas fa-exclamation-triangle"></i><br /><br />
+                                                                    Would you really like to remove this usage?<br />
+                                                                    After deletion, it cannot be restored.<br /><br />
+                                                                </div>
+
+                                                                <!-- Modal footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                                                    <a href="delete_usage_vm.php?usageID=<?php echo $row['usageID'];?>" class="btn btn-danger">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php

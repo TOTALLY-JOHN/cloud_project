@@ -313,15 +313,42 @@ $lang = $_SESSION['userLanguage'] ?? "en";
                                                 <td><?php echo $row['cpuAllocation']; ?> <?php echo $row['cpuAllocation'] == 1 ? "core" : "cores" ?></td>
                                                 <td><?php echo $row['deviceType']; ?></td>
                                                 <td><?php echo $row['storageFormat']; ?></td>
-                                                <td><?php echo $row['status'] ?></td>
+                                                <td><?php echo $row['status']; ?></td>
                                                 <td>
                                                     <a href="usage_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-primary"><?php echo $languages[$lang]['usage'];?></a>
                                                 </td>
                                                 <td>
                                                     <a href="update_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-success"><?php echo $languages[$lang]['edit'];?></a>
                                                 </td>
+                                                <!-- <td>
+                                                    <a href="delete_vm.php?uuid=<?php //echo $row['uuid'];?>" class="btn btn-danger" onclick="return confirm('Do you really want to delete this virtual machine? You cannot revert this deletion!');"><?php echo $languages[$lang]['delete'];?></a>
+                                                </td> -->
                                                 <td>
-                                                    <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger"><?php echo $languages[$lang]['delete'];?></a>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal<?php echo $row['uuid'];?>">Delete</button>
+                                                    <div class="modal" id="deleteModal<?php echo $row['uuid'];?>">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <!-- Modal Header -->
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title">Warning Message</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                </div><br />
+
+                                                                <!-- Modal body -->
+                                                                <div class="modal-body" style="color:black; text-align:center">
+                                                                    <i style="font-size:70px; color:gold;" class="fas fa-exclamation-triangle"></i><br /><br />
+                                                                    Would you really like to remove this virtual machine?<br />
+                                                                    After deletion, it cannot be restored.<br /><br />
+                                                                </div>
+
+                                                                <!-- Modal footer -->
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                                                    <a href="delete_vm.php?uuid=<?php echo $row['uuid'];?>" class="btn btn-danger">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php
